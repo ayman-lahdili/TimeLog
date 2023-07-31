@@ -22,4 +22,14 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public String promptEmployeMenu() {
+        System.out.println("[1] Commencer un tâches [2] Générer des rapport");
+        return scanner.nextLine();
+    }
+
+    public String promptProjectSelection() {
+        System.out.println("Select a project");
+        return scanner.nextLine();
+    }
+
 }

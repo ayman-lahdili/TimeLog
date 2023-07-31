@@ -25,18 +25,28 @@ public class TimeLogModel {
 
     private void loadEmployeData() {
         employeList = new ArrayList<>();
-
+    
         try (FileReader fileReader = new FileReader("timelog\\src\\main\\ressources\\employees.json")) {
             JSONParser parser = new JSONParser();
-            // Parse the JSON array
-            JSONArray jsonArray = (JSONArray) parser.parse(fileReader);
-            for (Object obj : jsonArray) {
-                JSONObject employeeObject = (JSONObject) ((JSONObject) obj).get("employee");
-                Integer ID = ((Long) employeeObject.get("ID")).intValue();
-                String username = (String) employeeObject.get("username");
-                Employe employe = new Employe(ID, username);
+            // Parse the JSON object
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+            JSONArray employeesArray = (JSONArray) jsonObject.get("employees");
+    
+            for (Object obj : employeesArray) {
+                JSONObject employeeObject = (JSONObject) obj;
+                int id = ((Long) employeeObject.get("id")).intValue();
+                String name = (String) employeeObject.get("name");
+                String dateEmbauche = (String) employeeObject.get("dateEmbauche");
+                String dateDepart = (String) employeeObject.get("dateDepart");
+                int nas = ((Long)employeeObject.get("nas")).intValue();
+                int numeroPoste = ((Long)employeeObject.get("numeroPoste")).intValue();
+                double tauxHoraireBase = (double) employeeObject.get("tauxHoraireBase");
+                double tauxHoraireTempsSupplementaire = (double) employeeObject.get("tauxHoraireTempsSupplementaire");
+    
+                // Create the Employe object and add it to the employeList
+                Employe employe = new Employe(id, name, dateEmbauche, dateDepart, nas, numeroPoste, tauxHoraireBase, tauxHoraireTempsSupplementaire);
                 employeList.add(employe);
-                System.out.println(employe.getID() + employe.getNom());
+                System.out.println(employe);
             }
         } catch (Exception e) {
             e.printStackTrace();

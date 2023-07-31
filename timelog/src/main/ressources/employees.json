@@ -1,14 +1,35 @@
-[
-	{
-		"employee": {
-			"ID": 1,
-			"username": "user0"
-		}
-	},
-	{
-		"employee": {
-			"ID": 2,
-			"username": "user1"
-		}
-	}
-]
+{
+	"employees": [
+	  {
+		"id": 1,
+		"name": "employe1",
+		"dateEmbauche": "2023-07-31",
+		"dateDepart": "",
+		"nas": 123456781,
+		"numeroPoste": 1,
+		"tauxHoraireBase": 34.50,
+		"tauxHoraireTempsSupplementaire": 45.00
+	  },
+	  {
+		"id": 2,
+		"name": "employe2",
+		"dateEmbauche": "2023-07-31",
+		"dateDepart": "",
+		"nas": 123456782,
+		"numeroPoste": 2,
+		"tauxHoraireBase": 34.50,
+		"tauxHoraireTempsSupplementaire": 45.00
+	  },
+	  {
+		"id": 3,
+		"name": "employe3",
+		"dateEmbauche": "2023-07-31",
+		"dateDepart": "",
+		"nas": 123456783,
+		"numeroPoste": 3,
+		"tauxHoraireBase": 34.50,
+		"tauxHoraireTempsSupplementaire": 45.00
+	  }
+	]
+  }
+  
