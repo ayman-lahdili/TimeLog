@@ -11,6 +11,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/*
+ * Le package model permet d'acceder au donnée json et effectue la logic du programme
+ */
 public class TimeLogModel {
 
     private List<Employe> employeList;

@@ -2,8 +2,9 @@ package tlsys.view;
 
 import java.util.Scanner;
 
+// Le package view gère l'interface de commande et la logique de présentation
 public class TimeLogView {
-    
+
     public static Scanner scanner = new Scanner(System.in);
 
     public String promptForMethodOfLogin() {
@@ -13,12 +14,12 @@ public class TimeLogView {
 
     public String promptLoginEmployeUsername() {
         System.out.print("Entrer votre nom d'utilisateur");
-        return scanner.nextLine();        
+        return scanner.nextLine();
     }
 
     public String promptLoginEmployeID() {
         System.out.print("Entrer votre ID");
-        return scanner.nextLine();        
+        return scanner.nextLine();
     }
 
 }

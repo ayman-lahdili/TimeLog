@@ -4,6 +4,12 @@ import tlsys.model.Employe;
 import tlsys.model.TimeLogModel;
 import tlsys.view.TimeLogView;
 
+/*
+ * le package controller agit comme un intermédiaire entre model et view
+ * 
+ * Elle est responsable du traitement des interactions de l'utilisateur (i.e. changer les types, formater les inputs, etc.)
+ */
+
 public class TimeLogController {
 
     private Employe employe;
@@ -16,9 +22,7 @@ public class TimeLogController {
     }
 
     public void run() {
-
         login();
-
     }
 
     public void login() {
