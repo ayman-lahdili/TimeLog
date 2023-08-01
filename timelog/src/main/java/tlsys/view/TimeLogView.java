@@ -22,6 +22,16 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public String promptLoginAdministratorUsername() {
+        System.out.print("Entrer votre nom d'utilisateur");
+        return scanner.nextLine();
+    }
+
+    public String promptLoginAdministratorPassword() {
+        System.out.print("Entrer votre mot de pass");
+        return scanner.nextLine();
+    }
+
     public String promptEmployeMenu() {
         System.out.println("[1] Commencer un tâches [2] Générer des rapport");
         return scanner.nextLine();

@@ -1,5 +1,6 @@
 package tlsys.controller;
 
+import tlsys.model.Administrator;
 import tlsys.model.Employe;
 import tlsys.model.TimeLogModel;
 import tlsys.view.TimeLogView;
@@ -12,7 +13,8 @@ import tlsys.view.TimeLogView;
 
 public class TimeLogController {
 
-    private Employe currentUser;
+    private Employe currentEmployee;
+    private Administrator currentAdmin;
     private TimeLogModel model;
     private TimeLogView view;
 
@@ -22,24 +24,23 @@ public class TimeLogController {
     }
 
     public void run() {
-        while (currentUser == null) {
+        while (currentEmployee == null && currentAdmin == null) {
             login();
         }
-        
     }
 
     public void login() {
         String loginMethod = view.promptForMethodOfLogin();
 
         switch (loginMethod) {
-            case "1":
+            case "1": //Employee Login
                 int ID = Integer.parseInt(view.promptLoginEmployeID());
-                String username = view.promptLoginEmployeUsername();
+                String employeeUsername = view.promptLoginEmployeUsername();
 
-                Employe user = model.authenticateEmploye(ID, username);
+                Employe user = model.authenticateEmploye(ID, employeeUsername);
 
                 if (user != null) {
-                    currentUser = user;
+                    currentEmployee = user;
                     System.out.println("Login successful!");
                     displayEmployeMenu();
                 } else {
@@ -47,8 +48,20 @@ public class TimeLogController {
                 }
                 
                 break;
-            case "2":
-                System.out.println("de");
+            case "2": //
+                String adminUsername = view.promptLoginAdministratorUsername();
+                String password = view.promptLoginAdministratorPassword();
+
+                Administrator admin = model.authenticateAdministrator(adminUsername, password);
+
+                if (admin != null) {
+                    currentAdmin = admin;
+                    System.out.println("Login successful!");
+                    displayAdministratorMenu();
+                } else {
+                    System.out.println("Invalid username or password. Please try again.");
+                }
+                
                 break;
 
             default:
@@ -58,20 +71,13 @@ public class TimeLogController {
     }
 
     public void displayEmployeMenu() {
-        String action = view.promptEmployeMenu();
+        // TODO
+        System.out.println("displayEmployeMenu");
+    }
 
-        switch (action) {
-            case "1":
-                String ProjectID = view.promptProjectSelection();
-
-                break;
-            case "2":
-                
-                break;
-        
-            default:
-                break;
-        }
+    public void displayAdministratorMenu() {
+        // TODO
+        System.out.println("displayAdministratorMenu");
     }
 
 }

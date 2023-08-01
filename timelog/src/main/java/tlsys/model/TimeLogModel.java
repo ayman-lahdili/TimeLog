@@ -17,10 +17,12 @@ import org.json.simple.parser.ParseException;
 public class TimeLogModel {
 
     private List<Employe> employeList;
+    private List<Administrator> administratorList;
 
     public TimeLogModel() {
         // Load the employee data from the JSON file when the TimeLogModel is created
         loadEmployeData();
+        loadAdministratorData();
     }
 
     private void loadEmployeData() {
@@ -53,10 +55,43 @@ public class TimeLogModel {
         }
     }
 
+    private void loadAdministratorData() {
+        administratorList = new ArrayList<>();
+    
+        try (FileReader fileReader = new FileReader("timelog\\src\\main\\ressources\\administrators.json")) {
+            JSONParser parser = new JSONParser();
+            // Parse the JSON object
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+            JSONArray employeesArray = (JSONArray) jsonObject.get("administrators");
+    
+            for (Object obj : employeesArray) {
+                JSONObject employeeObject = (JSONObject) obj;
+                String name = (String) employeeObject.get("name");
+                String password = (String) employeeObject.get("password");
+                // Create the Employe object and add it to the employeList
+                Administrator admin = new Administrator(name, password);
+                administratorList.add(admin);
+                System.out.println(admin);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }    
+
     public Employe authenticateEmploye(int ID, String username) {
         for (Employe employe : employeList) {
             if (employe.getID() == ID && employe.getNom().equals(username)) {
                 return employe;
+            }
+        }
+        return null; // Return null if credentials are invalid
+    }
+
+    public Administrator authenticateAdministrator(String name, String password) {
+        for (Administrator admin : administratorList) {
+            System.out.println(admin);
+            if (admin.getName().equals(name) && admin.getPassword().equals(password)) {
+                return admin;
             }
         }
         return null; // Return null if credentials are invalid
