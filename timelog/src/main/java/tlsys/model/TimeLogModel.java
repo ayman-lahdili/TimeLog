@@ -76,7 +76,7 @@ public class TimeLogModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }    
+    }
 
     public Employe authenticateEmploye(int ID, String username) {
         for (Employe employe : employeList) {
