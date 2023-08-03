@@ -16,19 +16,30 @@ import org.json.simple.parser.ParseException;
  */
 public class TimeLogModel {
 
+    private String ressourcePath; 
     private List<Employe> employeList;
     private List<Administrator> administratorList;
 
     public TimeLogModel() {
         // Load the employee data from the JSON file when the TimeLogModel is created
+        loadRessourcePath();
         loadEmployeData();
         loadAdministratorData();
     }
 
+    public void loadRessourcePath() {
+        switch (System.getProperty("os.name").split(" ", 2)[0]) {
+            case "Linux":  ressourcePath = "timelog/src/main/ressources/";
+                     break;
+            case "Windows":  ressourcePath = "timelog\\src\\main\\ressources\\";
+                     break;
+        }
+    }
+
     private void loadEmployeData() {
         employeList = new ArrayList<>();
-    
-        try (FileReader fileReader = new FileReader("timelog\\src\\main\\ressources\\employees.json")) {
+
+        try (FileReader fileReader = new FileReader(ressourcePath+"employees.json")) {
             JSONParser parser = new JSONParser();
             // Parse the JSON object
             JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
@@ -57,8 +68,8 @@ public class TimeLogModel {
 
     private void loadAdministratorData() {
         administratorList = new ArrayList<>();
-    
-        try (FileReader fileReader = new FileReader("timelog\\src\\main\\ressources\\administrators.json")) {
+
+        try (FileReader fileReader = new FileReader(ressourcePath+"administrators.json")) {
             JSONParser parser = new JSONParser();
             // Parse the JSON object
             JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
