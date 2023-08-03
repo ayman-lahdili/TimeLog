@@ -12,7 +12,7 @@ public class Administrator {
 
     @Override
     public String toString() {
-        return "Administrator [name=" + name +", "+ password+ "]";
+        return "Administrator [name=" + name + ", " + password + "]";
     }
 
     public String getName() {

@@ -68,4 +68,12 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public void displayLoginSuccessMessage() {
+        System.out.println("Login successful!");
+    }
+
+    public void displayLoginErrorMessage() {
+        System.out.println("Invalid username or password. Please try again.");
+    }
+
 }

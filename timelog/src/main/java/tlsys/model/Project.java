@@ -60,7 +60,7 @@ public class Project {
     }
 
     public Discipline getDisciplineByName(String name) {
-        for (Discipline discipline: disciplinesList) {
+        for (Discipline discipline : disciplinesList) {
             if (discipline.getName() == name) {
                 return discipline;
             }

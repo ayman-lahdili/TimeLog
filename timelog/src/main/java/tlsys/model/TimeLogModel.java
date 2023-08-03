@@ -30,13 +30,9 @@ public class TimeLogModel {
         loadTimer();
         loadRessourcePath();
         loadEmployeData();
-        System.out.println(employeList);
         loadAdministratorData();
-        System.out.println(administratorList);
         loadProjectData();
-        System.out.println(projectList);
         loadEmployeLogData();
-        System.out.println(employeLogList);
     }
 
     public void loadTimer() {
@@ -136,7 +132,6 @@ public class TimeLogModel {
 
                 Project project = new Project(ID, name, dateDebut, dateFin, disciplinesList);
                 projectList.add(project);
-                System.out.println(project);
             }
 
         } catch (Exception e) {
@@ -146,7 +141,7 @@ public class TimeLogModel {
 
     private void loadEmployeLogData() {
         employeLogList = new ArrayList<>();
-        try (FileReader fileReader = new FileReader(ressourcePath+"employeelogs.json")) {
+        try (FileReader fileReader = new FileReader(ressourcePath + "employeelogs.json")) {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
             JSONArray employeeLogsArray = (JSONArray) jsonObject.get("employeeLogs");
@@ -214,7 +209,7 @@ public class TimeLogModel {
                 return employe;
             }
         }
-        return null; // Return null if credentials are invalid
+        return null; // Return null si invalide
     }
 
     public Administrator authenticateAdministrator(String name, String password) {
@@ -224,7 +219,7 @@ public class TimeLogModel {
                 return admin;
             }
         }
-        return null; // Return null if credentials are invalid
+        return null; // Return null si invalide
     }
 
     public List<Project> getProjectList() {

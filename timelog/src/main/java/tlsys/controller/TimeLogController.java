@@ -5,7 +5,6 @@ import tlsys.model.Employe;
 import tlsys.model.Project;
 import tlsys.model.Discipline;
 import tlsys.model.TimeLogModel;
-import tlsys.model.Timer;
 import tlsys.model.EmployeLog;
 import tlsys.view.TimeLogView;
 
@@ -21,12 +20,11 @@ import java.time.Instant;
 
 public class TimeLogController {
 
+    private TimeLogModel model;
+    private TimeLogView view;
     private Employe currentEmployee;
     private Administrator currentAdmin;
     private EmployeLog employeLog;
-    private TimeLogModel model;
-    private TimeLogView view;
-    private Timer timer;
 
     public TimeLogController(TimeLogModel model, TimeLogView view) {
         this.model = model;
@@ -51,14 +49,14 @@ public class TimeLogController {
 
                 if (user != null) {
                     currentEmployee = user;
-                    System.out.println("Login successful!");
-                    displayEmployeMainMenu();
+                    view.displayLoginSuccessMessage();
+                    EmployeeMainMenu();
                 } else {
-                    System.out.println("Invalid username or password. Please try again.");
+                    view.displayLoginErrorMessage();
                 }
 
                 break;
-            case "2": //
+            case "2": // Admin Login
                 String adminUsername = view.promptLoginAdministratorUsername();
                 String password = view.promptLoginAdministratorPassword();
 
@@ -66,10 +64,10 @@ public class TimeLogController {
 
                 if (admin != null) {
                     currentAdmin = admin;
-                    System.out.println("Login successful!");
-                    displayAdministratorMenu();
+                    view.displayLoginSuccessMessage();
+                    AdministratorMenu();
                 } else {
-                    System.out.println("Invalid username or password. Please try again.");
+                    view.displayLoginErrorMessage();
                 }
 
                 break;
@@ -80,12 +78,12 @@ public class TimeLogController {
 
     }
 
-    public void displayEmployeMainMenu() {
+    public void EmployeeMainMenu() {
         String employeeAction = view.promptEmployeMainMenu();
 
         switch (employeeAction) {
             case "1":
-                displayStartTaskMenu();
+                StartTaskMenu();
                 break;
             case "2":
 
@@ -96,48 +94,48 @@ public class TimeLogController {
 
     }
 
-    public void displayAdministratorMenu() {
+    public void AdministratorMenu() {
         // TODO
-        System.out.println("displayAdministratorMenu");
     }
 
-    public void displayEmployeRapportMenu() {
+    public void EmployeRapportMenu() {
         // TODO
     };
 
-    public void displayStartTaskMenu() {
+    public void StartTaskMenu() {
+        // Selectionne un projet
         List<Project> projectList = model.getProjectList();
 
         String projectSelection = view.promptProjectSelection(projectList);
         int projectIndex = Integer.parseInt(projectSelection);
 
-        Project project = projectList.get(projectIndex-1);
+        Project project = projectList.get(projectIndex - 1);
         List<Discipline> disciplineList = project.getDisciplinesList();
 
+        // Selectionne une discipline
         String disciplineSelection = view.promptDisciplineSelection(disciplineList);
         int disciplineIndex = Integer.parseInt(disciplineSelection);
 
-        Discipline discipline = disciplineList.get(disciplineIndex-1);
+        Discipline discipline = disciplineList.get(disciplineIndex - 1);
 
         String startDecision = view.promptStartTimer(project.toString() + discipline.toString());
 
         switch (startDecision) {
             case "y":
-                
+
                 employeLog = model.startTask(currentEmployee, project, discipline);
 
                 displayEndTaskMenu();
 
                 break;
             case "n":
-                displayEmployeMainMenu();
+                EmployeeMainMenu();
                 break;
-                
+
             default:
                 break;
         }
 
-        
     }
 
     public void displayEndTaskMenu() {
@@ -146,7 +144,8 @@ public class TimeLogController {
         switch (endTaskDecision) {
             case "y":
                 model.endTask(employeLog);
-                
+
+                EmployeeMainMenu();
                 break;
             case "n":
                 displayEndTaskMenu();

@@ -3,13 +3,13 @@ package tlsys.model;
 import java.time.Instant;
 
 public class EmployeLog {
-    
+
     private Employe employeeID;
     private Project projectName;
     private Discipline disciplineName;
     private Instant startDateTime;
     private Instant endDateTime;
-    
+
     public EmployeLog(Employe employeeID, Project projectName, Discipline disciplineName, Instant startDateTime,
             Instant endDateTime) {
         this.employeeID = employeeID;
@@ -19,15 +19,11 @@ public class EmployeLog {
         this.endDateTime = endDateTime;
     }
 
-    
-
     @Override
     public String toString() {
         return "EmployeLog [employeeID=" + employeeID + ", projectName=" + projectName + ", disciplineName="
                 + disciplineName + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + "]";
     }
-
-
 
     public Employe getEmployeeID() {
         return employeeID;
@@ -68,7 +64,5 @@ public class EmployeLog {
     public void setEndDateTime(Instant endDateTime) {
         this.endDateTime = endDateTime;
     }
-
-    
 
 }
