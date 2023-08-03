@@ -2,6 +2,9 @@ package tlsys.view;
 
 import java.util.Scanner;
 
+import java.util.List;
+import java.util.ArrayList;
+
 // Le package view gère l'interface de commande et la logique de présentation
 public class TimeLogView {
 
@@ -32,13 +35,36 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
-    public String promptEmployeMenu() {
+    public String promptEmployeMainMenu() {
         System.out.println("[1] Commencer un tâches [2] Générer des rapport");
         return scanner.nextLine();
     }
 
-    public String promptProjectSelection() {
-        System.out.println("Select a project");
+    public String promptProjectSelection(List<?> list) {
+        System.out.println("Selectionne un project");
+        return promptObjectSelection(list);
+    }
+
+    public String promptDisciplineSelection(List<?> list) {
+        System.out.println("Selectionne une discipline");
+        return promptObjectSelection(list);
+    }
+
+    public String promptObjectSelection(List<?> objectList) {
+        int itemId=1;
+        for (Object obj: objectList) {
+            System.out.println("["+ itemId++ +"]\t"+obj);
+        }
+        return scanner.nextLine();
+    }
+
+    public String promptStartTimer(String task) {
+        System.out.println("Vouler vous commencer l'activité"+task+"(y/n)");
+        return scanner.nextLine();
+    }
+
+    public String promptEndTimer() {
+        System.out.println("Vouler vous quitter cette tâche (y/n)");
         return scanner.nextLine();
     }
 

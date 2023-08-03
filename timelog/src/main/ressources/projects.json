@@ -1,0 +1,103 @@
+{
+    "projects": [
+        {
+            "name": "projet1",
+            "ID": 1,
+            "dateDebut": "2023-08-01",
+            "dateFin": "2023-12-01",
+            "disciplines": [
+                {
+                    "name": "Design1",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Design2",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Implémentation",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Test",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Déploiement",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                }
+            ]
+        },
+        {
+            "name": "projet2",
+            "ID": 2,
+            "dateDebut": "2023-08-01",
+            "dateFin": "2023-12-01",
+            "disciplines": [
+                {
+                    "name": "Design1",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Design2",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Implémentation",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Test",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Déploiement",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                }
+            ]
+        },
+        {
+            "name": "projet3",
+            "ID": 3,
+            "dateDebut": "2023-08-01",
+            "dateFin": "2023-12-01",
+            "disciplines": [
+                {
+                    "name": "Design1",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Design2",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Implémentation",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Test",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                },
+                {
+                    "name": "Déploiement",
+                    "heuresBudgetees": 100,
+                    "heuresTotalesConsacre": 0
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "employeeLogs": [
+        {
+            "startDateTime": "2023-08-03T20:16:43.703728800Z",
+            "employeeID": 1,
+            "endDateTime": "2023-08-03T20:16:45.124733900Z",
+            "projectID": 1,
+            "disciplineName": "Design1"
+        },
+        {
+            "startDateTime": "2023-08-03T20:16:43.703728800Z",
+            "employeeID": 1,
+            "endDateTime": "2023-08-03T20:16:45.124733900Z",
+            "projectID": 1,
+            "disciplineName": "Design1"
+        },
+        {
+            "startDateTime": "2023-08-03T20:30:49.102769200Z",
+            "employeeID": 1,
+            "endDateTime": "2023-08-03T20:31:04.982152800Z",
+            "projectID": 1,
+            "disciplineName": "Design1"
+        }
+    ]
+}
