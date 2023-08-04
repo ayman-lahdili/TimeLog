@@ -4,7 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -350,15 +355,76 @@ public class TimeLogModel {
                 "}";
     }
 
-    /*
-     * public String getRapportEtatEmploye(){
-     * 
-     * }
-     */
+    
+     public void getRapportEtatEmploye(String debut, String fin){
+        List<Employe> employeList = getEmployeList();
 
-    /*
-     * public String getTalonPaie(){
-     * 
-     * }
-     */
+        for(int i = 0; i<employeList.size(); i++){
+            System.out.println(getTalonPaie(i, debut, fin));
+        }
+     }
+     
+
+     public String getTalonPaie(int ID, String debut, String fin) {
+        LocalDate start = null;
+        LocalDate end = null;
+    
+        if (debut.equals("défault")) {
+            LocalDate currentDate = LocalDate.now();
+            LocalDate startOfLastWeek = currentDate.minusWeeks(1);
+    
+            // Find the start of the last odd week
+            start = startOfLastWeek.minusDays(startOfLastWeek.getDayOfWeek().getValue() % 2);
+        } else {
+            start = LocalDate.parse(debut);
+        }
+    
+        if (fin.equals("défault")) {
+            end = LocalDate.now();
+        } else {
+            end = LocalDate.parse(fin);
+        }
+    
+        Employe employe = getEmployeByID(ID);
+        List<EmployeLog> employeLog = getEmployeLogsList();
+        long totaleHeures = 0;
+        long totaleHeuresSuppl = 0;
+    
+        for (EmployeLog log : employeLog) {
+            if (log.getEmployeeID() == employe) {
+                Instant startTime = log.getStartDateTime();
+                Instant endTime = log.getEndDateTime();
+    
+                // Convert Instant to LocalDateTime
+                LocalDateTime startDateTime = startTime.atZone(ZoneId.systemDefault()).toLocalDateTime();
+                LocalDateTime endDateTime = endTime.atZone(ZoneId.systemDefault()).toLocalDateTime();
+    
+                // Check if the log falls within the given start and end dates
+                if (!startDateTime.toLocalDate().isBefore(start) && !endDateTime.toLocalDate().isAfter(end)) {
+                    Duration duration = Duration.between(startDateTime, endDateTime);
+                    long hoursWorked = duration.toHours();
+    
+                    if (totaleHeures + hoursWorked <= 40) {
+                        totaleHeures += hoursWorked;
+                    } else {
+                        totaleHeuresSuppl += (totaleHeures + hoursWorked) - 40;
+                        totaleHeures = 40;
+                    }
+                }
+            }
+        }
+    
+        double salaireBase = employe.getTauxHoraireBase();
+        double salaireTempsSupplementaire = employe.getTauxHoraireTempsSupplementaire();
+        double salaireBrut = salaireBase * totaleHeures + salaireTempsSupplementaire * totaleHeuresSuppl;
+        double salaireNet = salaireBrut * 0.6;
+    
+        return "Talon de paie pour employé avec ID : " + ID + "{" +
+                "Nombre d’heures travaillées = " + totaleHeures + '\'' +
+                ", Nombre d’heures supplémentaires travaillées = " + totaleHeuresSuppl + '\'' +
+                ", Salaire brute = " + salaireBrut + '\'' +
+                ", Salaire net = " + salaireNet +
+                "}";
+    }
+
 }
