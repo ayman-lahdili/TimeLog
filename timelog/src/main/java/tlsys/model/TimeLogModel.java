@@ -25,6 +25,8 @@ public class TimeLogModel {
 
     private String ressourcePath;
     private Timer timer;
+    private int NPE;
+    private List<String> defaultDisciplinesNameList;
     private List<Project> projectList;
     private List<Employe> employeList;
     private List<EmployeLog> employeLogList;
@@ -53,6 +55,21 @@ public class TimeLogModel {
             case "Windows":
                 ressourcePath = "timelog\\src\\main\\ressources\\";
                 break;
+        }
+    }
+
+    public void loadSystemPropreties() {
+        try (FileReader fileReader = new FileReader(ressourcePath+"systemProperties.json")) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONObject systemProperties = (JSONObject) jsonObject.get("systemPropreties");
+
+            NPE = ((Long) systemProperties.get("NPE")).intValue();
+            defaultDisciplinesNameList = (List<String>) systemProperties.get("defaultDisciplines");
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -238,6 +255,14 @@ public class TimeLogModel {
 
     public List<EmployeLog> getEmployeLogsList() {
         return employeLogList;
+    }
+
+    public int getNPE() {
+        return NPE;
+    }
+
+    public List<String> getdefaultDisciplinesNameList() {
+        return defaultDisciplinesNameList;
     }
 
     public EmployeLog startTask(Employe employeeID, Project project, Discipline discipline) {
