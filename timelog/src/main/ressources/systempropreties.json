@@ -1,0 +1,12 @@
+{
+    "systemPropreties": {
+        "NPE": 2,
+        "defaultDisciplines": [ 
+            "Design1",
+            "Design2",
+            "Implémentation",
+            "Test",
+            "Déploiement"
+        ]
+    }
+}
