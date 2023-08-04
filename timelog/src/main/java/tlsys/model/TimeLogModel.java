@@ -262,14 +262,24 @@ public class TimeLogModel {
         return null;
     }
 
-    /*public String getRapportEtatGlobale(){
+    public void getRapportEtatGlobale() {
+        List<Project> projectList = getProjectList();
 
-    }*/
+        if (projectList.size() <= 0) {
+            System.out.println("No projects available");
+        } else {
+            for (int i = 0; i < projectList.size(); i++) {
+                System.out.println(getRapportEtatProjet(i));
+            }
+        }
 
-    public String getRapportEtatProjet(int ID){
+        return;
+    }
+
+    public String getRapportEtatProjet(int ID) {
         Project project = getProjectByID(ID);
         List<Discipline> disciplines = project.getDisciplinesList();
-        
+
         int nbreHeuresDesign1 = 0;
         int pctDesign1 = 0;
 
@@ -289,61 +299,66 @@ public class TimeLogModel {
         int nbreHeuresBudgeteesTotales = 0;
         int pctProjet = 0;
 
-        for(int i = 0; i<disciplines.size(); i++){
+        for (int i = 0; i < disciplines.size(); i++) {
             int heuresBudgetees = disciplines.get(i).getHeuresBudgetees();
             nbreHeuresBudgeteesTotales += heuresBudgetees;
 
-            if(disciplines.get(i).getName() == "Design1"){
+            if (disciplines.get(i).getName() == "Design1") {
                 nbreHeuresDesign1 = disciplines.get(i).getHeuresTotalesConsacre();
                 pctDesign1 = (nbreHeuresDesign1 / heuresBudgetees) * 100;
-            } 
+            }
 
-            if(disciplines.get(i).getName() == "Design2"){
+            if (disciplines.get(i).getName() == "Design2") {
                 nbreHeuresDesign2 = disciplines.get(i).getHeuresTotalesConsacre();
                 pctDesign2 = (nbreHeuresDesign2 / heuresBudgetees) * 100;
-            } 
+            }
 
-            if(disciplines.get(i).getName() == "Implémentation"){
+            if (disciplines.get(i).getName() == "Implémentation") {
                 nbreHeuresImplementation = disciplines.get(i).getHeuresTotalesConsacre();
                 pctImplementation = (nbreHeuresImplementation / heuresBudgetees) * 100;
-            } 
+            }
 
-            if(disciplines.get(i).getName() == "Test"){
+            if (disciplines.get(i).getName() == "Test") {
                 nbreHeuresTest = disciplines.get(i).getHeuresTotalesConsacre();
                 pctTest = (nbreHeuresTest / heuresBudgetees) * 100;
-            } 
+            }
 
-            if(disciplines.get(i).getName() == "Déploiement"){
+            if (disciplines.get(i).getName() == "Déploiement") {
                 nbreHeuresDeploiement = disciplines.get(i).getHeuresTotalesConsacre();
                 pctDeploiement = (nbreHeuresDesign1 / heuresBudgetees) * 100;
-            } 
+            }
         }
 
-        nbreHeuresTotales = nbreHeuresDesign1 + nbreHeuresDesign2 + nbreHeuresImplementation + nbreHeuresTest + nbreHeuresDeploiement;
+        nbreHeuresTotales = nbreHeuresDesign1 + nbreHeuresDesign2 + nbreHeuresImplementation + nbreHeuresTest
+                + nbreHeuresDeploiement;
 
         pctProjet = (nbreHeuresTotales / nbreHeuresBudgeteesTotales) * 100;
 
-        return "Project" +ID +"{" +
-        "Nombre d’heures travaillées pour Design1 = " + nbreHeuresDesign1 + '\'' +
-        ", Pourcentage d’avancement pour Design1 = " + pctDesign1 + '\'' +
-        ", Nombre d’heures travaillées pour Design2 = " + nbreHeuresDesign2 + '\'' +
-        ", Pourcentage d’avancement pour Design2 = " + pctDesign2 + '\'' +
-        ", Nombre d’heures travaillées pour Implémentation = " + nbreHeuresImplementation + '\'' +
-        ", Pourcentage d’avancement pour Implémentation = " + pctImplementation + '\'' +
-        ", Nombre d’heures travaillées pour Test = " + nbreHeuresTest + '\'' +
-        ", Pourcentage d’avancement pour Test = " + pctTest + '\'' +
-        ", Nombre d’heures travaillées pour Déploiement = " + nbreHeuresDeploiement + '\'' +
-        ", Pourcentage d’avancement pour Déploiement = " + pctDeploiement + '\'' +
-        ", Nombre d’heures travaillées pour Projet1 = " + nbreHeuresTotales + '\'' +
-        ", Pourcentage d’avancement pour Projet1 = " + pctProjet +
-        "}";
+        return "Project" + ID + "{" +
+                "Nombre d’heures travaillées pour Design1 = " + nbreHeuresDesign1 + '\'' +
+                ", Pourcentage d’avancement pour Design1 = " + pctDesign1 + '\'' +
+                ", Nombre d’heures travaillées pour Design2 = " + nbreHeuresDesign2 + '\'' +
+                ", Pourcentage d’avancement pour Design2 = " + pctDesign2 + '\'' +
+                ", Nombre d’heures travaillées pour Implémentation = " + nbreHeuresImplementation + '\'' +
+                ", Pourcentage d’avancement pour Implémentation = " + pctImplementation + '\'' +
+                ", Nombre d’heures travaillées pour Test = " + nbreHeuresTest + '\'' +
+                ", Pourcentage d’avancement pour Test = " + pctTest + '\'' +
+                ", Nombre d’heures travaillées pour Déploiement = " + nbreHeuresDeploiement + '\'' +
+                ", Pourcentage d’avancement pour Déploiement = " + pctDeploiement + '\'' +
+                ", Nombre d’heures travaillées pour Projet1 = " + nbreHeuresTotales + '\'' +
+                ", Pourcentage d’avancement pour Projet1 = " + pctProjet +
+                "}";
     }
 
-    /*public String getRapportEtatEmploye(){
+    /*
+     * public String getRapportEtatEmploye(){
+     * 
+     * }
+     */
 
-    }*/
-
-    /*public String getTalonPaie(){
-
-    }*/
+    /*
+     * public String getTalonPaie(){
+     * 
+     * }
+     */
 }
