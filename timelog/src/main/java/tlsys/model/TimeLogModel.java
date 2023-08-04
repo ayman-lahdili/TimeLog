@@ -286,7 +286,7 @@ public class TimeLogModel {
         Project project = getProjectByID(ID);
         List<Discipline> disciplines = project.getDisciplinesList();
 
-        int nbreHeuresDesign1 = 0;
+        int nbreHeuresDesign1 = 0; //TODO double
         int pctDesign1 = 0;
 
         int nbreHeuresDesign2 = 0;
@@ -368,24 +368,25 @@ public class TimeLogModel {
         return rapport;
      }
      
+    public String getTalonPaieEmploye(int ID) {
+        return "";
+    }
 
-     public String getTalonPaieEmploye(int ID, String debut, String fin) {
+    public String getTalonPaieEmploye(int ID, String debut, String fin) {
         LocalDate start = null;
         LocalDate end = null;
+
+        //TODO 
     
-        if (debut.equals("défault")) {
+        if (debut.equals("default")) {
             LocalDate currentDate = LocalDate.now();
             LocalDate startOfLastWeek = currentDate.minusWeeks(1);
     
             // Find the start of the last odd week
             start = startOfLastWeek.minusDays(startOfLastWeek.getDayOfWeek().getValue() % 2);
-        } else {
-            start = LocalDate.parse(debut);
-        }
-    
-        if (fin.equals("défault")) {
             end = LocalDate.now();
         } else {
+            start = LocalDate.parse(debut);
             end = LocalDate.parse(fin);
         }
     
@@ -422,7 +423,7 @@ public class TimeLogModel {
         double salaireTempsSupplementaire = employe.getTauxHoraireTempsSupplementaire();
         double salaireBrut = salaireBase * totaleHeures + salaireTempsSupplementaire * totaleHeuresSuppl;
         double salaireNet = salaireBrut * 0.6;  
-    
+        
         return "Talon de paie pour employé avec ID : " + ID + "{" +
                 "Nombre d’heures travaillées = " + totaleHeures + '\'' +
                 ", Nombre d’heures supplémentaires travaillées = " + totaleHeuresSuppl + '\'' +
