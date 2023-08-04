@@ -8,6 +8,7 @@ import java.util.ArrayList;
 // Le package view gère l'interface de commande et la logique de présentation
 public class TimeLogView {
 
+    private final String dateFormat = "AAAA-MM-JJ";
     public static Scanner scanner = new Scanner(System.in);
 
     public String promptForMethodOfLogin() {
@@ -74,6 +75,36 @@ public class TimeLogView {
 
     public void displayLoginErrorMessage() {
         System.out.println("Invalid username or password. Please try again.");
+    }
+
+    public String promptEmployeRapportMenuSelection() {
+        System.out.println("[1]\tGénérer un rapport d'état pour un projet");
+        System.out.println("[2]\tGénérer un rapport d'état global");
+        System.out.println("[3]\tGénérer un rapport d'état employé");
+        System.out.println("[4]\tGénérer un talon de paie pour une période");
+        return scanner.nextLine();
+    }
+
+    public String promptAdministratorMenuSelection() {
+        System.out.println("[1]\tGénérer un rapport d'état pour un projet");
+        System.out.println("[2]\tGénérer un rapport d'état global");
+        System.out.println("[3]\tGénérer un rapport d'état un employé");
+        System.out.println("[4]\tGénérer les talons de paie pour tous les employés");
+        return scanner.nextLine();
+    }
+
+    public String promptStartDateSelection() {
+        System.out.println("Entrer une date de début ("+dateFormat+")");
+        return scanner.nextLine();
+    }
+
+    public String promptEndDateSelection() {
+        System.out.println("Entrer une date de fin ("+dateFormat+")");
+        return scanner.nextLine();
+    }
+
+    public void displayRapport(String rapport) {
+        System.out.println(rapport);
     }
 
 }

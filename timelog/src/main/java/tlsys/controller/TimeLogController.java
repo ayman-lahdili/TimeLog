@@ -82,11 +82,11 @@ public class TimeLogController {
         String employeeAction = view.promptEmployeMainMenu();
 
         switch (employeeAction) {
-            case "1":
+            case "1": // Commencer une tâche
                 StartTaskMenu();
                 break;
-            case "2":
-
+            case "2": // Générer des rapports
+                EmployeRapportMenu();
                 break;
             default:
                 break;
@@ -99,7 +99,40 @@ public class TimeLogController {
     }
 
     public void EmployeRapportMenu() {
-        // TODO
+        String rapportSelection = view.promptEmployeRapportMenuSelection();
+
+        switch (rapportSelection) {
+            case "1": // Générer un rapport d'état pour un projet
+                List<Project> projectList = model.getProjectList();
+
+                String projectSelection = view.promptProjectSelection(projectList);
+                int projectIndex = Integer.parseInt(projectSelection);
+
+                Project project = projectList.get(projectIndex - 1);
+
+                view.displayRapport(model.getRapportEtatProjet(project.getID()));
+
+                break;
+            case "2": // Générer un rapport d'état global
+                view.displayRapport(model.getRapportEtatGlobale());
+
+                break;
+            case "3": // Générer un rapport d'état employé
+                String dateDebut = view.promptStartDateSelection();
+                String dateFin = view.promptEndDateSelection();
+
+                view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID(), dateDebut, dateFin));
+
+                break;
+            case "4": // Générer un talon de paie employé
+                //TODO
+
+                break;
+            default:
+                break;
+        }
+
+        EmployeeMainMenu();
     };
 
     public void StartTaskMenu() {

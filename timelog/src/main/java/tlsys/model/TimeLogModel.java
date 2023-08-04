@@ -267,18 +267,19 @@ public class TimeLogModel {
         return null;
     }
 
-    public void getRapportEtatGlobale() {
+    public String getRapportEtatGlobale() {
+        String rapport = "";
         List<Project> projectList = getProjectList();
 
-        if (projectList.size() <= 0) {
-            System.out.println("No projects available");
+        if (projectList.size() == 0) {
+            return null;
         } else {
-            for (int i = 0; i < projectList.size(); i++) {
-                System.out.println(getRapportEtatProjet(i));
+            for (Project project: projectList) {
+                rapport += getRapportEtatProjet(project.getID()) + "\n";
             }
         }
 
-        return;
+        return rapport;
     }
 
     public String getRapportEtatProjet(int ID) {
@@ -356,16 +357,19 @@ public class TimeLogModel {
     }
 
     
-     public void getRapportEtatEmploye(String debut, String fin){
+    public String getRapportEtatEmploye(String debut, String fin) {
+        String rapport = "";
         List<Employe> employeList = getEmployeList();
 
         for(int i = 0; i<employeList.size(); i++){
-            System.out.println(getTalonPaie(i, debut, fin));
+            rapport += getTalonPaieEmploye(i, debut, fin) + "\n";
         }
+
+        return rapport;
      }
      
 
-     public String getTalonPaie(int ID, String debut, String fin) {
+     public String getTalonPaieEmploye(int ID, String debut, String fin) {
         LocalDate start = null;
         LocalDate end = null;
     
@@ -417,7 +421,7 @@ public class TimeLogModel {
         double salaireBase = employe.getTauxHoraireBase();
         double salaireTempsSupplementaire = employe.getTauxHoraireTempsSupplementaire();
         double salaireBrut = salaireBase * totaleHeures + salaireTempsSupplementaire * totaleHeuresSuppl;
-        double salaireNet = salaireBrut * 0.6;
+        double salaireNet = salaireBrut * 0.6;  
     
         return "Talon de paie pour employé avec ID : " + ID + "{" +
                 "Nombre d’heures travaillées = " + totaleHeures + '\'' +
