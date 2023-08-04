@@ -8,7 +8,8 @@
 		"nas": 123456781,
 		"numeroPoste": 1,
 		"tauxHoraireBase": 34.50,
-		"tauxHoraireTempsSupplementaire": 45.00
+		"tauxHoraireTempsSupplementaire": 1.5,
+		"projetsAssignes": [1, 2]
 	  },
 	  {
 		"id": 2,
@@ -18,7 +19,8 @@
 		"nas": 123456782,
 		"numeroPoste": 2,
 		"tauxHoraireBase": 34.50,
-		"tauxHoraireTempsSupplementaire": 45.00
+		"tauxHoraireTempsSupplementaire": 1.5,
+		"projetsAssignes": [2, 3]
 	  },
 	  {
 		"id": 3,
@@ -28,7 +30,8 @@
 		"nas": 123456783,
 		"numeroPoste": 3,
 		"tauxHoraireBase": 34.50,
-		"tauxHoraireTempsSupplementaire": 45.00
+		"tauxHoraireTempsSupplementaire": 1.5,
+		"projetsAssignes": [3, 1]
 	  }
 	]
   }

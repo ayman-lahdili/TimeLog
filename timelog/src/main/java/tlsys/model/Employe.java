@@ -1,5 +1,7 @@
 package tlsys.model;
 
+import java.util.List;
+
 public class Employe {
 
     private int ID;
@@ -10,9 +12,10 @@ public class Employe {
     private int numeroPoste;
     private double tauxHoraireBase;
     private double tauxHoraireTempsSupplementaire;
+    private List<Integer> projetsIDAssignesList;
 
     public Employe(int iD, String nom, String dateEmbauche, String dateDepart, int nAS, int numeroPoste,
-            double tauxHoraireBase, double tauxHoraireTempsSupplementaire) {
+            double tauxHoraireBase, double tauxHoraireTempsSupplementaire, List<Integer> projetsAssignesList) {
         ID = iD;
         this.nom = nom;
         this.dateEmbauche = dateEmbauche;
@@ -21,6 +24,7 @@ public class Employe {
         this.numeroPoste = numeroPoste;
         this.tauxHoraireBase = tauxHoraireBase;
         this.tauxHoraireTempsSupplementaire = tauxHoraireTempsSupplementaire;
+        this.projetsIDAssignesList = projetsAssignesList;
     }
 
     @Override

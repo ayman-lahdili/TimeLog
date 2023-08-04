@@ -3,7 +3,6 @@ package tlsys.view;
 import java.util.Scanner;
 
 import java.util.List;
-import java.util.ArrayList;
 
 // Le package view gère l'interface de commande et la logique de présentation
 public class TimeLogView {

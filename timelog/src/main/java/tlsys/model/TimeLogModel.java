@@ -34,9 +34,9 @@ public class TimeLogModel {
         // Load data from the JSON files when the TimeLogModel object is created
         loadTimer();
         loadRessourcePath();
+        loadProjectData();
         loadEmployeData();
         loadAdministratorData();
-        loadProjectData();
         loadEmployeLogData();
     }
 
@@ -75,10 +75,11 @@ public class TimeLogModel {
                 int numeroPoste = ((Long) employeeObject.get("numeroPoste")).intValue();
                 double tauxHoraireBase = (double) employeeObject.get("tauxHoraireBase");
                 double tauxHoraireTempsSupplementaire = (double) employeeObject.get("tauxHoraireTempsSupplementaire");
+                List<Integer> projetsAssignes = (List<Integer>) employeeObject.get("projetsAssignes");
 
                 // Create the Employe object and add it to the employeList
                 Employe employe = new Employe(id, name, dateEmbauche, dateDepart, nas, numeroPoste, tauxHoraireBase,
-                        tauxHoraireTempsSupplementaire);
+                        tauxHoraireTempsSupplementaire, projetsAssignes);
                 employeList.add(employe);
             }
         } catch (Exception e) {
