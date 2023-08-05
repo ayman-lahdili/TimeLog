@@ -100,10 +100,20 @@ public class EmployeController {
     }
 
     public void EmployeWorkStatusReport() {
-        String startDate = view.promptStartDateSelection();
-        String endDate = view.promptEndDateSelection();
-        view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID()));
-        view.promptEnterToContinue();
+        String timePeriodeSelection = view.promptStartDateType();
+
+        switch (timePeriodeSelection) {
+            case "1":
+                view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID(), "default", "default"));
+                break;
+            case "2":
+                String dateDebut = view.promptStartDateSelection();
+                String dateFin = view.promptEndDateSelection();
+                view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                break;
+            default:
+                break;
+        }
     }
 
     public void EmployeTalonPaieMenu() {
