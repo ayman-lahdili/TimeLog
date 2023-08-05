@@ -11,7 +11,7 @@ public class TimeLogView {
     public static Scanner scanner = new Scanner(System.in);
 
     public String promptForMethodOfLogin() {
-        System.out.println("[1]\tSe connecter en tant qu'employe");
+        System.out.println("[1]\tSe connecter en tant qu'employé");
         System.out.println("[2]\tSe connecter en tant qu'administrateur");
         return scanner.nextLine();
     }
@@ -111,7 +111,16 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public String displayInvalidInputWarning() {
+        System.out.println("Entré invalide. Presser la touche \"ENTRER\" pour réessayer");
+        return scanner.nextLine();
+    }
+
     public void displayRapport(String rapport) {
+        if (rapport==null) {
+            System.out.println("Aucun rapport disponible");
+            return;
+        }
         System.out.println(rapport);
     }
 

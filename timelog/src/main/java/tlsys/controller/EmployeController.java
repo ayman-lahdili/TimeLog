@@ -32,7 +32,7 @@ public class EmployeController {
         if (user != null) {
             currentEmployee = user;
             view.displayLoginSuccessMessage();
-            MainMenu();
+            mainMenu();
         } else {
             view.displayLoginErrorMessage();
         }
@@ -45,17 +45,17 @@ public class EmployeController {
             case "y":
                 break;
             default:
-                MainMenu();
+                mainMenu();
                 break;
         }
     }
 
-    public void MainMenu() {
+    public void mainMenu() {
         String employeeAction = view.promptMainMenu();
 
         switch (employeeAction) {
             case "1": // Commencer une tâche
-                StartTaskMenu();
+                startTaskMenu();
                 break;
             case "2": // Générer des rapports
                 EmployeRapportMenu();
@@ -63,10 +63,10 @@ public class EmployeController {
             case "3": // Obtenir le nombre d'heures travaillées
                 EmployeWorkStatusReport();
                 break;
-            case "4": // Obtenir le nombre d'heures travaillées
+            case "4": // Générer votre talon de paie avec le système Payroll
                 //TODO
                 break;                
-            case "5":
+            case "5": // Logout
                 logout();
             default:
                 break;
@@ -81,25 +81,28 @@ public class EmployeController {
             case "1": // Générer un rapport d'état pour un projet
                 List<Project> projectList = model.getProjectList();
                 String projectSelection = view.promptProjectSelection(projectList);
+
                 int projectIndex = Integer.parseInt(projectSelection);
                 Project project = projectList.get(projectIndex - 1);
 
                 view.displayRapport(rapports.getRapportEtatProjet(project.getID()));
+                mainMenu();
                 break;
             case "2": // Générer un rapport d'état global
                 view.displayRapport(rapports.getRapportEtatGlobale());
+                mainMenu();
                 break;
             case "3": // Générer un rapport d'état employé
-                EmployeStatusReportMenu();
+                employeRapportEtatMenu();
                 break;
             case "4": // Générer un talon de paie employé
                 EmployeTalonPaieMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                EmployeRapportMenu();
                 break;
         }
-
-        MainMenu();
     }
 
     public void EmployeWorkStatusReport() {
@@ -108,13 +111,17 @@ public class EmployeController {
         switch (timePeriodeSelection) {
             case "1":
                 view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID(), "default", "default"));
+                mainMenu();
                 break;
             case "2":
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
                 view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                mainMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                EmployeWorkStatusReport();
                 break;
         }
     }
@@ -125,37 +132,45 @@ public class EmployeController {
         switch (timePeriodeSelection) {
             case "1":
                 view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID()));
+                mainMenu();
                 break;
             case "2":
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
                 view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                mainMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                EmployeTalonPaieMenu();
                 break;
         }
 
     }
 
-    public void EmployeStatusReportMenu() {
+    public void employeRapportEtatMenu() {
         String timePeriodeSelection = view.promptStartDateType();
 
         switch (timePeriodeSelection) {
             case "1": // la dernière période de paie
-                view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID()));
+                view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID(), "default", "default"));
+                mainMenu();
                 break;
             case "2": // à partir du période que vous choisissez
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
                 view.displayRapport(rapports.getRapportEtatEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                mainMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                employeRapportEtatMenu();
                 break;
         }
 
     }
     
-    public void StartTaskMenu() {
+    public void startTaskMenu() {
         // 1. Selectionne un projet qu'il est assigné
         List<Project> projectList = currentEmployee.getProjectsAssignesList();
 
@@ -163,9 +178,9 @@ public class EmployeController {
         int projectIndex = Integer.parseInt(projectSelection);
 
         Project project = projectList.get(projectIndex - 1);
-        List<Discipline> disciplineList = project.getDisciplinesList();
 
         // 2. Selectionne une discipline du projet sélectionné
+        List<Discipline> disciplineList = project.getDisciplinesList();
         String disciplineSelection = view.promptDisciplineSelection(disciplineList);
         int disciplineIndex = Integer.parseInt(disciplineSelection);
 
@@ -180,9 +195,11 @@ public class EmployeController {
                 displayEndTaskMenu();
                 break;
             case "n":
-                MainMenu();
+                mainMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                startTaskMenu();
                 break;
         }
 
@@ -195,12 +212,13 @@ public class EmployeController {
             case "y":
                 model.endTask(employeLog);
 
-                MainMenu();
+                mainMenu();
                 break;
             case "n":
                 displayEndTaskMenu();
                 break;
             default:
+                displayEndTaskMenu();
                 break;
         }
 
