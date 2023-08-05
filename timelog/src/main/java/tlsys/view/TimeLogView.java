@@ -46,6 +46,20 @@ public class TimeLogView {
         System.out.println("Logout successful!");
     }
 
+    public void displayModifySuccessMessage(boolean action) {
+        if (action) {
+            System.out.println("Paramètre modifié avec succès");
+            return;    
+        }
+        System.out.println("Incapable de modifié ce paramètre");
+    }
+
+    public String promptModificationDecision(String parameterName, Object currentValue) {
+        System.out.println(parameterName+" :\t"+currentValue);
+        System.out.println("Souhaitez-vous modifier se paramètre");
+        return scanner.nextLine();
+    }
+
     public void displayLoginErrorMessage() {
         System.out.println("Invalid username or password. Please try again.");
     }

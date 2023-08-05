@@ -17,7 +17,7 @@ public class AdministratorView extends TimeLogView {
         return scanner.nextLine();
     }
 
-    public String promptAdministratorModificationMenu() {
+    public String promptModificationMenu() {
         System.out.println("[1] Modifier les paramètres employés [2] Modifier les paramètres de projets");
         return scanner.nextLine();
     }
@@ -43,7 +43,7 @@ public class AdministratorView extends TimeLogView {
         return scanner.nextLine();
     }
 
-    public String promptAdministratorEmployeeParamsModificationMenu() {
+    public String promptEmployeeParamsModificationMenu() {
         System.out.println(
                 "[1] Modifier l'assignation des employés à des projets\n[2] Modifier le noms d'usager de l'employé\n[3] Modifier le ID de l'employé");
         return scanner.nextLine();

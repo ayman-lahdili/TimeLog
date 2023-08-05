@@ -485,4 +485,8 @@ public class TimeLogModel {
                 "}";
     }
 
+    public boolean setNPE(int newNPE) {
+        return false; //TODO
+    }
+
 }

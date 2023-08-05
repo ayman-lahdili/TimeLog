@@ -4,7 +4,6 @@ import tlsys.model.Administrator;
 import tlsys.model.Employe;
 import tlsys.model.TimeLogModel;
 import tlsys.view.AdministratorView;
-import tlsys.view.TimeLogView;
 
 public class AdministratorController {
     private TimeLogModel model;
@@ -48,7 +47,7 @@ public class AdministratorController {
 
         switch (adminAction) {
             case "1": // Faire des modifications au paramètre du système
-                AdministratorModificationMenu();
+                ModificationMenu();
                 break;
             case "2": // Générer des rapports
                 
@@ -61,12 +60,12 @@ public class AdministratorController {
         }
     }
 
-    public void AdministratorModificationMenu() {
-        String adminModificationChoice = view.promptAdministratorModificationMenu();
+    public void ModificationMenu() {
+        String adminModificationChoice = view.promptModificationMenu();
 
         switch (adminModificationChoice) {
             case "1": // Modifier les paramètres employés
-                AdministratorEmployeeModificationMenu();
+                EmployeeModificationMenu();
                 break;
             case "2": // Modifier les paramètres de projets
                 
@@ -77,25 +76,35 @@ public class AdministratorController {
 
     }
 
-    public void AdministratorEmployeeModificationMenu() {
+    public void EmployeeModificationMenu() {
         String adminAction = view.promptAdministratorEmplpoyeeModificationMenu();
 
         switch (adminAction) {
-            case "1": // Modifier le NPE
-                int newNPE = Integer.parseInt(view.promptAdministratorModificationInputSelection());
-
-                //TODO model
+            case "1": // Modifier le NPE                
+                String modificationDecision =  view.promptModificationDecision("NPE", model.getNPE());
+                
+                switch (modificationDecision) {
+                    case "y":
+                        int newNPE = Integer.parseInt(view.promptAdministratorModificationInputSelection());
+                        view.displayModifySuccessMessage(model.setNPE(newNPE));
+                        break;
+                    case "n":
+                        break;
+                    default:
+                        break;
+                }
+                MainMenu();
                 break;
             case "2": // Modifier les paramètres d'un employé
-                //TODO
+                EmployeeParamsModificationMenu();
                 break;
             default:
                 break;
         }
     }
 
-    public void AdministratorEmployeeParamsModificationMenu() {
-        String adminAction = view.promptAdministratorEmployeeParamsModificationMenu();
+    public void EmployeeParamsModificationMenu() {
+        String adminAction = view.promptEmployeeParamsModificationMenu();
 
         int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
 
