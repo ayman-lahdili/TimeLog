@@ -13,7 +13,7 @@ public class AdministratorView extends TimeLogView {
     }
 
     public String promptAdministratorMainMenu() {
-        System.out.println("[1] Faire des modifications aux paramètres du système\n[2] Générer des rapports");
+        System.out.println("[1] Faire des modifications aux paramètres du système\n[2] Générer des rapports\n[3] Vous déconnecter");
         return scanner.nextLine();
     }
 

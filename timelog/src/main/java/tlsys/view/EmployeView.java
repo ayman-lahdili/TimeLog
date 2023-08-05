@@ -14,7 +14,7 @@ public class EmployeView extends TimeLogView {
 
     public String promptEmployeMainMenu() {
         System.out.println(
-                "[1] Commencer un tâches\n[2] Générer des rapport\n[3] Obtenir le nombre d'heures travaillées");
+                "[1] Commencer un tâches\n[2] Générer des rapport\n[3] Obtenir le nombre d'heures travaillées\n[4] Vous déconnecter");
         return scanner.nextLine();
     }
 

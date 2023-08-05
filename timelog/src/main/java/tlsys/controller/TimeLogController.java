@@ -34,13 +34,14 @@ public class TimeLogController {
                 EmployeController employeController = new EmployeController(model, new EmployeView());
                 employeController.login();
 
+                view.displayLogoutMessage();
                 break;
             case "2": // Admin Login
                 AdministratorController administratorController = new AdministratorController(model, new AdministratorView());
                 administratorController.login();
 
+                view.displayLogoutMessage();
                 break;
-
             default:
                 break;
         }

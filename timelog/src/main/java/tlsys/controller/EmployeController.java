@@ -8,7 +8,6 @@ import tlsys.model.EmployeLog;
 import tlsys.model.Project;
 import tlsys.model.TimeLogModel;
 import tlsys.view.EmployeView;
-import tlsys.view.TimeLogView;
 
 public class EmployeController {
     private TimeLogModel model;
@@ -30,13 +29,25 @@ public class EmployeController {
         if (user != null) {
             currentEmployee = user;
             view.displayLoginSuccessMessage();
-            EmployeeMainMenu();
+            MainMenu();
         } else {
             view.displayLoginErrorMessage();
         }
     }
+    
+    public void logout() {
+        String logoutDecision = view.promptLogout();
+        
+        switch (logoutDecision) {
+            case "y":
+                break;
+            default:
+                MainMenu();
+                break;
+        }
+    }
 
-    public void EmployeeMainMenu() {
+    public void MainMenu() {
         String employeeAction = view.promptEmployeMainMenu();
 
         switch (employeeAction) {
@@ -49,6 +60,8 @@ public class EmployeController {
             case "3": // Obtenir le nombre d'heures travaillées
                 EmployeWorkStatusReport();
                 break;
+            case "4":
+                logout();
             default:
                 break;
         }
@@ -61,40 +74,32 @@ public class EmployeController {
         switch (rapportSelection) {
             case "1": // Générer un rapport d'état pour un projet
                 List<Project> projectList = model.getProjectList();
-
                 String projectSelection = view.promptProjectSelection(projectList);
                 int projectIndex = Integer.parseInt(projectSelection);
-
                 Project project = projectList.get(projectIndex - 1);
 
                 view.displayRapport(model.getRapportEtatProjet(project.getID()));
-
                 break;
             case "2": // Générer un rapport d'état global
                 view.displayRapport(model.getRapportEtatGlobale());
-
                 break;
             case "3": // Générer un rapport d'état employé
                 EmployeStatusReportMenu();
-
                 break;
             case "4": // Générer un talon de paie employé
                 EmployeTalonPaieMenu();
-
                 break;
             default:
                 break;
         }
 
-        EmployeeMainMenu();
+        MainMenu();
     }
 
     public void EmployeWorkStatusReport() {
         String startDate = view.promptStartDateSelection();
         String endDate = view.promptEndDateSelection();
-
         view.displayRapport(model.getEmployeWorkStatusReport(currentEmployee.getID()));
-
         view.promptEnterToContinue();
     }
 
@@ -108,7 +113,6 @@ public class EmployeController {
             case "2":
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
-
                 view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID(), dateDebut, dateFin));
                 break;
             default:
@@ -121,13 +125,12 @@ public class EmployeController {
         String timePeriodeSelection = view.promptStartDateType();
 
         switch (timePeriodeSelection) {
-            case "1":
+            case "1": // la dernière période de paie
                 view.displayRapport(model.getRapportEtatEmploye(currentEmployee.getID()));
                 break;
-            case "2":
+            case "2": // à partir du période que vous choisissez
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
-
                 view.displayRapport(model.getRapportEtatEmploye(currentEmployee.getID(), dateDebut, dateFin));
                 break;
             default:
@@ -137,7 +140,7 @@ public class EmployeController {
     }
     
     public void StartTaskMenu() {
-        // Selectionne un projet
+        // 1. Selectionne un projet qu'il est assigné
         List<Project> projectList = currentEmployee.getProjectsAssignesList();
 
         String projectSelection = view.promptProjectSelection(projectList);
@@ -146,26 +149,23 @@ public class EmployeController {
         Project project = projectList.get(projectIndex - 1);
         List<Discipline> disciplineList = project.getDisciplinesList();
 
-        // Selectionne une discipline
+        // 2. Selectionne une discipline du projet sélectionné
         String disciplineSelection = view.promptDisciplineSelection(disciplineList);
         int disciplineIndex = Integer.parseInt(disciplineSelection);
 
         Discipline discipline = disciplineList.get(disciplineIndex - 1);
 
+        //3. Décide de commencer ou pas
         String startDecision = view.promptStartTimer(project.toString() + discipline.toString());
 
         switch (startDecision) {
             case "y":
-
                 employeLog = model.startTask(currentEmployee, project, discipline);
-
                 displayEndTaskMenu();
-
                 break;
             case "n":
-                EmployeeMainMenu();
+                MainMenu();
                 break;
-
             default:
                 break;
         }
@@ -179,7 +179,7 @@ public class EmployeController {
             case "y":
                 model.endTask(employeLog);
 
-                EmployeeMainMenu();
+                MainMenu();
                 break;
             case "n":
                 displayEndTaskMenu();

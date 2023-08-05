@@ -15,6 +15,11 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public String promptLogout() {
+        System.out.println("Veux-tu te déconnecté? (y/n)");
+        return scanner.nextLine();
+    }
+
     public String promptProjectSelection(List<?> list) {
         System.out.println("Selectionne un project");
         return promptObjectSelection(list);
@@ -35,6 +40,10 @@ public class TimeLogView {
 
     public void displayLoginSuccessMessage() {
         System.out.println("Login successful!");
+    }
+
+    public void displayLogoutMessage() {
+        System.out.println("Logout successful!");
     }
 
     public void displayLoginErrorMessage() {

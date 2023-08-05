@@ -25,13 +25,25 @@ public class AdministratorController {
         if (admin != null) {
             currentAdmin = admin;
             view.displayLoginSuccessMessage();
-            AdministratorMenu();
+            MainMenu();
         } else {
             view.displayLoginErrorMessage();
         }
     }
 
-    public void AdministratorMenu() {
+    public void logout() {
+        String logoutDecision = view.promptLogout();
+        
+        switch (logoutDecision) {
+            case "y":
+                break;
+            default:
+                MainMenu();
+                break;
+        }
+    }
+
+    public void MainMenu() {
         String adminAction = view.promptAdministratorMainMenu();
 
         switch (adminAction) {
@@ -40,6 +52,9 @@ public class AdministratorController {
                 break;
             case "2": // Générer des rapports
                 
+                break;
+            case "3": // Logout
+                logout();
                 break;
             default:
                 break;
