@@ -3,14 +3,15 @@ package tlsys.controller;
 import tlsys.model.Administrator;
 import tlsys.model.Employe;
 import tlsys.model.TimeLogModel;
+import tlsys.view.AdministratorView;
 import tlsys.view.TimeLogView;
 
 public class AdministratorController {
     private TimeLogModel model;
-    private TimeLogView view;
+    private AdministratorView view;
     private Administrator currentAdmin;
 
-    public AdministratorController(TimeLogModel model, TimeLogView view) {
+    public AdministratorController(TimeLogModel model, AdministratorView view) {
         this.model = model;
         this.view = view;
     }

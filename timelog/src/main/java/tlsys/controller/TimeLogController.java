@@ -1,16 +1,10 @@
 package tlsys.controller;
 
-import tlsys.model.Administrator;
-import tlsys.model.Employe;
-import tlsys.model.Project;
-import tlsys.model.Discipline;
-import tlsys.model.TimeLogModel;
-import tlsys.model.EmployeLog;
-import tlsys.view.TimeLogView;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.time.Instant;
+import tlsys.model.TimeLogModel;
+import tlsys.view.AdministratorView;
+import tlsys.view.EmployeView;
+import tlsys.view.TimeLogView;
 
 /*
  * le package controller agit comme un intermédiaire entre model et view
@@ -37,12 +31,12 @@ public class TimeLogController {
 
         switch (loginMethod) {
             case "1": // Employee Login
-                EmployeController employeController = new EmployeController(model, view);
+                EmployeController employeController = new EmployeController(model, new EmployeView());
                 employeController.login();
 
                 break;
             case "2": // Admin Login
-                AdministratorController administratorController = new AdministratorController(model, view);
+                AdministratorController administratorController = new AdministratorController(model, new AdministratorView());
                 administratorController.login();
 
                 break;

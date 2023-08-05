@@ -7,15 +7,16 @@ import tlsys.model.Employe;
 import tlsys.model.EmployeLog;
 import tlsys.model.Project;
 import tlsys.model.TimeLogModel;
+import tlsys.view.EmployeView;
 import tlsys.view.TimeLogView;
 
 public class EmployeController {
     private TimeLogModel model;
-    private TimeLogView view;
+    private EmployeView view;
     private Employe currentEmployee;
     private EmployeLog employeLog;
 
-    public EmployeController(TimeLogModel model, TimeLogView view) {
+    public EmployeController(TimeLogModel model, EmployeView view) {
         this.model = model;
         this.view = view;
     }
@@ -96,7 +97,7 @@ public class EmployeController {
 
         view.promptEnterToContinue();
     }
-    
+
     public void EmployeTalonPaieMenu() {
         String timePeriodeSelection = view.promptStartDateType();
 
