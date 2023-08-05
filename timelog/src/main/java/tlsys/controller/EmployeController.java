@@ -5,6 +5,7 @@ import java.util.List;
 import tlsys.model.Discipline;
 import tlsys.model.Employe;
 import tlsys.model.EmployeLog;
+import tlsys.model.PayRoll;
 import tlsys.model.Project;
 import tlsys.model.Rapport;
 import tlsys.model.TimeLogModel;
@@ -16,11 +17,13 @@ public class EmployeController {
     private Employe currentEmployee;
     private EmployeLog employeLog;
     private Rapport rapports;
+    private PayRoll payroll;
 
     public EmployeController(TimeLogModel model, EmployeView view) {
         this.model = model;
         this.view = view;
         this.rapports = new Rapport(model);
+        this.payroll = new PayRoll(model);
     }
 
     public void login() {
@@ -72,6 +75,7 @@ public class EmployeController {
                 break;
             case "4": // Générer votre talon de paie avec le système Payroll
                 //TODO
+                payRollMenu();
                 break;                
             case "5": // Logout
                 logout();
@@ -79,6 +83,11 @@ public class EmployeController {
                 break;
         }
 
+    }
+
+    public void payRollMenu() {
+        payroll.printPay();
+        mainMenu();
     }
 
     public void EmployeRapportMenu() {
@@ -138,13 +147,13 @@ public class EmployeController {
 
         switch (timePeriodeSelection) {
             case "1":
-                view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID()));
+                view.displayRapport(rapports.getTalonPaietoString(currentEmployee.getID(), "default", "default"));
                 mainMenu();
                 break;
             case "2":
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
-                view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                view.displayRapport(rapports.getTalonPaietoString(currentEmployee.getID(), dateDebut, dateFin));
                 mainMenu();
                 break;
             default:

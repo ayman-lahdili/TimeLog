@@ -605,13 +605,13 @@ public class AdministratorController {
 
             switch (timePeriodeSelection) {
                 case "1":
-                    view.displayRapport(model.getTalonPaieEmploye(employe.getID()));
+                    view.displayRapport(rapports.getTalonPaietoString(employe.getID(), "default", "default"));
                     mainMenu();
                     break;
                 case "2":
                     String dateDebut = view.promptStartDateSelection();
                     String dateFin = view.promptEndDateSelection();
-                    view.displayRapport(model.getTalonPaieEmploye(employe.getID(), dateDebut, dateFin));
+                    view.displayRapport(rapports.getTalonPaietoString(employe.getID(), dateDebut, dateFin));
                     mainMenu();
                     break;
                 default:
