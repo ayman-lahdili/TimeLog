@@ -264,14 +264,6 @@ public class TimeLogModel {
         return employeLogList;
     }
 
-    public int getNPE() {
-        return NPE;
-    }
-
-    public List<Discipline> getdefaultDisciplineList() {
-        return defaultDisciplinesNameList;
-    }
-
     public EmployeLog startTask(Employe employeeID, Project project, Discipline discipline) {
         return new EmployeLog(employeeID, project, discipline, timer.start(), null);
     }
@@ -300,10 +292,8 @@ public class TimeLogModel {
         return null;
     }
 
-    public String getEmployeWorkStatusReport(int employeeID) {
-        String rapport = "";
-        //TODO
-        return rapport;
+    public List<Discipline> getdefaultDisciplineList() {
+        return defaultDisciplinesNameList;
     }
 
     public String getTalonPaieAllEmploye() {
@@ -377,12 +367,17 @@ public class TimeLogModel {
                 ", Salaire net = " + salaireNet +
                 "}";
     }
+    
+    public int getNPE() {
+        return NPE; //TODO
+    }
 
     public boolean setNPE(int newNPE) {
         return false; //TODO
     }
 
-    public boolean addEmployee() {
+    public boolean addEmployee(int iD, String nom, String dateEmbauche, String dateDepart, int nAS, int numeroPoste,
+    double tauxHoraireBase, double tauxHoraireTempsSupplementaire) {
         return false;
     }
 

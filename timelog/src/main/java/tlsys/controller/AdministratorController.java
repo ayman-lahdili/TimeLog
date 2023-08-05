@@ -149,7 +149,8 @@ public class AdministratorController {
         switch (modificationDecision) {
             case "y":
                 ;
-                view.displayModifySuccessMessage(model.addEmployee());// TODO
+                view.displayModifySuccessMessage(model.addEmployee(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste,
+                tauxHoraireBase, tauxHoraireTempsSupplementaire));
                 break;
             case "n":
                 break;
