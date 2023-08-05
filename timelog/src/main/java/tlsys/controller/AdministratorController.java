@@ -225,15 +225,12 @@ public class AdministratorController {
                 case "1": // Modifier l'assignation des employés à des projets
                     // TODO
                     List<Project> newEmployeProjectList = new ArrayList<Project>();
-                    String continueDecision = view.promptContinueDecision();
-                    System.out.println("here "+continueDecision);
-                    while (continueDecision == "y") {
-                        System.out.println(continueDecision);
+
+                    for (int i=0; i<model.getNPE(); i++) {
                         List<Project> projectList = model.getProjectList();
                         int projectIndex = Integer.parseInt(view.promptProjectSelection(projectList));
                         Project project = projectList.get(projectIndex - 1);
                         newEmployeProjectList.add(project);
-                        continueDecision = view.promptContinueDecision();
                     }
 
                     view.displayModifySuccessMessage(employe_to_modify.setProjectsAssignesList(newEmployeProjectList));
