@@ -24,6 +24,11 @@ public class TimeLogView {
         System.out.println("Selectionne un project");
         return promptObjectSelection(list);
     }
+    
+    public String promptContinueDecision() {
+        System.out.println("Veux-tu ajouter? (y/n) ");
+        return scanner.nextLine(); 
+    }
 
     public String promptDisciplineSelection(List<?> list) {
         System.out.println("Selectionne une discipline");
@@ -59,6 +64,21 @@ public class TimeLogView {
         System.out.println("Souhaitez-vous modifier se paramètre");
         return scanner.nextLine();
     }
+
+    public String promptNewParameterDecision(String parameterName) {
+        System.out.println(parameterName+":\t");
+        return scanner.nextLine();
+    }
+
+    public String promptConfirmationObjectAddition(String objectName) {
+        System.out.println("Êtes-vous sur d'ajouter le suivant:\t"+ objectName);
+        return scanner.nextLine();
+    }
+
+    public String promptConfirmationObjectRemoval(String objectName) {
+        System.out.println("Êtes-vous sur de retirer le suivant:\t"+ objectName);
+        return scanner.nextLine();
+    }    
 
     public void displayLoginErrorMessage() {
         System.out.println("Invalid username or password. Please try again.");

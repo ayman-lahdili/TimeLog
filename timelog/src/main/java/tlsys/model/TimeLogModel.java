@@ -489,4 +489,12 @@ public class TimeLogModel {
         return false; //TODO
     }
 
+    public boolean addEmployee() {
+        return false;
+    }
+
+    public boolean removeEmployee(Employe employe_to_remove) {
+        return false;
+    }
+
 }

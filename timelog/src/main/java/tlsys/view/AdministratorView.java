@@ -22,8 +22,13 @@ public class AdministratorView extends TimeLogView {
         return scanner.nextLine();
     }
 
-    public String promptAdministratorEmplpoyeeModificationMenu() {
-        System.out.println("[1] Modifier le NPE [2] Modifier les paramètres d'un employé");
+    public String promptEmployeeModificationMenu() {
+        System.out.println("[1] Modifier le NPE [2] Modifier les paramètres d'un employé [3] Modifier la liste des employés");
+        return scanner.nextLine();
+    }
+
+    public String promptAddOrRemoveMenu(String listToModifiy) {
+        System.out.println("Veux-tu [1] ajouter ou [2] retirer un "+listToModifiy);
         return scanner.nextLine();
     }
 

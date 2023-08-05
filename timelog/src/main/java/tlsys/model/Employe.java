@@ -36,16 +36,18 @@ public class Employe {
         return ID;
     }
 
-    public void setID(int iD) {
+    public boolean setID(int iD) {
         ID = iD;
+        return true; //TODO
     }
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
+    public boolean setNom(String nom) {
         this.nom = nom;
+        return true; //TODO    
     }
 
     public String getDateEmbauche() {
@@ -100,8 +102,9 @@ public class Employe {
         return projectsAssignesList;
     }
 
-    public void setProjectsAssignesList(List<Project> projetsIDAssignesList) {
+    public boolean setProjectsAssignesList(List<Project> projetsIDAssignesList) {
         this.projectsAssignesList = projetsIDAssignesList;
+        return true; //TODO
     }
 
 }
