@@ -56,7 +56,7 @@ public class JsonFileManager {
                 Discipline discipline = new Discipline(name, (double) heuresBudgetees, (double) heuresTotalesConsacre);
                 defaultDisciplineList.add(discipline);
             }
-            
+
             return defaultDisciplineList;
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -235,6 +235,26 @@ public class JsonFileManager {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean post(Employe obj) {
+        return false;
+    }
+
+    public boolean post(Project obj) {
+        return false;
+    }
+
+    public boolean delete(Employe obj) {
+        return false;
+    }
+
+    public boolean delete(Project obj) {
+        return false;
+    }
+
+    public boolean setNPE(int newNPE) {
+        return false;
     }
 
     

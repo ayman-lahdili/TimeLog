@@ -175,9 +175,8 @@ public class AdministratorController {
 
             switch (modificationDecision) {
                 case "y":
-                    view.displayModifySuccessMessage(
-                            model.addEmployee(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste,
-                                    tauxHoraireBase, tauxHoraireTempsSupplementaire));
+                    Employe newEmploye = model.createEmploye(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste, tauxHoraireBase, tauxHoraireTempsSupplementaire);
+                    view.displayModifySuccessMessage(model.post(newEmploye));
                     break;
                 case "n":
                     mainMenu();
@@ -204,7 +203,7 @@ public class AdministratorController {
 
             switch (adminAction) {
                 case "y":
-                    view.displayModifySuccessMessage(model.removeEmployee(employe_to_remove));// TODO
+                    view.displayModifySuccessMessage(model.delete(employe_to_remove));// TODO
                     mainMenu();
                     break;
                 case "n":
@@ -456,7 +455,8 @@ public class AdministratorController {
 
             switch (modificationDecision) {
                 case "y":
-                    view.displayModifySuccessMessage(model.addProject());// TODO
+                    Project newProject = model.createProject(ID, name, dateDebut, dateFin, disciplinesList);
+                    view.displayModifySuccessMessage(model.post(newProject));
                     mainMenu();
                     break;
                 case "n":
@@ -513,7 +513,7 @@ public class AdministratorController {
 
             switch (adminAction) {
                 case "y":
-                    view.displayModifySuccessMessage(model.removeProject(project_to_remove));
+                    view.displayModifySuccessMessage(model.delete(project_to_remove));
                     mainMenu();
                     break;
                 case "n":

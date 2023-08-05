@@ -61,10 +61,6 @@ public class TimeLogModel {
         return ressourcePath;
     }
 
-    public void saveEmployeLog(EmployeLog log) {
-        fm.post(log);
-    }
-
     public Employe authenticateEmploye(int ID, String username) {
         for (Employe employe : employeList) {
             if (employe.getID() == ID && employe.getNom().equals(username)) {
@@ -102,7 +98,7 @@ public class TimeLogModel {
 
     public EmployeLog endTask(EmployeLog log) {
         log.setEndDateTime(timer.stop());
-        saveEmployeLog(log);
+        post(log);
         return log;
     }
 
@@ -204,29 +200,44 @@ public class TimeLogModel {
         return NPE; //TODO
     }
 
-    public boolean setNPE(int newNPE) {
-        return false; //TODO
-    }
-
-    public boolean addEmployee(int iD, String nom, String dateEmbauche, String dateDepart, int nAS, int numeroPoste,
-        double tauxHoraireBase, double tauxHoraireTempsSupplementaire) {
-        return false;
-    }
-
-    public boolean removeEmployee(Employe employe_to_remove) {
-        return false;
-    }
-
-    public boolean addProject() {
-        return false;
+    public Employe createEmploye(int iD, String nom, String dateEmbauche, String dateDepart, int nAS, int numeroPoste,
+    double tauxHoraireBase, double tauxHoraireTempsSupplementaire) {
+        return new Employe(iD, nom, dateEmbauche, dateDepart, nAS, numeroPoste, tauxHoraireBase, tauxHoraireTempsSupplementaire, new ArrayList<Project>());
     }
 
     public Discipline createNewDiscipline(String name, int heuresBudgetees) {
-        return null;
+        return new Discipline(name, heuresBudgetees, 0.0);
     }
 
-    public boolean removeProject(Project project_to_remove) {
+    public Project createProject(int iD, String name, String dateDebut, String dateFin, List<Discipline> disciplinesList) {
+        return new Project(iD, name, dateDebut, dateFin, disciplinesList);
+    }
+
+    public boolean post(Object obj) {
+        if (obj instanceof EmployeLog) {
+            return fm.post((EmployeLog) obj);
+        }
+        if (obj instanceof Employe) {
+            return fm.post((Employe) obj);
+        }
+        if (obj instanceof Project) {
+            return fm.post((Project) obj);
+        }
         return false;
     }
 
+    public boolean delete(Object obj) {
+        if (obj instanceof Employe) {
+            return fm.delete((Employe) obj);
+        }
+        if (obj instanceof Project) {
+            return fm.delete((Project) obj);
+        }
+        return false;
+    }
+
+    public boolean setNPE(int newNPE) {
+        return fm.setNPE(newNPE);
+    }
+    
 }
