@@ -7,6 +7,7 @@ import tlsys.model.Administrator;
 import tlsys.model.Discipline;
 import tlsys.model.Employe;
 import tlsys.model.Project;
+import tlsys.model.Rapport;
 import tlsys.model.TimeLogModel;
 import tlsys.view.AdministratorView;
 
@@ -14,10 +15,12 @@ public class AdministratorController {
     private TimeLogModel model;
     private AdministratorView view;
     private Administrator currentAdmin;
+    private Rapport rapports;
 
     public AdministratorController(TimeLogModel model, AdministratorView view) {
         this.model = model;
         this.view = view;
+        this.rapports = new Rapport(model);
     }
 
     public void login() {
@@ -421,10 +424,10 @@ public class AdministratorController {
                 int projectIndex = Integer.parseInt(projectSelection);
                 Project project = projectList.get(projectIndex - 1);
 
-                view.displayRapport(model.getRapportEtatProjet(project.getID()));
+                view.displayRapport(rapports.getRapportEtatProjet(project.getID()));
                 break;
             case "2": // Générer un rapport d'état global
-                view.displayRapport(model.getRapportEtatGlobale());
+                view.displayRapport(rapports.getRapportEtatGlobale());
                 break;
             case "3": // Générer un rapport d'état employé
                 AdministratorStatusReportMenu();
@@ -447,12 +450,12 @@ public class AdministratorController {
 
         switch (timePeriodeSelection) {
             case "1": // la dernière période de paie
-                view.displayRapport(model.getRapportEtatEmploye(employe.getID()));
+                view.displayRapport(rapports.getRapportEtatEmploye(employe.getID()));
                 break;
             case "2": // à partir du période que vous choisissez
                 String dateDebut = view.promptStartDateSelection();
                 String dateFin = view.promptEndDateSelection();
-                view.displayRapport(model.getRapportEtatEmploye(employe.getID(), dateDebut, dateFin));
+                view.displayRapport(rapports.getRapportEtatEmploye(employe.getID(), dateDebut, dateFin));
                 break;
             default:
                 break;
