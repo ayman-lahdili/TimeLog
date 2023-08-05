@@ -36,6 +36,35 @@ public class Rapport {
     public String getRapportEtatProjet(int ID) {
         Project project = model.getProjectByID(ID);
         List<Discipline> disciplines = project.getDisciplinesList();
+    
+        int nbreHeuresTotales = 0;
+        int nbreHeuresBudgeteesTotales = 0;
+        StringBuilder rapport = new StringBuilder();
+    
+        for (Discipline discipline : disciplines) {
+            int heuresBudgetees = discipline.getHeuresBudgetees();
+            nbreHeuresBudgeteesTotales += heuresBudgetees;
+    
+            int nbreHeuresConsacrees = discipline.getHeuresTotalesConsacre();
+            int pctAvancement = (nbreHeuresConsacrees * 100) / heuresBudgetees;
+    
+            nbreHeuresTotales += nbreHeuresConsacrees;
+    
+            rapport.append(String.format("Nombre d’heures travaillées pour %s = %d, Pourcentage d’avancement = %d%%\n",
+                discipline.getName(), nbreHeuresConsacrees, pctAvancement));
+        }
+    
+        int pctProjet = (nbreHeuresTotales * 100) / nbreHeuresBudgeteesTotales;
+    
+        rapport.append(String.format("Nombre d’heures travaillées pour Projet%d = %d, Pourcentage d’avancement pour Projet%d = %d%%",
+            ID, nbreHeuresTotales, ID, pctProjet));
+    
+        return "Project" + ID + "{" + rapport.toString() + "}";
+    }
+
+    /*public String getRapportEtatProjet(int ID) {
+        Project project = model.getProjectByID(ID);
+        List<Discipline> disciplines = project.getDisciplinesList();
 
         int nbreHeuresDesign1 = 0;
         int pctDesign1 = 0;
@@ -105,34 +134,52 @@ public class Rapport {
                 ", Nombre d’heures travaillées pour Projet1 = " + nbreHeuresTotales + '\'' +
                 ", Pourcentage d’avancement pour Projet1 = " + pctProjet +
                 "}";
-    }
-
-    public String getRapportEtatEmploye(int ID) {
-        String rapport = "";
-
-        return rapport;
-    }
+    }*/
 
     public String getRapportEtatEmploye(int ID, String debut, String fin) {
         List<Project> projects = model.getProjectList();
-        List<Employe> employes = model.getEmployeList();
+        //List<Employe> employes = model.getEmployeList();
+        Employe employe = model.getEmployeByID(ID);
         Map<Integer, double[]> heures = new HashMap<Integer, double[]>();
         String rapport = "";
 
         heures = getHeures(ID, debut, fin);
 
-        /*for(Project project : projects){
+        for(Project project : projects){
             int projectID = project.getID();
+
+            if(heures.get(projectID) != null){
             double [] projectHours = heures.get(projectID);
+
+            double salaireBase = employe.getTauxHoraireBase();
+            double salaireTempsSupplementaire = employe.getTauxHoraireTempsSupplementaire();
+            double salaireBrut = salaireBase * projectHours[0] + salaireTempsSupplementaire * projectHours[3];
+            double salaireNet = salaireBrut * 0.6;
            
-            rapport += "Projet" +projectID +"{Temps fait = " +projectHours[0] +":" +projectHours[1] +":" +projectHours[2] +", Temps supplémentaire fait = " +projectHours[3] +":" +projectHours[4] +":" +projectHours[5] +"}" +"\n";
-        }*/
+            rapport += "Projet" +projectID +"{Heures faites = " +projectHours[0] +", Minutes faites = " +projectHours[1] +", Secondes faites = " +projectHours[2] +", Heures supplémentaire faites = " +projectHours[3] +", Minutes supplémentaire faites = " +projectHours[4] +", Secondes supplémentaire faites = " +projectHours[5] +", Salaire brut généré = " +salaireBrut +", Salaire net généré = " +salaireNet +"}" +"\n" +"\n";
+            }
+        }
 
         double [] hoursWorked = heures.get(-1);
         double [] salaire = getTalonPaieEmploye(ID, debut, fin);
 
-        return rapport += "Heures en total faites = " +hoursWorked[0] +", Minutes en total faites = " +hoursWorked[1] +", Secondes en total faites = " +hoursWorked[2] +", Heures supplémentaires en total faites = " +hoursWorked[3] +", Minutes supplémentaires en total faites = " +hoursWorked[4] +", Secondes supplémentaires en total faites = " +hoursWorked[5] +"\n" +"Salaire brute pour la période sélectionné = " +salaire[0] +", Salaire net pour la période sélectionné = " +salaire[1];
+        return rapport += "Heures en total faites = " +hoursWorked[0] +", Minutes en total faites = " +hoursWorked[1] +", Secondes en total faites = " +hoursWorked[2] +", Heures supplémentaires en total faites = " +hoursWorked[3] +", Minutes supplémentaires en total faites = " +hoursWorked[4] +", Secondes supplémentaires en total faites = " +hoursWorked[5] +"\n" +"\n" +"Salaire brute pour la période sélectionné = " +salaire[0] +", Salaire net pour la période sélectionné = " +salaire[1];
      }
+
+    public String getTalonPaieGlobal(String debut, String fin){
+        String rapport = "";
+        List<Employe> employeList = model.getEmployeList();
+
+        if (employeList.size() == 0) {
+            return null;
+        } else {
+            for (Employe employe: employeList) {
+                rapport += getTalonPaietoString(employe.getID(), debut, fin) + "\n";
+            }
+        }
+
+        return rapport;
+    }
 
     public double [] getTalonPaieEmploye(int ID, String debut, String fin) {
         Employe employe = model.getEmployeByID(ID);
@@ -155,22 +202,7 @@ public class Rapport {
     public String getTalonPaietoString(int ID, String debut, String fin){
         double [] salaire = getTalonPaieEmploye(ID, debut, fin);
 
-        return "Salaire brute = " +salaire[0] +" Salaire Net = " +salaire[1];
-    }
-
-    public String getTalonPaieGlobal(String debut, String fin){
-        String rapport = "";
-        List<Employe> employeList = model.getEmployeList();
-
-        if (employeList.size() == 0) {
-            return null;
-        } else {
-            for (Employe employe: employeList) {
-                rapport += getTalonPaietoString(employe.getID(), debut, fin) + "\n";
-            }
-        }
-
-        return rapport;
+        return "Salaire brut = " +salaire[0] +" Salaire Net = " +salaire[1];
     }
 
     public Map<Integer, double[]> getHeures(int ID, String debut, String fin) {
@@ -185,9 +217,6 @@ public class Rapport {
             int daysUntilThursday = (DayOfWeek.THURSDAY.getValue() + 7 - startOfLastWeek.getDayOfWeek().getValue()) % 7;             
             start = startOfLastWeek.plusDays(daysUntilThursday);             
             end = start.plusWeeks(2);
-
-            System.out.println("Start Date: " + start);
-            System.out.println("End Date: " + end);
         } else {
             start = LocalDate.parse(debut);
             end = LocalDate.parse(fin);
