@@ -53,6 +53,14 @@ public class AdministratorView extends TimeLogView {
         return scanner.nextLine();
     }
 
+    public String promptAdministratorRapportMenuSelection() {
+        System.out.println("[1]\tGénérer un rapport d'état pour un projet");
+        System.out.println("[2]\tGénérer un rapport d'état global");
+        System.out.println("[3]\tGénérer un rapport d'état pour un employé");
+        System.out.println("[4]\tGénérer un talon de paie pour une période");
+        return scanner.nextLine();
+    }
+
     public String promptAdministratorGetEmployeeID() {
         System.out.println("Entrer le ID de l'employé");
         return scanner.nextLine();

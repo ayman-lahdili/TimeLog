@@ -55,7 +55,7 @@ public class AdministratorController {
                 ModificationMenu();
                 break;
             case "2": // Générer des rapports
-                
+                RapportMenu();
                 break;
             case "3": // Logout
                 logout();
@@ -409,6 +409,76 @@ public class AdministratorController {
                 break;
         }
         MainMenu();
+    }
+
+    public void RapportMenu() {
+        String rapportSelection = view.promptAdministratorRapportMenuSelection();
+
+        switch (rapportSelection) {
+            case "1": // Générer un rapport d'état pour un projet
+                List<Project> projectList = model.getProjectList();
+                String projectSelection = view.promptProjectSelection(projectList);
+                int projectIndex = Integer.parseInt(projectSelection);
+                Project project = projectList.get(projectIndex - 1);
+
+                view.displayRapport(model.getRapportEtatProjet(project.getID()));
+                break;
+            case "2": // Générer un rapport d'état global
+                view.displayRapport(model.getRapportEtatGlobale());
+                break;
+            case "3": // Générer un rapport d'état employé
+                AdministratorStatusReportMenu();
+                break;
+            case "4": // Générer un talon de paie employé
+                EmployeTalonPaieMenu();
+                break;
+            default:
+                break;
+        }
+
+        MainMenu();
+    }
+
+    public void AdministratorStatusReportMenu() {
+        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+        Employe employe = model.getEmployeByID(employeID);
+
+        String timePeriodeSelection = view.promptStartDateType();
+
+        switch (timePeriodeSelection) {
+            case "1": // la dernière période de paie
+                view.displayRapport(model.getRapportEtatEmploye(employe.getID()));
+                break;
+            case "2": // à partir du période que vous choisissez
+                String dateDebut = view.promptStartDateSelection();
+                String dateFin = view.promptEndDateSelection();
+                view.displayRapport(model.getRapportEtatEmploye(employe.getID(), dateDebut, dateFin));
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void EmployeTalonPaieMenu() {
+        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+        Employe employe = model.getEmployeByID(employeID);
+
+        String timePeriodeSelection = view.promptStartDateType();
+
+        switch (timePeriodeSelection) {
+            case "1":
+                view.displayRapport(model.getTalonPaieEmploye(employe.getID()));
+                break;
+            case "2":
+                String dateDebut = view.promptStartDateSelection();
+                String dateFin = view.promptEndDateSelection();
+                view.displayRapport(model.getTalonPaieEmploye(employe.getID(), dateDebut, dateFin));
+                break;
+            default:
+                break;
+        }
+
     }
 
 }
