@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -92,11 +93,17 @@ public class TimeLogModel {
                 int numeroPoste = ((Long) employeeObject.get("numeroPoste")).intValue();
                 double tauxHoraireBase = (double) employeeObject.get("tauxHoraireBase");
                 double tauxHoraireTempsSupplementaire = (double) employeeObject.get("tauxHoraireTempsSupplementaire");
-                List<Integer> projetsAssignes = (List<Integer>) employeeObject.get("projetsAssignes");
+                JSONArray projetsAssignes = (JSONArray) employeeObject.get("projetsAssignes");
+
+                List<Project> projetsAssignesList = new ArrayList<Project>();
+                for (Object projectIDObject: projetsAssignes) {
+                    int projectID = ((Long) projectIDObject).intValue();
+                    projetsAssignesList.add(getProjectByID((Integer) projectID));
+                }
 
                 // Create the Employe object and add it to the employeList
                 Employe employe = new Employe(id, name, dateEmbauche, dateDepart, nas, numeroPoste, tauxHoraireBase,
-                        tauxHoraireTempsSupplementaire, projetsAssignes);
+                        tauxHoraireTempsSupplementaire, projetsAssignesList);
                 employeList.add(employe);
             }
         } catch (Exception e) {
@@ -293,6 +300,12 @@ public class TimeLogModel {
         return null;
     }
 
+    public String getEmployeWorkStatusReport(int employeeID) {
+        String rapport = "";
+        //TODO
+        return rapport;
+    }
+
     public String getRapportEtatGlobale() {
         String rapport = "";
         List<Project> projectList = getProjectList();
@@ -383,7 +396,13 @@ public class TimeLogModel {
     }
 
     
-    public String getRapportEtatEmploye(String debut, String fin) {
+    public String getRapportEtatEmploye(int ID) {
+        String rapport = "";
+
+        return rapport;
+    }
+
+    public String getRapportEtatEmploye(int ID, String debut, String fin) {
         String rapport = "";
         List<Employe> employeList = getEmployeList();
 
@@ -392,10 +411,18 @@ public class TimeLogModel {
         }
 
         return rapport;
-     }
-     
+    }
+
+    public String getTalonPaieAllEmploye() {
+        String rapport = "";
+
+        return rapport;
+    }
+    
     public String getTalonPaieEmploye(int ID) {
-        return "";
+        String rapport = "";
+
+        return rapport;
     }
 
     public String getTalonPaieEmploye(int ID, String debut, String fin) {

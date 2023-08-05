@@ -36,9 +36,46 @@ public class TimeLogView {
     }
 
     public String promptEmployeMainMenu() {
-        System.out.println("[1] Commencer un tâches [2] Générer des rapport");
+        System.out.println("[1] Commencer un tâches\n[2] Générer des rapport\n[3] Obtenir le nombre d'heures travaillées");
         return scanner.nextLine();
     }
+
+    public String promptAdministratorMainMenu() {
+        System.out.println("[1] Faire des modifications aux paramètres du système\n[2] Générer des rapports");
+        return scanner.nextLine();
+    }
+
+    public String promptAdministratorModificationMenu() {
+        System.out.println("[1] Modifier les paramètres employés [2] Modifier les paramètres de projets");
+        return scanner.nextLine();
+    }
+
+    public String promptAdministratorEmplpoyeeModificationMenu() {
+        System.out.println("[1] Modifier le NPE [2] Modifier les paramètres d'un employé");
+        return scanner.nextLine();
+    }
+
+    public String promptAdministratorProjectModificationMenu() {
+        System.out.println("[1] Assignation des employés à des projets\n[2] Modifier la liste des employés\n[3] Modifier la liste des projets");
+        return scanner.nextLine();
+    }
+    
+
+    public String promptAdministratorModificationInputSelection() {
+        System.out.println("Entrer le nouveau champ que");
+        return scanner.nextLine();
+    }
+
+    public String promptAdministratorGetEmployeeID() {
+        System.out.println("Entrer le ID de l'employé");
+        return scanner.nextLine();
+    }    
+
+    public String promptAdministratorEmployeeParamsModificationMenu() {
+        System.out.println("[1] Modifier l'assignation des employés à des projets\n[2] Modifier le noms d'usager de l'employé\n[3] Modifier le ID de l'employé");
+        return scanner.nextLine();
+    }
+
 
     public String promptProjectSelection(List<?> list) {
         System.out.println("Selectionne un project");
@@ -92,6 +129,11 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public String promptStartDateType() {
+        System.out.println("Voulez-vous la générer à partir de [1] la dernière période de paie ou [2] à partir du période que vous choisissez");
+        return scanner.nextLine();
+    }
+
     public String promptStartDateSelection() {
         System.out.println("Entrer une date de début ("+dateFormat+")");
         return scanner.nextLine();
@@ -99,6 +141,11 @@ public class TimeLogView {
 
     public String promptEndDateSelection() {
         System.out.println("Entrer une date de fin ("+dateFormat+")");
+        return scanner.nextLine();
+    }
+
+    public String promptEnterToContinue() {
+    System.out.println("Presser la touche \"ENTRER\" pour retourner au menu");
         return scanner.nextLine();
     }
 

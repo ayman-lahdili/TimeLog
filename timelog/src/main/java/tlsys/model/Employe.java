@@ -12,10 +12,10 @@ public class Employe {
     private int numeroPoste;
     private double tauxHoraireBase;
     private double tauxHoraireTempsSupplementaire;
-    private List<Integer> projetsIDAssignesList;
+    private List<Project> projectsAssignesList;
 
     public Employe(int iD, String nom, String dateEmbauche, String dateDepart, int nAS, int numeroPoste,
-            double tauxHoraireBase, double tauxHoraireTempsSupplementaire, List<Integer> projetsAssignesList) {
+            double tauxHoraireBase, double tauxHoraireTempsSupplementaire, List<Project> projetsAssignesList) {
         ID = iD;
         this.nom = nom;
         this.dateEmbauche = dateEmbauche;
@@ -24,7 +24,7 @@ public class Employe {
         this.numeroPoste = numeroPoste;
         this.tauxHoraireBase = tauxHoraireBase;
         this.tauxHoraireTempsSupplementaire = tauxHoraireTempsSupplementaire;
-        this.projetsIDAssignesList = projetsAssignesList;
+        this.projectsAssignesList = projetsAssignesList;
     }
 
     @Override
@@ -94,6 +94,14 @@ public class Employe {
 
     public void setTauxHoraireTempsSupplementaire(double tauxHoraireTempsSupplementaire) {
         this.tauxHoraireTempsSupplementaire = tauxHoraireTempsSupplementaire;
+    }
+
+    public List<Project> getProjectsAssignesList() {
+        return projectsAssignesList;
+    }
+
+    public void setProjectsAssignesList(List<Project> projetsIDAssignesList) {
+        this.projectsAssignesList = projetsIDAssignesList;
     }
 
 }

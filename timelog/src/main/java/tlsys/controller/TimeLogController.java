@@ -88,6 +88,9 @@ public class TimeLogController {
             case "2": // Générer des rapports
                 EmployeRapportMenu();
                 break;
+            case "3": // Obtenir le nombre d'heures travaillées
+                EmployeWorkStatusReport();
+                break;
             default:
                 break;
         }
@@ -95,7 +98,101 @@ public class TimeLogController {
     }
 
     public void AdministratorMenu() {
-        // TODO
+        String adminAction = view.promptEmployeMainMenu();
+
+        switch (adminAction) {
+            case "1": // Faire des modifications au paramètre du système
+                AdministratorModificationMenu();
+                break;
+            case "2": // Générer des rapports
+                
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void AdministratorModificationMenu() {
+        String adminModificationChoice = view.promptAdministratorModificationMenu();
+
+        switch (adminModificationChoice) {
+            case "1": // Modifier les paramètres employés
+                AdministratorEmployeeModificationMenu();
+                break;
+            case "2": // Modifier les paramètres de projets
+                
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void AdministratorEmployeeModificationMenu() {
+        String adminAction = view.promptAdministratorEmplpoyeeModificationMenu();
+
+        switch (adminAction) {
+            case "1": // Modifier le NPE
+                int newNPE = Integer.parseInt(view.promptAdministratorModificationInputSelection());
+
+                //TODO model
+                break;
+            case "2": // Modifier les paramètres d'un employé
+                //TODO
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void AdministratorProjectModificationMenu() {
+        String adminAction = view.promptAdministratorProjectModificationMenu();
+
+        switch (adminAction) {
+            case "1": // Assignation des employés à des projets
+                // TODO
+                break;
+            case "2": // Modifier la liste des employés
+
+                break;
+            case "3": // Modifier la liste des projets
+
+                break;        
+            default:
+                break;
+        }
+    }
+
+
+    public void AdministratorEmployeeParamsModificationMenu() {
+        String adminAction = view.promptAdministratorEmployeeParamsModificationMenu();
+
+        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+
+        Employe employe_to_modify = model.getEmployeByID(employeID);
+
+        switch (adminAction) {
+            case "1": // Modifier l'assignation des employés à des projets
+                // TODO
+                break;
+            case "2": // Modifier le noms d'usager de l'employé
+                // TODO
+                break;
+            case "3": //  Modifier le ID de l'employé
+                // TODO
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void EmployeWorkStatusReport() {
+        String startDate = view.promptStartDateSelection();
+        String endDate = view.promptEndDateSelection();
+
+        view.displayRapport(model.getEmployeWorkStatusReport(currentEmployee.getID()));
+
+        view.promptEnterToContinue();
     }
 
     public void EmployeRapportMenu() {
@@ -118,14 +215,11 @@ public class TimeLogController {
 
                 break;
             case "3": // Générer un rapport d'état employé
-                String dateDebut = view.promptStartDateSelection();
-                String dateFin = view.promptEndDateSelection();
-
-                view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                EmployeStatusReportMenu();
 
                 break;
             case "4": // Générer un talon de paie employé
-                //TODO
+                EmployeTalonPaieMenu();
 
                 break;
             default:
@@ -135,9 +229,47 @@ public class TimeLogController {
         EmployeeMainMenu();
     };
 
+    public void EmployeStatusReportMenu() {
+        String timePeriodeSelection = view.promptStartDateType();
+
+        switch (timePeriodeSelection) {
+            case "1":
+                view.displayRapport(model.getRapportEtatEmploye(currentEmployee.getID()));
+                break;
+            case "2":
+                String dateDebut = view.promptStartDateSelection();
+                String dateFin = view.promptEndDateSelection();
+
+                view.displayRapport(model.getRapportEtatEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void EmployeTalonPaieMenu() {
+        String timePeriodeSelection = view.promptStartDateType();
+
+        switch (timePeriodeSelection) {
+            case "1":
+                view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID()));
+                break;
+            case "2":
+                String dateDebut = view.promptStartDateSelection();
+                String dateFin = view.promptEndDateSelection();
+
+                view.displayRapport(model.getTalonPaieEmploye(currentEmployee.getID(), dateDebut, dateFin));
+                break;
+            default:
+                break;
+        }
+
+    }
+
     public void StartTaskMenu() {
         // Selectionne un projet
-        List<Project> projectList = model.getProjectList();
+        List<Project> projectList = currentEmployee.getProjectsAssignesList();
 
         String projectSelection = view.promptProjectSelection(projectList);
         int projectIndex = Integer.parseInt(projectSelection);
