@@ -34,6 +34,8 @@ public class TimeLogModel {
         // Load data from the JSON files when the TimeLogModel object is created
         fm = new JsonFileManager(getRessourcePath(), this);
         
+        NPE = fm.loadNPE();
+        defaultDisciplinesNameList = fm.loadDefaultDisciplineList();
         projectList = fm.loadProjectData();
         employeList = fm.loadEmployeData();
         administratorList = fm.loadAdministratorData();

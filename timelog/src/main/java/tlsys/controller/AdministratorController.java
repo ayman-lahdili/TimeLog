@@ -58,10 +58,11 @@ public class AdministratorController {
                 modificationMenu();
                 break;
             case "2": // Générer des rapports
-                RapportMenu();
+                rapportMenu();
                 break;
-            case "3": // Générer les talons de paies de l'ensemble des employés avec le système Payroll
-                //TODO
+            case "3": // Générer les talons de paies de l'ensemble des employés avec le système
+                      // Payroll
+                // TODO
                 break;
             case "4": // Logout
                 logout();
@@ -126,7 +127,7 @@ public class AdministratorController {
                     view.displayInvalidInputWarning();
                     NPEModificationMenu();
                     break;
-            } 
+            }
         } catch (Exception e) {
             view.displayInvalidInputWarning();
             NPEModificationMenu();
@@ -166,8 +167,9 @@ public class AdministratorController {
 
             switch (modificationDecision) {
                 case "y":
-                    view.displayModifySuccessMessage(model.addEmployee(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste,
-                    tauxHoraireBase, tauxHoraireTempsSupplementaire));
+                    view.displayModifySuccessMessage(
+                            model.addEmployee(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste,
+                                    tauxHoraireBase, tauxHoraireTempsSupplementaire));
                     break;
                 case "n":
                     mainMenu();
@@ -176,12 +178,11 @@ public class AdministratorController {
                     view.displayInvalidInputWarning();
                     addEmployeeMenu();
                     break;
-            }            
+            }
         } catch (Exception e) {
             view.displayInvalidInputWarning();
             addEmployeeMenu();
         }
-
 
     }
 
@@ -204,14 +205,12 @@ public class AdministratorController {
                 default:
                     mainMenu();
                     break;
-            }            
+            }
         } catch (Exception e) {
             view.displayInvalidInputWarning();
             removeEmployeeMenu();
         }
 
-
-        
     }
 
     public void EmployeeParamsModificationMenu() {
@@ -226,7 +225,7 @@ public class AdministratorController {
                     // TODO
                     List<Project> newEmployeProjectList = new ArrayList<Project>();
 
-                    for (int i=0; i<model.getNPE(); i++) {
+                    for (int i = 0; i < model.getNPE(); i++) {
                         List<Project> projectList = model.getProjectList();
                         int projectIndex = Integer.parseInt(view.promptProjectSelection(projectList));
                         Project project = projectList.get(projectIndex - 1);
@@ -248,12 +247,11 @@ public class AdministratorController {
                     break;
                 default:
                     break;
-            }            
+            }
         } catch (Exception e) {
             view.displayInvalidInputWarning();
             EmployeeParamsModificationMenu();
         }
-
 
     }
 
@@ -268,106 +266,156 @@ public class AdministratorController {
                 ProjectListModificationMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                ProjectModificationMenu();
                 break;
         }
     }
 
     public void ProjectParamsModificationMenu() {
-        String prompt = view.promptAdministratorGetProjectID();
+        try {
+            int projectID = Integer.parseInt(view.promptAdministratorGetProjectID());
+            Project projectToModify = model.getProjectByID(projectID);
 
-        int projectID = Integer.parseInt(view.promptAdministratorGetProjectID());
-        Project projectToModify = model.getProjectByID(projectID);
+            String adminAction = view.promptProjectParamsModificationMenu();
 
-        String adminAction = view.promptProjectParamsModificationMenu();
-
-        switch (adminAction) {
-            case "1": // Modifier le nom du projet
-                projectNameModificationMenu(projectToModify);
-                break;
-            case "2": // Modifier la date de fin d'un projet
-                projectEndDateModificationMenu(projectToModify);
-                break;
-            case "3": // Modifier la date de début du projet
-                projectStartDateModificationMenu(projectToModify);
-                break;
-            case "4": // Modifier le nombre d'heures budgétées pour une disciplines
-                projectHeuresBudgeteeModificationMenu(projectToModify);
-                break;
-            default:
-                break;
+            switch (adminAction) {
+                case "1": // Modifier le nom du projet
+                    projectNameModificationMenu(projectToModify);
+                    break;
+                case "2": // Modifier la date de fin d'un projet
+                    projectEndDateModificationMenu(projectToModify);
+                    break;
+                case "3": // Modifier la date de début du projet
+                    projectStartDateModificationMenu(projectToModify);
+                    break;
+                case "4": // Modifier le nombre d'heures budgétées pour une disciplines
+                    projectHeuresBudgeteeModificationMenu(projectToModify);
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    ProjectParamsModificationMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            ProjectParamsModificationMenu();
         }
+
     }
 
     public void projectNameModificationMenu(Project projectToModify) {
-        String modificationDecision = view.promptModificationDecision("Nom", projectToModify.getName());
+        try {
+            String modificationDecision = view.promptModificationDecision("Nom", projectToModify.getName());
 
-        switch (modificationDecision) {
-            case "y":
-                String newName = view.promptModificationInputSelection();
-                view.displayModifySuccessMessage(projectToModify.setName(newName));
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    String newName = view.promptModificationInputSelection();
+                    view.displayModifySuccessMessage(projectToModify.setName(newName));
+                    mainMenu();
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    projectNameModificationMenu(projectToModify);
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            projectNameModificationMenu(projectToModify);
         }
-        mainMenu();
     }
 
     public void projectStartDateModificationMenu(Project projectToModify) {
-        String modificationDecision = view.promptModificationDecision("Date de début", projectToModify.getDateDebut());
+        try {
+            String modificationDecision = view.promptModificationDecision("Date de début",
+                    projectToModify.getDateDebut());
 
-        switch (modificationDecision) {
-            case "y":
-                String newDateDebut = view.promptModificationInputSelection();
-                view.displayModifySuccessMessage(projectToModify.setDateDebut(newDateDebut));
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    String newDateDebut = view.promptModificationInputSelection();
+                    if (projectToModify.setDateDebut(newDateDebut)) {
+                        view.displayModifySuccessMessage(true);
+                        mainMenu();
+                    } else {
+                        projectStartDateModificationMenu(projectToModify);
+                    }
+                    break;
+                case "n":
+                    mainMenu();
+                    projectNameModificationMenu(projectToModify);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            projectNameModificationMenu(projectToModify);
         }
-        mainMenu();
     }
 
     public void projectEndDateModificationMenu(Project projectToModify) {
-        String modificationDecision = view.promptModificationDecision("Date de fin", projectToModify.getDateFin());
+        try {
+            String modificationDecision = view.promptModificationDecision("Date de Fin", projectToModify.getDateFin());
 
-        switch (modificationDecision) {
-            case "y":
-                String newDateFin = view.promptModificationInputSelection();
-                view.displayModifySuccessMessage(projectToModify.setDateFin(newDateFin));
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    String newDateDebut = view.promptModificationInputSelection();
+                    if (projectToModify.setDateFin(newDateDebut)) {
+                        view.displayModifySuccessMessage(true);
+                        mainMenu();
+                    } else {
+                        projectStartDateModificationMenu(projectToModify);
+                    }
+                    break;
+                case "n":
+                    mainMenu();
+                    projectNameModificationMenu(projectToModify);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            projectNameModificationMenu(projectToModify);
         }
-        mainMenu();
     }
 
     public void projectHeuresBudgeteeModificationMenu(Project projectToModify) {
-        List<Discipline> disciplineList = projectToModify.getDisciplinesList();
+        try {
+            List<Discipline> disciplineList = projectToModify.getDisciplinesList();
 
-        // 2. Selectionne une discipline du projet sélectionné
-        String disciplineSelection = view.promptDisciplineSelection(disciplineList);
-        int disciplineIndex = Integer.parseInt(disciplineSelection);
+            // 2. Selectionne une discipline du projet sélectionné
+            String disciplineSelection = view.promptDisciplineSelection(disciplineList);
+            int disciplineIndex = Integer.parseInt(disciplineSelection);
 
-        Discipline discipline = disciplineList.get(disciplineIndex - 1);
+            Discipline discipline = disciplineList.get(disciplineIndex - 1);
 
-        String modificationDecision = view.promptModificationDecision("Heures budgétées "+ discipline, discipline.getHeuresBudgetees());
+            String modificationDecision = view.promptModificationDecision("Heures budgétées " + discipline,
+                    discipline.getHeuresBudgetees());
 
-        switch (modificationDecision) {
-            case "y":
-                int newNbrHeuresBudgetee = Integer.parseInt(view.promptModificationInputSelection());
-                view.displayModifySuccessMessage(discipline.setHeuresBudgetees(projectToModify, newNbrHeuresBudgetee));
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    int newNbrHeuresBudgetee = Integer.parseInt(view.promptModificationInputSelection());
+                    view.displayModifySuccessMessage(
+                            discipline.setHeuresBudgetees(projectToModify, newNbrHeuresBudgetee));
+                    mainMenu();
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    projectHeuresBudgeteeModificationMenu(projectToModify);
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            projectHeuresBudgeteeModificationMenu(projectToModify);
         }
-        mainMenu();
+
     }
 
     public void ProjectListModificationMenu() {
@@ -381,31 +429,40 @@ public class AdministratorController {
                 removeProjectMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                ProjectListModificationMenu();
                 break;
         }
     }
 
     public void addProjectMenu() {
-        int ID = Integer.parseInt(view.promptNewParameterDecision("ID"));
-        String name = view.promptNewParameterDecision("nom");
-        String dateDebut = view.promptNewParameterDecision("date de début");
-        String dateFin = view.promptNewParameterDecision("date de fin");
+        try {
+            int ID = Integer.parseInt(view.promptNewParameterDecision("ID"));
+            String name = view.promptNewParameterDecision("nom");
+            String dateDebut = view.promptNewParameterDecision("date de début");
+            String dateFin = view.promptNewParameterDecision("date de fin");
 
-        List<Discipline> disciplinesList = createDisciplineListMenu();
+            List<Discipline> disciplinesList = createDisciplineListMenu();
 
-        String modificationDecision = view.promptConfirmationObjectAddition("Project");
+            String modificationDecision = view.promptConfirmationObjectAddition("Project");
 
-        switch (modificationDecision) {
-            case "y":
-                ;
-                view.displayModifySuccessMessage(model.addProject());// TODO
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    view.displayModifySuccessMessage(model.addProject());// TODO
+                    mainMenu();
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    addProjectMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            addProjectMenu();
         }
-        mainMenu();
     }
 
     public List<Discipline> createDisciplineListMenu() {
@@ -420,13 +477,19 @@ public class AdministratorController {
                 String continueDecision = view.promptContinueDecision();
 
                 while (continueDecision != "y") {
+                    continueDecision = "n";
                     String name = view.promptNewParameterDecision("Nom");
                     int heuresBudgetees = Integer.parseInt(view.promptNewParameterDecision("Heures Budgetees"));
                     Discipline discipline = model.createNewDiscipline(name, heuresBudgetees);
                     disciplinesList.add(discipline);
                     continueDecision = view.promptContinueDecision();
+                    if (continueDecision != "y")
+                        break;
                 }
+                break;
             default:
+                view.displayInvalidInputWarning();
+                addProjectMenu();
                 break;
         }
 
@@ -434,89 +497,123 @@ public class AdministratorController {
     }
 
     public void removeProjectMenu() {
-        String adminAction = view.promptConfirmationObjectRemoval("Projet");
+        try {
+            String adminAction = view.promptConfirmationObjectRemoval("Projet");
 
-        int projectID = Integer.parseInt(view.promptAdministratorGetProjectID());
-        Project project_to_remove = model.getProjectByID(projectID);
+            int projectID = Integer.parseInt(view.promptAdministratorGetProjectID());
+            Project project_to_remove = model.getProjectByID(projectID);
 
-        switch (adminAction) {
-            case "y":
-                view.displayModifySuccessMessage(model.removeProject(project_to_remove));// TODO
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (adminAction) {
+                case "y":
+                    view.displayModifySuccessMessage(model.removeProject(project_to_remove));
+                    mainMenu();
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    removeProjectMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            removeProjectMenu();
         }
-        mainMenu();
     }
 
-    public void RapportMenu() {
-        String rapportSelection = view.promptRapportMenuSelection();
+    public void rapportMenu() {
+        try {
+            String rapportSelection = view.promptRapportMenuSelection();
 
-        switch (rapportSelection) {
-            case "1": // Générer un rapport d'état pour un projet
-                List<Project> projectList = model.getProjectList();
-                String projectSelection = view.promptProjectSelection(projectList);
-                int projectIndex = Integer.parseInt(projectSelection);
-                Project project = projectList.get(projectIndex - 1);
+            switch (rapportSelection) {
+                case "1": // Générer un rapport d'état pour un projet
+                    List<Project> projectList = model.getProjectList();
+                    String projectSelection = view.promptProjectSelection(projectList);
+                    int projectIndex = Integer.parseInt(projectSelection);
+                    Project project = projectList.get(projectIndex - 1);
 
-                view.displayRapport(rapports.getRapportEtatProjet(project.getID()));
-                break;
-            case "2": // Générer un rapport d'état global
-                view.displayRapport(rapports.getRapportEtatGlobale());
-                break;
-            case "3": // Générer un rapport d'état employé
-                AdministratorStatusReportMenu();
-                break;
-            case "4": // Générer un talon de paie employé
-                EmployeTalonPaieMenu();
-                break;
-            default:
-                break;
+                    view.displayRapport(rapports.getRapportEtatProjet(project.getID()));
+                    mainMenu();
+                    break;
+                case "2": // Générer un rapport d'état global
+                    view.displayRapport(rapports.getRapportEtatGlobale());
+                    mainMenu();
+                    break;
+                case "3": // Générer un rapport d'état employé
+                    rapportEtatMenu();
+                    break;
+                case "4": // Générer un talon de paie employé
+                    EmployeTalonPaieMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    rapportMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            rapportMenu();
         }
 
-        mainMenu();
     }
 
-    public void AdministratorStatusReportMenu() {
-        int employeID = Integer.parseInt(view.promptGetEmployeID());
-        Employe employe = model.getEmployeByID(employeID);
+    public void rapportEtatMenu() {
+        try {
+            int employeID = Integer.parseInt(view.promptGetEmployeID());
+            Employe employe = model.getEmployeByID(employeID);
 
-        String timePeriodeSelection = view.promptStartDateType();
+            String timePeriodeSelection = view.promptStartDateType();
 
-        switch (timePeriodeSelection) {
-            case "1": // la dernière période de paie
-                view.displayRapport(rapports.getRapportEtatEmploye(employe.getID()));
-                break;
-            case "2": // à partir du période que vous choisissez
-                String dateDebut = view.promptStartDateSelection();
-                String dateFin = view.promptEndDateSelection();
-                view.displayRapport(rapports.getRapportEtatEmploye(employe.getID(), dateDebut, dateFin));
-                break;
-            default:
-                break;
+            switch (timePeriodeSelection) {
+                case "1": // la dernière période de paie
+                    view.displayRapport(rapports.getRapportEtatEmploye(employe.getID(), "default", "default"));
+                    mainMenu();
+                    break;
+                case "2": // à partir du période que vous choisissez
+                    String dateDebut = view.promptStartDateSelection();
+                    String dateFin = view.promptEndDateSelection();
+                    view.displayRapport(rapports.getRapportEtatEmploye(employe.getID(), dateDebut, dateFin));
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    rapportEtatMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            rapportEtatMenu();
         }
 
     }
 
     public void EmployeTalonPaieMenu() {
-        int employeID = Integer.parseInt(view.promptGetEmployeID());
-        Employe employe = model.getEmployeByID(employeID);
+        try {
+            int employeID = Integer.parseInt(view.promptGetEmployeID());
+            Employe employe = model.getEmployeByID(employeID);
 
-        String timePeriodeSelection = view.promptStartDateType();
+            String timePeriodeSelection = view.promptStartDateType();
 
-        switch (timePeriodeSelection) {
-            case "1":
-                view.displayRapport(model.getTalonPaieEmploye(employe.getID()));
-                break;
-            case "2":
-                String dateDebut = view.promptStartDateSelection();
-                String dateFin = view.promptEndDateSelection();
-                view.displayRapport(model.getTalonPaieEmploye(employe.getID(), dateDebut, dateFin));
-                break;
-            default:
-                break;
+            switch (timePeriodeSelection) {
+                case "1":
+                    view.displayRapport(model.getTalonPaieEmploye(employe.getID()));
+                    mainMenu();
+                    break;
+                case "2":
+                    String dateDebut = view.promptStartDateSelection();
+                    String dateFin = view.promptEndDateSelection();
+                    view.displayRapport(model.getTalonPaieEmploye(employe.getID(), dateDebut, dateFin));
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    EmployeTalonPaieMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            EmployeTalonPaieMenu();
         }
 
     }

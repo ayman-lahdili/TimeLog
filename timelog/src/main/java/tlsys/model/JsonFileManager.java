@@ -23,7 +23,7 @@ public class JsonFileManager {
     }
 
     public int loadNPE() {
-        try (FileReader fileReader = new FileReader(ressourcePath+"systemProperties.json")) {
+        try (FileReader fileReader = new FileReader(ressourcePath+"systemproperties.json")) {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
 
@@ -38,7 +38,7 @@ public class JsonFileManager {
     }
 
     public List<Discipline> loadDefaultDisciplineList() {
-        try (FileReader fileReader = new FileReader(ressourcePath+"systemProperties.json")) {
+        try (FileReader fileReader = new FileReader(ressourcePath+"systemproperties.json")) {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
 
