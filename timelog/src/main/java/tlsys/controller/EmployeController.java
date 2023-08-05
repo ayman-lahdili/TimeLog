@@ -25,7 +25,7 @@ public class EmployeController {
 
     public void login() {
         int ID = Integer.parseInt(view.promptLoginEmployeID());
-        String employeeUsername = view.promptLoginEmployeUsername();
+        String employeeUsername = view.promptLoginUsername();
 
         Employe user = model.authenticateEmploye(ID, employeeUsername);
 
@@ -51,7 +51,7 @@ public class EmployeController {
     }
 
     public void MainMenu() {
-        String employeeAction = view.promptEmployeMainMenu();
+        String employeeAction = view.promptMainMenu();
 
         switch (employeeAction) {
             case "1": // Commencer une tâche
@@ -63,7 +63,10 @@ public class EmployeController {
             case "3": // Obtenir le nombre d'heures travaillées
                 EmployeWorkStatusReport();
                 break;
-            case "4":
+            case "4": // Obtenir le nombre d'heures travaillées
+                //TODO
+                break;                
+            case "5":
                 logout();
             default:
                 break;
@@ -72,7 +75,7 @@ public class EmployeController {
     }
 
     public void EmployeRapportMenu() {
-        String rapportSelection = view.promptEmployeRapportMenuSelection();
+        String rapportSelection = view.promptRapportMenu();
 
         switch (rapportSelection) {
             case "1": // Générer un rapport d'état pour un projet

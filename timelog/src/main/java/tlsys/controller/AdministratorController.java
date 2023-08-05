@@ -24,7 +24,7 @@ public class AdministratorController {
     }
 
     public void login() {
-        String adminUsername = view.promptLoginAdministratorUsername();
+        String adminUsername = view.promptLoginUsername();
         String password = view.promptLoginAdministratorPassword();
 
         Administrator admin = model.authenticateAdministrator(adminUsername, password);
@@ -51,7 +51,7 @@ public class AdministratorController {
     }
 
     public void MainMenu() {
-        String adminAction = view.promptAdministratorMainMenu();
+        String adminAction = view.promptMainMenu();
 
         switch (adminAction) {
             case "1": // Faire des modifications au paramètre du système
@@ -61,6 +61,9 @@ public class AdministratorController {
                 RapportMenu();
                 break;
             case "3": // Logout
+                //TODO
+                break;
+            case "4": // Logout
                 logout();
                 break;
             default:
@@ -85,7 +88,7 @@ public class AdministratorController {
     }
 
     public void EmployeeModificationMenu() {
-        String adminAction = view.promptEmployeeModificationMenu();
+        String adminAction = view.promptModificationEmployeMenu();
 
         switch (adminAction) {
             case "1": // Modifier le NPE
@@ -107,7 +110,7 @@ public class AdministratorController {
 
         switch (modificationDecision) {
             case "y":
-                int newNPE = Integer.parseInt(view.promptAdministratorModificationInputSelection());
+                int newNPE = Integer.parseInt(view.promptModificationInputSelection());
                 view.displayModifySuccessMessage(model.setNPE(newNPE));
                 break;
             case "n":
@@ -163,7 +166,7 @@ public class AdministratorController {
     public void removeEmployeeMenu() {
         String adminAction = view.promptConfirmationObjectRemoval("Employé");
 
-        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+        int employeID = Integer.parseInt(view.promptGetEmployeID());
         Employe employe_to_remove = model.getEmployeByID(employeID);
 
         switch (adminAction) {
@@ -180,9 +183,9 @@ public class AdministratorController {
     }
 
     public void EmployeeParamsModificationMenu() {
-        String adminAction = view.promptEmployeeParamsModificationMenu();
+        String adminAction = view.promptModificationParametreEmployeMenu();
 
-        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+        int employeID = Integer.parseInt(view.promptGetEmployeID());
 
         Employe employe_to_modify = model.getEmployeByID(employeID);
 
@@ -222,7 +225,7 @@ public class AdministratorController {
     }
 
     public void ProjectModificationMenu() {
-        String adminAction = view.promptProjectModificationMenu();
+        String adminAction = view.promptModificationProjectMenu();
 
         switch (adminAction) {
             case "1": // Modifier un projet
@@ -267,7 +270,7 @@ public class AdministratorController {
 
         switch (modificationDecision) {
             case "y":
-                String newName = view.promptAdministratorModificationInputSelection();
+                String newName = view.promptModificationInputSelection();
                 view.displayModifySuccessMessage(projectToModify.setName(newName));
                 break;
             case "n":
@@ -283,7 +286,7 @@ public class AdministratorController {
 
         switch (modificationDecision) {
             case "y":
-                String newDateDebut = view.promptAdministratorModificationInputSelection();
+                String newDateDebut = view.promptModificationInputSelection();
                 view.displayModifySuccessMessage(projectToModify.setDateDebut(newDateDebut));
                 break;
             case "n":
@@ -299,7 +302,7 @@ public class AdministratorController {
 
         switch (modificationDecision) {
             case "y":
-                String newDateFin = view.promptAdministratorModificationInputSelection();
+                String newDateFin = view.promptModificationInputSelection();
                 view.displayModifySuccessMessage(projectToModify.setDateFin(newDateFin));
                 break;
             case "n":
@@ -323,7 +326,7 @@ public class AdministratorController {
 
         switch (modificationDecision) {
             case "y":
-                int newNbrHeuresBudgetee = Integer.parseInt(view.promptAdministratorModificationInputSelection());
+                int newNbrHeuresBudgetee = Integer.parseInt(view.promptModificationInputSelection());
                 view.displayModifySuccessMessage(discipline.setHeuresBudgetees(projectToModify, newNbrHeuresBudgetee));
                 break;
             case "n":
@@ -416,7 +419,7 @@ public class AdministratorController {
     }
 
     public void RapportMenu() {
-        String rapportSelection = view.promptAdministratorRapportMenuSelection();
+        String rapportSelection = view.promptRapportMenuSelection();
 
         switch (rapportSelection) {
             case "1": // Générer un rapport d'état pour un projet
@@ -444,7 +447,7 @@ public class AdministratorController {
     }
 
     public void AdministratorStatusReportMenu() {
-        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+        int employeID = Integer.parseInt(view.promptGetEmployeID());
         Employe employe = model.getEmployeByID(employeID);
 
         String timePeriodeSelection = view.promptStartDateType();
@@ -465,7 +468,7 @@ public class AdministratorController {
     }
 
     public void EmployeTalonPaieMenu() {
-        int employeID = Integer.parseInt(view.promptAdministratorGetEmployeeID());
+        int employeID = Integer.parseInt(view.promptGetEmployeID());
         Employe employe = model.getEmployeByID(employeID);
 
         String timePeriodeSelection = view.promptStartDateType();

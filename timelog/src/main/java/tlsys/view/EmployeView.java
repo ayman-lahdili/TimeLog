@@ -2,37 +2,35 @@ package tlsys.view;
 
 public class EmployeView extends TimeLogView {
 
-    public String promptLoginEmployeUsername() {
-        System.out.print("Entrer votre nom d'utilisateur");
-        return scanner.nextLine();
-    }
-
     public String promptLoginEmployeID() {
-        System.out.print("Entrer votre ID");
+        System.out.print("Veuillez entrer votre numéro d'identification:\t");
         return scanner.nextLine();
     }
 
-    public String promptEmployeMainMenu() {
-        System.out.println(
-                "[1] Commencer un tâches\n[2] Générer des rapport\n[3] Obtenir le nombre d'heures travaillées\n[4] Vous déconnecter");
+    public String promptMainMenu() {
+        System.out.println("[1]\tCommencer un tâches");
+        System.out.println("[2]\tGénérer des rapports");
+        System.out.println("[3]\tObtenir le nombre d'heures travaillées");
+        System.out.println("[4]\tGénérer votre talon de paie avec le système Payroll");
+        System.out.println("[5]\tVous déconnecter");
         return scanner.nextLine();
     }
 
-    public String promptEmployeRapportMenuSelection() {
+    public String promptRapportMenu() {
         System.out.println("[1]\tGénérer un rapport d'état pour un projet");
         System.out.println("[2]\tGénérer un rapport d'état global");
-        System.out.println("[3]\tGénérer un rapport d'état employé");
-        System.out.println("[4]\tGénérer un talon de paie pour une période");
+        System.out.println("[3]\tGénérer votre rapport d'état employé");
+        System.out.println("[4]\tGénérer votre talon de paie");
         return scanner.nextLine();
     }
 
     public String promptStartTimer(String task) {
-        System.out.println("Vouler vous commencer l'activité" + task + "(y/n)");
+        System.out.println("Vouler vous commencer l'activité suivante?\n\t" + task + "\n(y/n)");
         return scanner.nextLine();
     }
 
     public String promptEndTimer() {
-        System.out.println("Vouler vous quitter cette tâche (y/n)");
+        System.out.println("Entrer le caractère \"y\" lorsque vous terminer votre travail");
         return scanner.nextLine();
     }
 

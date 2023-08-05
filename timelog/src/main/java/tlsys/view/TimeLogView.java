@@ -11,27 +11,33 @@ public class TimeLogView {
     public static Scanner scanner = new Scanner(System.in);
 
     public String promptForMethodOfLogin() {
-        System.out.print("Se connecter en tant qu'employe [1] ou se connecter en tant qu'administrateur [2]");
+        System.out.println("[1]\tSe connecter en tant qu'employe");
+        System.out.println("[2]\tSe connecter en tant qu'administrateur");
+        return scanner.nextLine();
+    }
+
+    public String promptLoginUsername() {
+        System.out.print("Veuillez entrer votre nom d'utilisateur:\t");
         return scanner.nextLine();
     }
 
     public String promptLogout() {
-        System.out.println("Veux-tu te déconnecté? (y/n)");
+        System.out.println("Souhaitez-vous vous déconnecter? (y/n)");
         return scanner.nextLine();
     }
 
     public String promptProjectSelection(List<?> list) {
-        System.out.println("Selectionne un project");
+        System.out.println("Sélectionnez un project");
         return promptObjectSelection(list);
     }
     
     public String promptContinueDecision() {
-        System.out.println("Veux-tu ajouter? (y/n) ");
+        System.out.println("Souhaitez-vous continuer d'en ajouter? (y/n)");
         return scanner.nextLine(); 
     }
 
     public String promptDisciplineSelection(List<?> list) {
-        System.out.println("Selectionne une discipline");
+        System.out.println("Veuillez sélectionner une discipline");
         return promptObjectSelection(list);
     }
 
@@ -44,24 +50,24 @@ public class TimeLogView {
     }
 
     public void displayLoginSuccessMessage() {
-        System.out.println("Login successful!");
+        System.out.println("Vous êtes maintenant connecté");
     }
 
     public void displayLogoutMessage() {
-        System.out.println("Logout successful!");
+        System.out.println("Vous êtes maintenant déconnecté");
     }
 
     public void displayModifySuccessMessage(boolean action) {
         if (action) {
-            System.out.println("Paramètre modifié avec succès");
-            return;    
+            System.out.println("Se paramètre a été modifié avec succès");
+            return;
         }
-        System.out.println("Incapable de modifié ce paramètre");
+        System.out.println("Incapable de modifier ce paramètre");
     }
 
     public String promptModificationDecision(String parameterName, Object currentValue) {
         System.out.println(parameterName+" :\t"+currentValue);
-        System.out.println("Souhaitez-vous modifier se paramètre");
+        System.out.println("Souhaitez-vous modifier se paramètre?");
         return scanner.nextLine();
     }
 
@@ -81,22 +87,22 @@ public class TimeLogView {
     }    
 
     public void displayLoginErrorMessage() {
-        System.out.println("Invalid username or password. Please try again.");
+        System.out.println("Nom d'utilisateur ou mot de passe invalide. Veuillez réessayer");
     }
 
     public String promptStartDateType() {
-        System.out.println(
-                "Voulez-vous la générer à partir de [1] la dernière période de paie ou [2] à partir du période que vous choisissez");
+        System.out.println("[1]\tGénérer à partir de la dernière période de paie");
+        System.out.println("[2]\tGénérer à partir de la période de votre choix");
         return scanner.nextLine();
     }
 
     public String promptStartDateSelection() {
-        System.out.println("Entrer une date de début (" + dateFormat + ")");
+        System.out.print("Entrer une date de début (" + dateFormat + "):\t");
         return scanner.nextLine();
     }
 
     public String promptEndDateSelection() {
-        System.out.println("Entrer une date de fin (" + dateFormat + ")");
+        System.out.print("Entrer une date de fin (" + dateFormat + "):\t");
         return scanner.nextLine();
     }
 

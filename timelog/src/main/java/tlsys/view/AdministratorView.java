@@ -2,91 +2,85 @@ package tlsys.view;
 
 public class AdministratorView extends TimeLogView {
 
-    public String promptLoginAdministratorUsername() {
-        System.out.print("Entrer votre nom d'utilisateur");
-        return scanner.nextLine();
-    }
-
     public String promptLoginAdministratorPassword() {
-        System.out.print("Entrer votre mot de pass");
+        System.out.print("Veuillez entrer votre mot de passe:\t");
         return scanner.nextLine();
     }
 
-    public String promptAdministratorMainMenu() {
-        System.out.println("[1] Faire des modifications aux paramètres du système\n[2] Générer des rapports\n[3] Vous déconnecter");
+    public String promptMainMenu() {
+        System.out.println("[1]\tFaire des modifications aux paramètres du système");
+        System.out.println("[2]\tGénérer des rapports");
+        System.out.println("[3]\tGénérer les talons de paies de l'ensemble des employés avec le système Payroll");
+        System.out.println("[4]\tVous déconnecter");
         return scanner.nextLine();
     }
 
     public String promptModificationMenu() {
-        System.out.println("[1] Modifier les paramètres employés [2] Modifier les paramètres de projets");
+        System.out.println("[1]\tModifier les paramètres des employés") ;
+        System.out.println("[2]\tModifier les paramètres de projets");
         return scanner.nextLine();
     }
 
     public String promptSetDisciplineListMenu() {
-        System.out.println("[1] Utiliser la liste de discipline par défault [2] Créer ma propre liste");
+        System.out.println("[1]\tUtiliser la liste de discipline par défault");
+        System.out.println("[2]\tCréer ma propre liste");
         return scanner.nextLine();
     }
 
-    public String promptEmployeeModificationMenu() {
-        System.out.println("[1] Modifier le NPE [2] Modifier les paramètres d'un employé [3] Modifier la liste des employés");
+    public String promptModificationEmployeMenu() {
+        System.out.println("[1]\tModifier le NPE");
+        System.out.println("[2]\tModifier les paramètres d'un employé");
+        System.out.println("[3]\tModifier la liste des employés");
         return scanner.nextLine();
     }
 
-    public String promptProjectModificationMenu() {
-        System.out.println("[1] Modifier un projet [2] Modifier la liste des projets");
+    public String promptModificationProjectMenu() {
+        System.out.println("[1]\tModifier un projet");
+        System.out.println("[2]\tModifier la liste des projets");
         return scanner.nextLine();
     }
 
     public String promptAddOrRemoveMenu(String listToModifiy) {
-        System.out.println("Veux-tu [1] ajouter ou [2] retirer un "+listToModifiy);
+        System.out.println("[1]\tAjouter un "+listToModifiy);
+        System.out.println("[2]\tRetirer un "+listToModifiy);
         return scanner.nextLine();
     }
 
-    public String promptAdministratorProjectModificationMenu() {
-        System.out.println(
-                "[1] Assignation des employés à des projets\n[2] Modifier la liste des employés\n[3] Modifier la liste des projets");
+    public String promptModificationInputSelection() {
+        System.out.print("Nouvelle valeur:\t");
         return scanner.nextLine();
     }
 
-    public String promptAdministratorModificationInputSelection() {
-        System.out.println("Entrer le nouveau champ que");
-        return scanner.nextLine();
-    }
-
-    public String promptAdministratorRapportMenuSelection() {
+    public String promptRapportMenuSelection() {
         System.out.println("[1]\tGénérer un rapport d'état pour un projet");
         System.out.println("[2]\tGénérer un rapport d'état global");
-        System.out.println("[3]\tGénérer un rapport d'état pour un employé");
-        System.out.println("[4]\tGénérer un talon de paie pour une période");
+        System.out.println("[3]\tGénérer le rapport d'état d'un employé");
+        System.out.println("[4]\tGénérer le talon de paie d'un employé");
         return scanner.nextLine();
     }
 
-    public String promptAdministratorGetEmployeeID() {
-        System.out.println("Entrer le ID de l'employé");
+    public String promptGetEmployeID() {
+        System.out.print("Entrer le ID de l'employé:\t");
         return scanner.nextLine();
     }
 
     public String promptAdministratorGetProjectID() {
-        System.out.println("Entrer le ID du projet");
+        System.out.print("Entrer le ID du projet:\t");
         return scanner.nextLine();
     }
 
     public String promptProjectParamsModificationMenu() {
-        System.out.println("[1] Modifier le nom du projet\n[2] Modifier la date de fin d'un projet\n[3] Modifier la date de début du projet\n[4] Modifier le nombre d'heures budgétées pour une disciplines");
+        System.out.println("[1]\tModifier le nom du projet");
+        System.out.println("[2]\tModifier la date de fin d'un projet");
+        System.out.println("[3]\tModifier la date de début du projet");
+        System.out.println("[4]\tModifier le nombre d'heures budgétées pour une disciplines");
         return scanner.nextLine();
     }
 
-    public String promptEmployeeParamsModificationMenu() {
-        System.out.println(
-                "[1] Modifier l'assignation des employés à des projets\n[2] Modifier le noms d'usager de l'employé\n[3] Modifier le ID de l'employé");
-        return scanner.nextLine();
-    }
-
-    public String promptAdministratorMenuSelection() {
-        System.out.println("[1]\tGénérer un rapport d'état pour un projet");
-        System.out.println("[2]\tGénérer un rapport d'état global");
-        System.out.println("[3]\tGénérer un rapport d'état un employé");
-        System.out.println("[4]\tGénérer les talons de paie pour tous les employés");
+    public String promptModificationParametreEmployeMenu() {
+        System.out.println("[1]\tModifier la liste des projets assignée à l'employé");
+        System.out.println("[2]\tModifier le noms d'usager de l'employé");
+        System.out.println("[3]\tModifier le ID de l'employé");
         return scanner.nextLine();
     }
 
