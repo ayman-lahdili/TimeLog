@@ -43,8 +43,20 @@ public class JsonFileManager {
             JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
 
             JSONObject systemProperties = (JSONObject) jsonObject.get("systemPropreties");
+            JSONArray defaultDisciplineArray = (JSONArray) systemProperties.get("defaultDisciplines");
 
-            List<Discipline> defaultDisciplineList = (List<Discipline>) systemProperties.get("defaultDisciplines"); //TODO
+            List<Discipline> defaultDisciplineList = new ArrayList<>(); //TODO
+
+            for (Object disciplineObj : defaultDisciplineArray) {
+                JSONObject disciplineJson = (JSONObject) disciplineObj;
+                String name = (String) disciplineJson.get("name");
+                double heuresBudgetees = (long) disciplineJson.get("heuresBudgetees");
+                double heuresTotalesConsacre = (long) disciplineJson.get("heuresTotalesConsacre");
+    
+                Discipline discipline = new Discipline(name, (double) heuresBudgetees, (double) heuresTotalesConsacre);
+                defaultDisciplineList.add(discipline);
+            }
+            
             return defaultDisciplineList;
         } catch (IOException | ParseException e) {
             e.printStackTrace();

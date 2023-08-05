@@ -42,11 +42,11 @@ public class Rapport {
         StringBuilder rapport = new StringBuilder();
     
         for (Discipline discipline : disciplines) {
-            int heuresBudgetees = discipline.getHeuresBudgetees();
+            double heuresBudgetees = discipline.getHeuresBudgetees();
             nbreHeuresBudgeteesTotales += heuresBudgetees;
     
-            int nbreHeuresConsacrees = discipline.getHeuresTotalesConsacre();
-            int pctAvancement = (nbreHeuresConsacrees * 100) / heuresBudgetees;
+            double nbreHeuresConsacrees = discipline.getHeuresTotalesConsacre();
+            double pctAvancement = (nbreHeuresConsacrees * 100) / heuresBudgetees;
     
             nbreHeuresTotales += nbreHeuresConsacrees;
     

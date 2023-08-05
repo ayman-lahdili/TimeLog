@@ -3,10 +3,10 @@ package tlsys.model;
 public class Discipline {
 
     private String name;
-    private int heuresBudgetees; //TODO Change
-    private int heuresTotalesConsacre;
+    private double heuresBudgetees; //TODO Change
+    private double heuresTotalesConsacre;
 
-    public Discipline(String name, int heuresBudgetees, int heuresTotalesConsacre) {
+    public Discipline(String name, double heuresBudgetees, double heuresTotalesConsacre) {
         this.name = name;
         this.heuresBudgetees = heuresBudgetees;
         this.heuresTotalesConsacre = heuresTotalesConsacre;
@@ -26,7 +26,7 @@ public class Discipline {
         this.name = name;
     }
 
-    public int getHeuresBudgetees() {
+    public double getHeuresBudgetees() {
         return heuresBudgetees;
     }
 
@@ -35,7 +35,7 @@ public class Discipline {
         return false;
     }
 
-    public int getHeuresTotalesConsacre() {
+    public double getHeuresTotalesConsacre() {
         return heuresTotalesConsacre;
     }
 

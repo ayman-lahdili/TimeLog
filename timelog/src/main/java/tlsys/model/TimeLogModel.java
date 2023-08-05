@@ -209,7 +209,7 @@ public class TimeLogModel {
     }
 
     public boolean addEmployee(int iD, String nom, String dateEmbauche, String dateDepart, int nAS, int numeroPoste,
-    double tauxHoraireBase, double tauxHoraireTempsSupplementaire) {
+        double tauxHoraireBase, double tauxHoraireTempsSupplementaire) {
         return false;
     }
 

@@ -1,12 +1,32 @@
 {
     "systemPropreties": {
         "NPE": 2,
-        "defaultDisciplines": [ 
-            "Design1",
-            "Design2",
-            "Implémentation",
-            "Test",
-            "Déploiement"
+        "defaultDisciplines": [
+            {
+                "name": "Design1",
+                "heuresBudgetees": 100,
+                "heuresTotalesConsacre": 0
+            },
+            {
+                "name": "Design2",
+                "heuresBudgetees": 100,
+                "heuresTotalesConsacre": 0
+            },
+            {
+                "name": "Implémentation",
+                "heuresBudgetees": 100,
+                "heuresTotalesConsacre": 0
+            },
+            {
+                "name": "Test",
+                "heuresBudgetees": 100,
+                "heuresTotalesConsacre": 0
+            },
+            {
+                "name": "Déploiement",
+                "heuresBudgetees": 100,
+                "heuresTotalesConsacre": 0
+            }
         ]
     }
 }
