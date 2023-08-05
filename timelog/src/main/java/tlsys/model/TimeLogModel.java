@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /*
  * Le package model permet d'acceder au donnée json et effectue la logic du programme
@@ -25,6 +21,7 @@ import org.json.simple.parser.ParseException;
 public class TimeLogModel {
 
     private String ressourcePath;
+    JsonFileManager fm;
     private Timer timer;
     private int NPE;
     private List<Discipline> defaultDisciplinesNameList; // TODO
@@ -35,19 +32,21 @@ public class TimeLogModel {
 
     public TimeLogModel() {
         // Load data from the JSON files when the TimeLogModel object is created
+        fm = new JsonFileManager(getRessourcePath(), this);
+        
+        projectList = fm.loadProjectData();
+        employeList = fm.loadEmployeData();
+        administratorList = fm.loadAdministratorData();
+        employeLogList = fm.loadEmployeLogData();
+
         loadTimer();
-        loadRessourcePath();
-        loadProjectData();
-        loadEmployeData();
-        loadAdministratorData();
-        loadEmployeLogData();
     }
 
     public void loadTimer() {
         timer = new Timer();
     }
 
-    public void loadRessourcePath() {
+    public String getRessourcePath() {
         String osName = System.getProperty("os.name").split(" ", 2)[0];
         switch (osName) {
             case "Linux":
@@ -57,180 +56,11 @@ public class TimeLogModel {
                 ressourcePath = "timelog\\src\\main\\ressources\\";
                 break;
         }
-    }
-
-    public void loadSystemPropreties() {
-        try (FileReader fileReader = new FileReader(ressourcePath+"systemProperties.json")) {
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-
-            JSONObject systemProperties = (JSONObject) jsonObject.get("systemPropreties");
-
-            NPE = ((Long) systemProperties.get("NPE")).intValue();
-            defaultDisciplinesNameList = (List<Discipline>) systemProperties.get("defaultDisciplines"); //TODO
-
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadEmployeData() {
-        employeList = new ArrayList<>();
-
-        try (FileReader fileReader = new FileReader(ressourcePath + "employees.json")) {
-            JSONParser parser = new JSONParser();
-            // Parse the JSON object
-            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-            JSONArray employeesArray = (JSONArray) jsonObject.get("employees");
-
-            for (Object obj : employeesArray) {
-                JSONObject employeeObject = (JSONObject) obj;
-                int id = ((Long) employeeObject.get("id")).intValue();
-                String name = (String) employeeObject.get("name");
-                String dateEmbauche = (String) employeeObject.get("dateEmbauche");
-                String dateDepart = (String) employeeObject.get("dateDepart");
-                int nas = ((Long) employeeObject.get("nas")).intValue();
-                int numeroPoste = ((Long) employeeObject.get("numeroPoste")).intValue();
-                double tauxHoraireBase = (double) employeeObject.get("tauxHoraireBase");
-                double tauxHoraireTempsSupplementaire = (double) employeeObject.get("tauxHoraireTempsSupplementaire");
-                JSONArray projetsAssignes = (JSONArray) employeeObject.get("projetsAssignes");
-
-                List<Project> projetsAssignesList = new ArrayList<Project>();
-                for (Object projectIDObject: projetsAssignes) {
-                    int projectID = ((Long) projectIDObject).intValue();
-                    projetsAssignesList.add(getProjectByID((Integer) projectID));
-                }
-
-                // Create the Employe object and add it to the employeList
-                Employe employe = new Employe(id, name, dateEmbauche, dateDepart, nas, numeroPoste, tauxHoraireBase,
-                        tauxHoraireTempsSupplementaire, projetsAssignesList);
-                employeList.add(employe);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadAdministratorData() {
-        administratorList = new ArrayList<>();
-
-        try (FileReader fileReader = new FileReader(ressourcePath + "administrators.json")) {
-            JSONParser parser = new JSONParser();
-            // Parse the JSON object
-            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-            JSONArray employeesArray = (JSONArray) jsonObject.get("administrators");
-
-            for (Object obj : employeesArray) {
-                JSONObject employeeObject = (JSONObject) obj;
-                String name = (String) employeeObject.get("name");
-                String password = (String) employeeObject.get("password");
-                // Create the Employe object and add it to the employeList
-                Administrator admin = new Administrator(name, password);
-                administratorList.add(admin);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadProjectData() {
-        projectList = new ArrayList<>();
-        try (FileReader fileReader = new FileReader(ressourcePath + "projects.json")) {
-            JSONParser parser = new JSONParser();
-            JSONObject rootObject = (JSONObject) parser.parse(fileReader);
-            JSONArray projectsArray = (JSONArray) rootObject.get("projects");
-
-            for (Object obj : projectsArray) {
-                JSONObject projectObject = (JSONObject) obj;
-                String name = (String) projectObject.get("name");
-                int ID = ((Long) projectObject.get("ID")).intValue();
-                String dateDebut = (String) projectObject.get("dateDebut");
-                String dateFin = (String) projectObject.get("dateFin");
-
-                JSONArray disciplinesArray = (JSONArray) projectObject.get("disciplines");
-                List<Discipline> disciplinesList = new ArrayList<>();
-
-                for (Object disciplineObj : disciplinesArray) {
-                    JSONObject disciplineObject = (JSONObject) disciplineObj;
-                    String disciplineName = (String) disciplineObject.get("name");
-                    int heuresBudgetees = ((Long) disciplineObject.get("heuresBudgetees")).intValue();
-                    int heuresTotalesConsacre = ((Long) disciplineObject.get("heuresTotalesConsacre")).intValue();
-
-                    Discipline discipline = new Discipline(disciplineName, heuresBudgetees, heuresTotalesConsacre);
-                    disciplinesList.add(discipline);
-                }
-
-                Project project = new Project(ID, name, dateDebut, dateFin, disciplinesList);
-                projectList.add(project);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadEmployeLogData() {
-        employeLogList = new ArrayList<>();
-        try (FileReader fileReader = new FileReader(ressourcePath + "employeelogs.json")) {
-            JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-            JSONArray employeeLogsArray = (JSONArray) jsonObject.get("employeeLogs");
-
-            for (Object obj : employeeLogsArray) {
-                JSONObject employeLogObject = (JSONObject) obj;
-                int employeeID = ((Long) employeLogObject.get("employeeID")).intValue();
-                int projectID = ((Long) employeLogObject.get("projectID")).intValue();
-                String disciplineName = (String) employeLogObject.get("disciplineName");
-                Instant startDateTime = Instant.parse((String) employeLogObject.get("startDateTime"));
-                Instant endDateTime = Instant.parse((String) employeLogObject.get("endDateTime"));
-
-                EmployeLog employeLog = new EmployeLog(getEmployeByID(employeeID), getProjectByID(projectID),
-                        getProjectByID(projectID).getDisciplineByName(disciplineName), startDateTime, endDateTime);
-                employeLogList.add(employeLog);
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
+        return ressourcePath;
     }
 
     public void saveEmployeLog(EmployeLog log) {
-        try {
-            // Read existing JSON content from employeelog.json
-            JSONParser parser = new JSONParser();
-            JSONArray employeeLogsArray;
-
-            try (FileReader fileReader = new FileReader(ressourcePath + "employeelogs.json")) {
-                JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
-                employeeLogsArray = (JSONArray) jsonObject.get("employeeLogs");
-            } catch (Exception e) {
-                // If the file doesn't exist or is empty, create a new array
-                employeeLogsArray = new JSONArray();
-                e.printStackTrace();
-            }
-
-            // Create a new JSONObject for the EmployeLog data
-            JSONObject employeLogObject = new JSONObject();
-            employeLogObject.put("employeeID", log.getEmployeeID().getID());
-            employeLogObject.put("projectID", log.getProjectName().getID());
-            employeLogObject.put("disciplineName", log.getDisciplineName().getName());
-            employeLogObject.put("startDateTime", log.getStartDateTime().toString());
-            employeLogObject.put("endDateTime", log.getEndDateTime().toString());
-
-            // Append the new EmployeLog JSONObject to the JSONArray
-            employeeLogsArray.add(employeLogObject);
-
-            // Create a new JSONObject to hold the employeeLogs array
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("employeeLogs", employeeLogsArray);
-
-            // Write the updated JSONArray back to employeelog.json
-            try (FileWriter fileWriter = new FileWriter(ressourcePath + "employeelogs.json")) {
-                fileWriter.write(jsonObject.toJSONString());
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        fm.post(log);
     }
 
     public Employe authenticateEmploye(int ID, String username) {
