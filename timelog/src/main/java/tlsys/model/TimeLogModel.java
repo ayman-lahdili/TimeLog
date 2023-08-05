@@ -27,7 +27,7 @@ public class TimeLogModel {
     private String ressourcePath;
     private Timer timer;
     private int NPE;
-    private List<String> defaultDisciplinesNameList;
+    private List<Discipline> defaultDisciplinesNameList; // TODO
     private List<Project> projectList;
     private List<Employe> employeList;
     private List<EmployeLog> employeLogList;
@@ -67,7 +67,7 @@ public class TimeLogModel {
             JSONObject systemProperties = (JSONObject) jsonObject.get("systemPropreties");
 
             NPE = ((Long) systemProperties.get("NPE")).intValue();
-            defaultDisciplinesNameList = (List<String>) systemProperties.get("defaultDisciplines");
+            defaultDisciplinesNameList = (List<Discipline>) systemProperties.get("defaultDisciplines"); //TODO
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -268,7 +268,7 @@ public class TimeLogModel {
         return NPE;
     }
 
-    public List<String> getdefaultDisciplinesNameList() {
+    public List<Discipline> getdefaultDisciplineList() {
         return defaultDisciplinesNameList;
     }
 
@@ -494,6 +494,18 @@ public class TimeLogModel {
     }
 
     public boolean removeEmployee(Employe employe_to_remove) {
+        return false;
+    }
+
+    public boolean addProject() {
+        return false;
+    }
+
+    public Discipline createNewDiscipline(String name, int heuresBudgetees) {
+        return null;
+    }
+
+    public boolean removeProject(Project project_to_remove) {
         return false;
     }
 

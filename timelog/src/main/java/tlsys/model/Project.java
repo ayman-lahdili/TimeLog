@@ -35,24 +35,27 @@ public class Project {
         return name;
     }
 
-    public void setName(String name) {
+    public boolean setName(String name) {
         this.name = name;
+        return false; //TODO
     }
 
     public String getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(String dateDebut) {
+    public boolean setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
+        return false; //TODO
     }
 
     public String getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(String dateFin) {
+    public boolean setDateFin(String dateFin) {
         this.dateFin = dateFin;
+        return false;
     }
 
     public List<Discipline> getDisciplinesList() {

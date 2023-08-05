@@ -22,8 +22,18 @@ public class AdministratorView extends TimeLogView {
         return scanner.nextLine();
     }
 
+    public String promptSetDisciplineListMenu() {
+        System.out.println("[1] Utiliser la liste de discipline par défault [2] Créer ma propre liste");
+        return scanner.nextLine();
+    }
+
     public String promptEmployeeModificationMenu() {
         System.out.println("[1] Modifier le NPE [2] Modifier les paramètres d'un employé [3] Modifier la liste des employés");
+        return scanner.nextLine();
+    }
+
+    public String promptProjectModificationMenu() {
+        System.out.println("[1] Modifier un projet [2] Modifier la liste des projets");
         return scanner.nextLine();
     }
 
@@ -45,6 +55,16 @@ public class AdministratorView extends TimeLogView {
 
     public String promptAdministratorGetEmployeeID() {
         System.out.println("Entrer le ID de l'employé");
+        return scanner.nextLine();
+    }
+
+    public String promptAdministratorGetProjectID() {
+        System.out.println("Entrer le ID du projet");
+        return scanner.nextLine();
+    }
+
+    public String promptProjectParamsModificationMenu() {
+        System.out.println("[1] Modifier le nom du projet\n[2] Modifier la date de fin d'un projet\n[3] Modifier la date de début du projet\n[4] Modifier le nombre d'heures budgétées pour une disciplines");
         return scanner.nextLine();
     }
 

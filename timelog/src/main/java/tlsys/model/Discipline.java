@@ -3,7 +3,7 @@ package tlsys.model;
 public class Discipline {
 
     private String name;
-    private int heuresBudgetees;
+    private int heuresBudgetees; //TODO Change
     private int heuresTotalesConsacre;
 
     public Discipline(String name, int heuresBudgetees, int heuresTotalesConsacre) {
@@ -30,8 +30,9 @@ public class Discipline {
         return heuresBudgetees;
     }
 
-    public void setHeuresBudgetees(int heuresBudgetees) {
+    public boolean setHeuresBudgetees(Project project, int heuresBudgetees) {
         this.heuresBudgetees = heuresBudgetees;
+        return false;
     }
 
     public int getHeuresTotalesConsacre() {
