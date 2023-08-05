@@ -6,6 +6,7 @@ import java.util.List;
 import tlsys.model.Administrator;
 import tlsys.model.Discipline;
 import tlsys.model.Employe;
+import tlsys.model.PayRoll;
 import tlsys.model.Project;
 import tlsys.model.Rapport;
 import tlsys.model.TimeLogModel;
@@ -16,11 +17,13 @@ public class AdministratorController {
     private AdministratorView view;
     private Administrator currentAdmin;
     private Rapport rapports;
+    private PayRoll payroll;
 
     public AdministratorController(TimeLogModel model, AdministratorView view) {
         this.model = model;
         this.view = view;
         this.rapports = new Rapport(model);
+        this.payroll = new PayRoll(model);
     }
 
     public void login() {
@@ -62,7 +65,7 @@ public class AdministratorController {
                 break;
             case "3": // Générer les talons de paies de l'ensemble des employés avec le système
                       // Payroll
-                // TODO
+                payRollMenu();
                 break;
             case "4": // Logout
                 logout();
@@ -70,6 +73,11 @@ public class AdministratorController {
             default:
                 break;
         }
+    }
+
+    public void payRollMenu() {
+        payroll.printPay();
+        mainMenu();
     }
 
     public void modificationMenu() {
