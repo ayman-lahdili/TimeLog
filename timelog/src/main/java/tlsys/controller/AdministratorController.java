@@ -32,7 +32,7 @@ public class AdministratorController {
         if (admin != null) {
             currentAdmin = admin;
             view.displayLoginSuccessMessage();
-            MainMenu();
+            mainMenu();
         } else {
             view.displayLoginErrorMessage();
         }
@@ -45,22 +45,22 @@ public class AdministratorController {
             case "y":
                 break;
             default:
-                MainMenu();
+                mainMenu();
                 break;
         }
     }
 
-    public void MainMenu() {
+    public void mainMenu() {
         String adminAction = view.promptMainMenu();
 
         switch (adminAction) {
             case "1": // Faire des modifications au paramètre du système
-                ModificationMenu();
+                modificationMenu();
                 break;
             case "2": // Générer des rapports
                 RapportMenu();
                 break;
-            case "3": // Logout
+            case "3": // Générer les talons de paies de l'ensemble des employés avec le système Payroll
                 //TODO
                 break;
             case "4": // Logout
@@ -71,23 +71,25 @@ public class AdministratorController {
         }
     }
 
-    public void ModificationMenu() {
+    public void modificationMenu() {
         String adminModificationChoice = view.promptModificationMenu();
 
         switch (adminModificationChoice) {
             case "1": // Modifier les paramètres employés
-                EmployeeModificationMenu();
+                employeeModificationMenu();
                 break;
             case "2": // Modifier les paramètres de projets
                 ProjectModificationMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                modificationMenu();
                 break;
         }
 
     }
 
-    public void EmployeeModificationMenu() {
+    public void employeeModificationMenu() {
         String adminAction = view.promptModificationEmployeMenu();
 
         switch (adminAction) {
@@ -101,24 +103,34 @@ public class AdministratorController {
                 EmployeeListModificationMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                employeeModificationMenu();
                 break;
         }
     }
 
     public void NPEModificationMenu() {
-        String modificationDecision = view.promptModificationDecision("NPE", model.getNPE());
+        try {
+            String modificationDecision = view.promptModificationDecision("NPE", model.getNPE());
 
-        switch (modificationDecision) {
-            case "y":
-                int newNPE = Integer.parseInt(view.promptModificationInputSelection());
-                view.displayModifySuccessMessage(model.setNPE(newNPE));
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    int newNPE = Integer.parseInt(view.promptModificationInputSelection());
+                    view.displayModifySuccessMessage(model.setNPE(newNPE));
+                    mainMenu();
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    NPEModificationMenu();
+                    break;
+            } 
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            NPEModificationMenu();
         }
-        MainMenu();
     }
 
     public void EmployeeListModificationMenu() {
@@ -132,96 +144,120 @@ public class AdministratorController {
                 removeEmployeeMenu();
                 break;
             default:
+                view.displayInvalidInputWarning();
+                EmployeeListModificationMenu();
                 break;
         }
     }
 
     public void addEmployeeMenu() {
-        int ID = Integer.parseInt(view.promptNewParameterDecision("ID"));
-        String nom = view.promptNewParameterDecision("nom");
-        String dateEmbauche = view.promptNewParameterDecision("dateEmbauche");
-        String dateDepart = view.promptNewParameterDecision("dateDepart");
-        int NAS = Integer.parseInt(view.promptNewParameterDecision("NAS"));
-        int numeroPoste = Integer.parseInt(view.promptNewParameterDecision("numeroPoste"));
-        double tauxHoraireBase = Double.parseDouble(view.promptNewParameterDecision("tauxHoraireBase"));
-        double tauxHoraireTempsSupplementaire = Double
-                .parseDouble(view.promptNewParameterDecision("tauxHoraireTempsSupplementaire"));
+        try {
+            int ID = Integer.parseInt(view.promptNewParameterDecision("ID"));
+            String nom = view.promptNewParameterDecision("nom");
+            String dateEmbauche = view.promptNewParameterDecision("dateEmbauche");
+            String dateDepart = view.promptNewParameterDecision("dateDepart");
+            int NAS = Integer.parseInt(view.promptNewParameterDecision("NAS"));
+            int numeroPoste = Integer.parseInt(view.promptNewParameterDecision("numeroPoste"));
+            double tauxHoraireBase = Double.parseDouble(view.promptNewParameterDecision("tauxHoraireBase"));
+            double tauxHoraireTempsSupplementaire = Double
+                    .parseDouble(view.promptNewParameterDecision("tauxHoraireTempsSupplementaire"));
 
-        String modificationDecision = view.promptConfirmationObjectAddition("Employee");
+            String modificationDecision = view.promptConfirmationObjectAddition("Employee");
 
-        switch (modificationDecision) {
-            case "y":
-                ;
-                view.displayModifySuccessMessage(model.addEmployee(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste,
-                tauxHoraireBase, tauxHoraireTempsSupplementaire));
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            switch (modificationDecision) {
+                case "y":
+                    view.displayModifySuccessMessage(model.addEmployee(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste,
+                    tauxHoraireBase, tauxHoraireTempsSupplementaire));
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    addEmployeeMenu();
+                    break;
+            }            
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            addEmployeeMenu();
         }
-        MainMenu();
+
+
     }
 
     public void removeEmployeeMenu() {
-        String adminAction = view.promptConfirmationObjectRemoval("Employé");
 
-        int employeID = Integer.parseInt(view.promptGetEmployeID());
-        Employe employe_to_remove = model.getEmployeByID(employeID);
+        try {
+            String adminAction = view.promptConfirmationObjectRemoval("Employé");
 
-        switch (adminAction) {
-            case "y":
-                ;
-                view.displayModifySuccessMessage(model.removeEmployee(employe_to_remove));// TODO
-                break;
-            case "n":
-                break;
-            default:
-                break;
+            int employeID = Integer.parseInt(view.promptGetEmployeID());
+            Employe employe_to_remove = model.getEmployeByID(employeID);
+
+            switch (adminAction) {
+                case "y":
+                    view.displayModifySuccessMessage(model.removeEmployee(employe_to_remove));// TODO
+                    mainMenu();
+                    break;
+                case "n":
+                    mainMenu();
+                    break;
+                default:
+                    mainMenu();
+                    break;
+            }            
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            removeEmployeeMenu();
         }
-        MainMenu();
+
+
+        
     }
 
     public void EmployeeParamsModificationMenu() {
-        String adminAction = view.promptModificationParametreEmployeMenu();
+        try {
+            String adminAction = view.promptModificationParametreEmployeMenu();
 
-        int employeID = Integer.parseInt(view.promptGetEmployeID());
+            int employeID = Integer.parseInt(view.promptGetEmployeID());
+            Employe employe_to_modify = model.getEmployeByID(employeID);
 
-        Employe employe_to_modify = model.getEmployeByID(employeID);
+            switch (adminAction) {
+                case "1": // Modifier l'assignation des employés à des projets
+                    // TODO
+                    List<Project> newEmployeProjectList = new ArrayList<Project>();
+                    String continueDecision = view.promptContinueDecision();
+                    System.out.println("here "+continueDecision);
+                    while (continueDecision == "y") {
+                        System.out.println(continueDecision);
+                        List<Project> projectList = model.getProjectList();
+                        int projectIndex = Integer.parseInt(view.promptProjectSelection(projectList));
+                        Project project = projectList.get(projectIndex - 1);
+                        newEmployeProjectList.add(project);
+                        continueDecision = view.promptContinueDecision();
+                    }
 
-        switch (adminAction) {
-            case "1": // Modifier l'assignation des employés à des projets
-                // TODO
-                List<Project> newEmployeProjectList = new ArrayList<Project>();
-                String continueDecision = view.promptContinueDecision();
-
-                while (continueDecision != "y") {
-                    List<Project> projectList = model.getProjectList();
-                    String projectSelection = view.promptProjectSelection(projectList);
-                    int projectIndex = Integer.parseInt(projectSelection);
-                    Project project = projectList.get(projectIndex - 1);
-                    newEmployeProjectList.add(project);
-                    continueDecision = view.promptContinueDecision();
-                }
-
-                view.displayModifySuccessMessage(employe_to_modify.setProjectsAssignesList(newEmployeProjectList));
-
-                break;
-            case "2": // Modifier le noms d'usager de l'employé
-                // TODO
-                String nom = view.promptNewParameterDecision("nom");
-                view.displayModifySuccessMessage(employe_to_modify.setNom(nom));
-
-                break;
-            case "3": // Modifier le ID de l'employé
-                // TODO
-                int ID = Integer.parseInt(view.promptNewParameterDecision("ID"));
-                view.displayModifySuccessMessage(employe_to_modify.setID(ID));
-
-                break;
-            default:
-                break;
+                    view.displayModifySuccessMessage(employe_to_modify.setProjectsAssignesList(newEmployeProjectList));
+                    mainMenu();
+                    break;
+                case "2": // Modifier le noms d'usager de l'employé
+                    String nom = view.promptNewParameterDecision("nom");
+                    view.displayModifySuccessMessage(employe_to_modify.setNom(nom));
+                    mainMenu();
+                    break;
+                case "3": // Modifier le ID de l'employé
+                    int ID = Integer.parseInt(view.promptNewParameterDecision("ID"));
+                    view.displayModifySuccessMessage(employe_to_modify.setID(ID));
+                    mainMenu();
+                    break;
+                default:
+                    break;
+            }            
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            EmployeeParamsModificationMenu();
         }
+
+
     }
 
     public void ProjectModificationMenu() {
@@ -278,7 +314,7 @@ public class AdministratorController {
             default:
                 break;
         }
-        MainMenu();
+        mainMenu();
     }
 
     public void projectStartDateModificationMenu(Project projectToModify) {
@@ -294,7 +330,7 @@ public class AdministratorController {
             default:
                 break;
         }
-        MainMenu();
+        mainMenu();
     }
 
     public void projectEndDateModificationMenu(Project projectToModify) {
@@ -310,7 +346,7 @@ public class AdministratorController {
             default:
                 break;
         }
-        MainMenu();
+        mainMenu();
     }
 
     public void projectHeuresBudgeteeModificationMenu(Project projectToModify) {
@@ -334,7 +370,7 @@ public class AdministratorController {
             default:
                 break;
         }
-        MainMenu();
+        mainMenu();
     }
 
     public void ProjectListModificationMenu() {
@@ -372,7 +408,7 @@ public class AdministratorController {
             default:
                 break;
         }
-        MainMenu();
+        mainMenu();
     }
 
     public List<Discipline> createDisciplineListMenu() {
@@ -415,7 +451,7 @@ public class AdministratorController {
             default:
                 break;
         }
-        MainMenu();
+        mainMenu();
     }
 
     public void RapportMenu() {
@@ -443,7 +479,7 @@ public class AdministratorController {
                 break;
         }
 
-        MainMenu();
+        mainMenu();
     }
 
     public void AdministratorStatusReportMenu() {

@@ -24,18 +24,25 @@ public class EmployeController {
     }
 
     public void login() {
-        int ID = Integer.parseInt(view.promptLoginEmployeID());
-        String employeeUsername = view.promptLoginUsername();
+        try {
+            String ID = view.promptLoginEmployeID();
+            String employeeUsername = view.promptLoginUsername();
 
-        Employe user = model.authenticateEmploye(ID, employeeUsername);
+            Employe user = model.authenticateEmploye(Integer.parseInt(ID), employeeUsername);
 
-        if (user != null) {
-            currentEmployee = user;
-            view.displayLoginSuccessMessage();
-            mainMenu();
-        } else {
+            if (user != null) {
+                currentEmployee = user;
+                view.displayLoginSuccessMessage();
+                mainMenu();
+            } else {
+                view.displayLoginErrorMessage();
+                login();
+            }
+        } catch (Exception e) {
             view.displayLoginErrorMessage();
+            login();
         }
+
     }
     
     public void logout() {
