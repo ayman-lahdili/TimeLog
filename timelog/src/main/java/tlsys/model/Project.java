@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Project {
 
+    private JsonFileManager fm;
+
     private int ID;
     private String name;
     private String dateDebut;
@@ -16,6 +18,8 @@ public class Project {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.disciplinesList = disciplinesList;
+
+        fm = TimeLogModel.fm;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class Project {
 
     public boolean setName(String name) {
         this.name = name;
-        return false; //TODO
+        return fm.setName(this, name);
     }
 
     public String getDateDebut() {
@@ -46,7 +50,7 @@ public class Project {
 
     public boolean setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
-        return false; //TODO
+        return fm.setDateDebut(this, dateDebut);
     }
 
     public String getDateFin() {
@@ -55,7 +59,7 @@ public class Project {
 
     public boolean setDateFin(String dateFin) {
         this.dateFin = dateFin;
-        return false;
+        return fm.setDateFin(this, dateFin);
     }
 
     public List<Discipline> getDisciplinesList() {

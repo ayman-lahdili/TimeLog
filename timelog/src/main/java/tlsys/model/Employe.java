@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Employe {
 
+    private JsonFileManager fm;
+
     private int ID;
     private String nom;
     private String dateEmbauche;
@@ -25,6 +27,8 @@ public class Employe {
         this.tauxHoraireBase = tauxHoraireBase;
         this.tauxHoraireTempsSupplementaire = tauxHoraireTempsSupplementaire;
         this.projectsAssignesList = projetsAssignesList;
+
+        fm = TimeLogModel.fm;
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Employe {
 
     public boolean setID(int iD) {
         ID = iD;
-        return true; //TODO
+        return fm.setID(this, ID);
     }
 
     public String getNom() {
@@ -47,7 +51,7 @@ public class Employe {
 
     public boolean setNom(String nom) {
         this.nom = nom;
-        return true; //TODO    
+        return fm.setNom(this, nom);   
     }
 
     public String getDateEmbauche() {
@@ -104,7 +108,7 @@ public class Employe {
 
     public boolean setProjectsAssignesList(List<Project> projetsIDAssignesList) {
         this.projectsAssignesList = projetsIDAssignesList;
-        return true; //TODO
+        return fm.setProjectsAssignesList(this, projetsIDAssignesList);
     }
 
 }

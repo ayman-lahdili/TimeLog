@@ -30,6 +30,11 @@ public class Timer {
         }
         return Duration.between(startTime, endTime);
     }
+    
+    public double getDurationInHours() {
+        Duration duration = getDuration();
+        return duration.toNanos() / (3600.0 * 1e9);
+    }
 
     public void printDuration() {
         Duration duration = getDuration();

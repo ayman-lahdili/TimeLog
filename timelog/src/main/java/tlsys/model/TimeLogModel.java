@@ -15,8 +15,9 @@ import java.util.List;
  */
 public class TimeLogModel {
 
+    protected static JsonFileManager fm;
+
     private String ressourcePath;
-    JsonFileManager fm;
     private Timer timer;
     private int NPE;
     private List<Discipline> defaultDisciplinesNameList; // TODO
@@ -26,7 +27,6 @@ public class TimeLogModel {
     private List<Administrator> administratorList;
 
     public TimeLogModel() {
-        // Load data from the JSON files when the TimeLogModel object is created
         fm = new JsonFileManager(getRessourcePath(), this);
         
         NPE = fm.loadNPE();

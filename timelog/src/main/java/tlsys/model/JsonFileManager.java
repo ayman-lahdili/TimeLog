@@ -409,4 +409,36 @@ public class JsonFileManager {
         }
     }
 
+    public boolean setHeuresBudgetees(Project project, Discipline discipline, int heuresBudgetees) {
+        return false;
+    }
+
+    public boolean setHeuresTotalesConsacre(Project project, Discipline discipline, double heuresBudgetees) {
+        return false;
+    }
+
+    public boolean setProjectsAssignesList(Employe employe, List<Project> projetsIDAssignesList) {
+        return false;
+    }
+
+    public boolean setNom(Employe employe, String nom) {
+        return false;
+    }
+
+    public boolean setID(Employe employe, int iD) {
+        return false;
+    }
+
+	public boolean setName(Project project, String name) {
+		return false;
+	}
+
+    public boolean setDateDebut(Project project, String dateDebut) {
+        return false;
+    }
+
+    public boolean setDateFin(Project project, String dateFin) {
+        return false;
+    }
+
 }
