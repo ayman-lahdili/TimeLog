@@ -151,8 +151,8 @@ public class JsonFileManager {
                 for (Object disciplineObj : disciplinesArray) {
                     JSONObject disciplineObject = (JSONObject) disciplineObj;
                     String disciplineName = (String) disciplineObject.get("name");
-                    int heuresBudgetees = ((Long) disciplineObject.get("heuresBudgetees")).intValue();
-                    int heuresTotalesConsacre = ((Long) disciplineObject.get("heuresTotalesConsacre")).intValue();
+                    double heuresBudgetees = ((Number) disciplineObject.get("heuresBudgetees")).doubleValue();
+                    double heuresTotalesConsacre = ((Number) disciplineObject.get("heuresTotalesConsacre")).doubleValue();
 
                     Discipline discipline = new Discipline(disciplineName, heuresBudgetees, heuresTotalesConsacre);
                     disciplinesList.add(discipline);
@@ -216,8 +216,8 @@ public class JsonFileManager {
             // Create a new JSONObject for the EmployeLog data
             JSONObject employeLogObject = new JSONObject();
             employeLogObject.put("employeeID", log.getEmployeeID().getID());
-            employeLogObject.put("projectID", log.getProjectName().getID());
-            employeLogObject.put("disciplineName", log.getDisciplineName().getName());
+            employeLogObject.put("projectID", log.getProject().getID());
+            employeLogObject.put("disciplineName", log.getDiscipline().getName());
             employeLogObject.put("startDateTime", log.getStartDateTime().toString());
             employeLogObject.put("endDateTime", log.getEndDateTime().toString());
 
@@ -410,23 +410,158 @@ public class JsonFileManager {
     }
 
     public boolean setHeuresBudgetees(Project project, Discipline discipline, int heuresBudgetees) {
-        return false;
+        try (FileReader fileReader = new FileReader(ressourcePath+"projects.json")) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray projectsArray = (JSONArray) jsonObject.get("projects");
+
+            for (Object projectObj : projectsArray) {
+                JSONObject projectJSON = (JSONObject) projectObj;
+                if (Integer.parseInt(projectJSON.get("ID").toString()) == project.getID()) {
+                    
+                    JSONArray disciplinesArray = (JSONArray) projectJSON.get("disciplines");
+                    for (Object disciplineObj : disciplinesArray) {
+                        JSONObject disciplineJSON = (JSONObject) disciplineObj;
+                        if (disciplineJSON.get("name").equals(discipline.getName())) {
+
+                            disciplineJSON.put("heuresBudgetees", heuresBudgetees);
+
+                            try (FileWriter fileWriter = new FileWriter(ressourcePath+"projects.json")) {
+                                fileWriter.write(jsonObject.toJSONString());
+                                fileWriter.flush();
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public boolean setHeuresTotalesConsacre(Project project, Discipline discipline, double heuresBudgetees) {
-        return false;
+    public boolean setHeuresTotalesConsacre(Project project, Discipline discipline, double heuresTotalesConsacre) {
+        JSONParser parser = new JSONParser();
+
+        try (FileReader fileReader = new FileReader(ressourcePath+"projects.json")) {
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray projectsArray = (JSONArray) jsonObject.get("projects");
+
+            for (Object projectObj : projectsArray) {
+                JSONObject projectJSON = (JSONObject) projectObj;
+                if (Integer.parseInt(projectJSON.get("ID").toString()) == project.getID()) {
+                    JSONArray disciplinesArray = (JSONArray) projectJSON.get("disciplines");
+                    for (Object disciplineObj : disciplinesArray) {
+                        JSONObject disciplineJSON = (JSONObject) disciplineObj;
+                        if (disciplineJSON.get("name").equals(discipline.getName())) {
+                            disciplineJSON.put("heuresTotalesConsacre", heuresTotalesConsacre);
+
+                            try (FileWriter fileWriter = new FileWriter(ressourcePath+"projects.json")) {
+                                fileWriter.write(jsonObject.toJSONString());
+                                fileWriter.flush();
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public boolean setProjectsAssignesList(Employe employe, List<Project> projetsIDAssignesList) {
-        return false;
+    public boolean setProjectsAssignesList(Employe employe, List<Project> projetsAssignesList) {
+        try (FileReader fileReader = new FileReader(ressourcePath+"employees.json")) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray employeesArray = (JSONArray) jsonObject.get("employees");
+            for (Object empObj : employeesArray) {
+                JSONObject employeeObject = (JSONObject) empObj;
+                int employeeID = ((Long) employeeObject.get("id")).intValue();
+                if (employeeID == employe.getID()) {
+                    JSONArray projectIDsArray = new JSONArray();
+                    for (Project project : projetsAssignesList) {
+                        projectIDsArray.add(project.getID());
+                    }
+                    employeeObject.put("projetsAssignes", projectIDsArray);
+                    break;
+                }
+            }
+
+            // Write the updated JSON back to the file
+            try (FileWriter fileWriter = new FileWriter(ressourcePath+"employees.json")) {
+                fileWriter.write(jsonObject.toJSONString());
+                fileWriter.flush();
+            }
+
+            return true;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    
     }
 
     public boolean setNom(Employe employe, String nom) {
-        return false;
+        try (FileReader fileReader = new FileReader(ressourcePath+"employees.json")) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray employeesArray = (JSONArray) jsonObject.get("employees");
+            for (Object empObj : employeesArray) {
+                JSONObject employeeObject = (JSONObject) empObj;
+                int employeeID = ((Long) employeeObject.get("id")).intValue();
+                if (employeeID == employe.getID()) {
+                    employeeObject.put("name", nom);
+                    break;
+                }
+            }
+
+            // Write the updated JSON back to the file
+            try (FileWriter fileWriter = new FileWriter(ressourcePath+"employees.json")) {
+                fileWriter.write(jsonObject.toJSONString());
+                return true;
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean setID(Employe employe, int iD) {
-        return false;
+        try (FileReader fileReader = new FileReader(ressourcePath+"employees.json")) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray employeesArray = (JSONArray) jsonObject.get("employees");
+            for (Object empObj : employeesArray) {
+                JSONObject employeeObject = (JSONObject) empObj;
+                int employeeID = ((Long) employeeObject.get("id")).intValue();
+                System.out.println("FEF"+ employeeID);
+                if (employeeID == employe.getID()) {
+                    employeeObject.put("id", iD);
+                    System.out.println("YESS");
+                    break;
+                }
+            }
+
+            // Write the updated JSON back to the file
+            try (FileWriter fileWriter = new FileWriter(ressourcePath+"employees.json")) {
+                fileWriter.write(jsonObject.toJSONString());
+                return true;
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 	public boolean setName(Project project, String name) {

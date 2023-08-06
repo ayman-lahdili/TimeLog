@@ -286,8 +286,13 @@ public class AdministratorController {
 
     public void ProjectParamsModificationMenu() {
         try {
-            int projectID = Integer.parseInt(view.promptAdministratorGetProjectID());
-            Project projectToModify = model.getProjectByID(projectID);
+            List<Project> projectList = model.getProjectList();
+
+            String projectSelection = view.promptProjectSelection(projectList);
+            int projectIndex = Integer.parseInt(projectSelection);
+    
+
+            Project projectToModify = projectList.get(projectIndex - 1);
 
             String adminAction = view.promptProjectParamsModificationMenu();
 

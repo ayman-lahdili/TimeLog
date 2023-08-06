@@ -94,6 +94,8 @@ public class TimeLogModel {
     public EmployeLog endTask(EmployeLog log) {
         log.setEndDateTime(timer.stop());
         post(log);
+        Discipline discipline = log.getDiscipline();
+        discipline.setHeuresTotalesConsacre(log.getProject(), discipline.getHeuresTotalesConsacre() + timer.getDurationInHours());
         return log;
     }
 

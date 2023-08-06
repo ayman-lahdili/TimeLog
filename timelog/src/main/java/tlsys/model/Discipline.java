@@ -43,7 +43,7 @@ public class Discipline {
         return heuresTotalesConsacre;
     }
 
-    public boolean setHeuresTotalesConsacre(Project project, int heuresTotalesConsacre) {
+    public boolean setHeuresTotalesConsacre(Project project, double heuresTotalesConsacre) {
         this.heuresTotalesConsacre = heuresTotalesConsacre;
         return fm.setHeuresTotalesConsacre(project, this, heuresBudgetees);
     }

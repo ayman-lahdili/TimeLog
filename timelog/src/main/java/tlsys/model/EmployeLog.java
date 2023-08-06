@@ -5,24 +5,24 @@ import java.time.Instant;
 public class EmployeLog {
 
     private Employe employeeID;
-    private Project projectName;
-    private Discipline disciplineName;
+    private Project project;
+    private Discipline discipline;
     private Instant startDateTime;
     private Instant endDateTime;
 
     public EmployeLog(Employe employeeID, Project projectName, Discipline disciplineName, Instant startDateTime,
             Instant endDateTime) {
         this.employeeID = employeeID;
-        this.projectName = projectName;
-        this.disciplineName = disciplineName;
+        this.project = projectName;
+        this.discipline = disciplineName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
 
     @Override
     public String toString() {
-        return "EmployeLog [employeeID=" + employeeID + ", projectName=" + projectName + ", disciplineName="
-                + disciplineName + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + "]";
+        return "EmployeLog [employeeID=" + employeeID + ", projectName=" + project + ", disciplineName="
+                + discipline + ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + "]";
     }
 
     public Employe getEmployeeID() {
@@ -33,20 +33,20 @@ public class EmployeLog {
         this.employeeID = employeeID;
     }
 
-    public Project getProjectName() {
-        return projectName;
+    public Project getProject() {
+        return project;
     }
 
-    public void setProjectName(Project projectName) {
-        this.projectName = projectName;
+    public void setProject(Project projectName) {
+        this.project = projectName;
     }
 
-    public Discipline getDisciplineName() {
-        return disciplineName;
+    public Discipline getDiscipline() {
+        return discipline;
     }
 
-    public void setDisciplineName(Discipline disciplineName) {
-        this.disciplineName = disciplineName;
+    public void setDiscipline(Discipline disciplineName) {
+        this.discipline = disciplineName;
     }
 
     public Instant getStartDateTime() {

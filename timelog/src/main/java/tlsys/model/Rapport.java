@@ -264,7 +264,7 @@ public class Rapport {
                         }
                     }
     
-                    Project project = log.getProjectName();
+                    Project project = log.getProject();
                     int projectID = project.getID();
                     double[] projectHours = projectHoursMap.getOrDefault(projectID, new double[6]);
     

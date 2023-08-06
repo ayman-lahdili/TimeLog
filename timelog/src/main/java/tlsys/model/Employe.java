@@ -41,8 +41,9 @@ public class Employe {
     }
 
     public boolean setID(int iD) {
+        boolean res = fm.setID(this, iD);
         ID = iD;
-        return fm.setID(this, ID);
+        return res;
     }
 
     public String getNom() {
@@ -50,8 +51,9 @@ public class Employe {
     }
 
     public boolean setNom(String nom) {
+        boolean res = fm.setNom(this, nom);
         this.nom = nom;
-        return fm.setNom(this, nom);   
+        return res;   
     }
 
     public String getDateEmbauche() {
@@ -106,9 +108,9 @@ public class Employe {
         return projectsAssignesList;
     }
 
-    public boolean setProjectsAssignesList(List<Project> projetsIDAssignesList) {
-        this.projectsAssignesList = projetsIDAssignesList;
-        return fm.setProjectsAssignesList(this, projetsIDAssignesList);
+    public boolean setProjectsAssignesList(List<Project> projetsAssignesList) {
+        this.projectsAssignesList = projetsAssignesList;
+        return fm.setProjectsAssignesList(this, projetsAssignesList);
     }
 
 }

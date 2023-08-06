@@ -67,12 +67,12 @@ public class TimeLogView {
 
     public String promptModificationDecision(String parameterName, Object currentValue) {
         System.out.println(parameterName+" :\t"+currentValue);
-        System.out.println("Souhaitez-vous modifier se paramètre?");
+        System.out.println("Souhaitez-vous modifier se paramètre? (y/n)");
         return scanner.nextLine();
     }
 
     public String promptNewParameterDecision(String parameterName) {
-        System.out.println(parameterName+":\t");
+        System.out.print("Nouveau "+parameterName+":\t");
         return scanner.nextLine();
     }
 
