@@ -40,8 +40,10 @@ public class Project {
     }
 
     public boolean setName(String name) {
+        System.out.println("setnamemmme");
+        boolean res = fm.setName(this, name);
         this.name = name;
-        return fm.setName(this, name);
+        return res;
     }
 
     public String getDateDebut() {
@@ -49,8 +51,9 @@ public class Project {
     }
 
     public boolean setDateDebut(String dateDebut) {
+        boolean res = fm.setDateDebut(this, dateDebut);
         this.dateDebut = dateDebut;
-        return fm.setDateDebut(this, dateDebut);
+        return res;
     }
 
     public String getDateFin() {
@@ -58,8 +61,9 @@ public class Project {
     }
 
     public boolean setDateFin(String dateFin) {
-        this.dateFin = dateFin;
-        return fm.setDateFin(this, dateFin);
+        boolean res = fm.setDateFin(this, dateFin);
+        this.dateDebut = dateFin;
+        return res;
     }
 
     public List<Discipline> getDisciplinesList() {

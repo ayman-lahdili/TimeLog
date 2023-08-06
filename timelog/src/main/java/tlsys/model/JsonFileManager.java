@@ -545,10 +545,8 @@ public class JsonFileManager {
             for (Object empObj : employeesArray) {
                 JSONObject employeeObject = (JSONObject) empObj;
                 int employeeID = ((Long) employeeObject.get("id")).intValue();
-                System.out.println("FEF"+ employeeID);
                 if (employeeID == employe.getID()) {
                     employeeObject.put("id", iD);
-                    System.out.println("YESS");
                     break;
                 }
             }
@@ -565,15 +563,86 @@ public class JsonFileManager {
     }
 
 	public boolean setName(Project project, String name) {
-		return false;
+        try (FileReader fileReader = new FileReader(ressourcePath+"projects.json")) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray projectsArray = (JSONArray) jsonObject.get("projects");
+            for (Object projObj : projectsArray) {
+                JSONObject projectObject = (JSONObject) projObj;
+                int projectID = ((Long) projectObject.get("ID")).intValue();
+                if (projectID == project.getID()) {
+                    projectObject.put("name", name);
+                    break;
+                }
+            }
+
+            // Write the updated JSON back to the file
+            try (FileWriter fileWriter = new FileWriter(ressourcePath+"projects.json")) {
+                fileWriter.write(jsonObject.toJSONString());
+                return true;
+            }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
 	}
 
     public boolean setDateDebut(Project project, String dateDebut) {
-        return false;
+        JSONParser parser = new JSONParser();
+        try (FileReader fileReader = new FileReader(ressourcePath+"projects.json")) {
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray projectsArray = (JSONArray) jsonObject.get("projects");
+            for (Object projObj : projectsArray) {
+                JSONObject projectObject = (JSONObject) projObj;
+                int projectID = ((Long) projectObject.get("ID")).intValue();
+                if (projectID == project.getID()) {
+                    projectObject.put("dateDebut", dateDebut);
+                    break;
+                }
+            }
+
+            // Write the updated JSON back to the file
+            try (FileWriter fileWriter = new FileWriter(ressourcePath+"projects.json")) {
+                fileWriter.write(jsonObject.toJSONString());
+                fileWriter.flush();
+            }
+
+            return true;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean setDateFin(Project project, String dateFin) {
-        return false;
+        JSONParser parser = new JSONParser();
+        try (FileReader fileReader = new FileReader(ressourcePath+"projects.json")) {
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
+
+            JSONArray projectsArray = (JSONArray) jsonObject.get("projects");
+            for (Object projObj : projectsArray) {
+                JSONObject projectObject = (JSONObject) projObj;
+                int projectID = ((Long) projectObject.get("ID")).intValue();
+                if (projectID == project.getID()) {
+                    projectObject.put("dateFin", dateFin);
+                    break;
+                }
+            }
+
+            // Write the updated JSON back to the file
+            try (FileWriter fileWriter = new FileWriter(ressourcePath+"projects.json")) {
+                fileWriter.write(jsonObject.toJSONString());
+                fileWriter.flush();
+            }
+
+            return true;
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }
