@@ -228,6 +228,7 @@ public class TimeLogModel {
 
     public boolean delete(Object obj) {
         if (obj instanceof Employe) {
+            
             return fm.delete((Employe) obj);
         }
         if (obj instanceof Project) {
@@ -239,5 +240,5 @@ public class TimeLogModel {
     public boolean setNPE(int newNPE) {
         return fm.setNPE(newNPE);
     }
-    
+
 }

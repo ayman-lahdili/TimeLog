@@ -196,23 +196,28 @@ public class AdministratorController {
     public void removeEmployeeMenu() {
 
         try {
-            String adminAction = view.promptConfirmationObjectRemoval("Employé");
-
             int employeID = Integer.parseInt(view.promptGetEmployeID());
             Employe employe_to_remove = model.getEmployeByID(employeID);
+            String adminAction = view.promptConfirmationObjectRemoval("Employé");
 
-            switch (adminAction) {
-                case "y":
-                    view.displayModifySuccessMessage(model.delete(employe_to_remove));// TODO
-                    mainMenu();
-                    break;
-                case "n":
-                    mainMenu();
-                    break;
-                default:
-                    mainMenu();
-                    break;
-            }
+            if (employe_to_remove != null) {
+                switch (adminAction) {
+                    case "y":
+                        view.displayModifySuccessMessage(model.delete(employe_to_remove));// TODO
+                        mainMenu();
+                        break;
+                    case "n":
+                        mainMenu();
+                        break;
+                    default:
+                        mainMenu();
+                        break;
+                }                
+            } else {
+                view.displayInexistantDataWarning();
+                removeEmployeeMenu();
+            }           
+
         } catch (Exception e) {
             view.displayInvalidInputWarning();
             removeEmployeeMenu();

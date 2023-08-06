@@ -116,6 +116,11 @@ public class TimeLogView {
         return scanner.nextLine();
     }
 
+    public String displayInexistantDataWarning() {
+        System.out.println("Donnée introuvable. Presser la touche \"ENTRER\" pour réessayer");
+        return scanner.nextLine();
+    }    
+
     public void displayRapport(String rapport) {
         if (rapport==null) {
             System.out.println("Aucun rapport disponible");
