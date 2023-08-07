@@ -6,6 +6,7 @@ import java.util.List;
 import tlsys.model.Administrator;
 import tlsys.model.Discipline;
 import tlsys.model.Employe;
+import tlsys.model.PayInfo;
 import tlsys.model.PayRoll;
 import tlsys.model.Project;
 import tlsys.model.Rapport;
@@ -17,13 +18,15 @@ public class AdministratorController {
     private AdministratorView view;
     private Administrator currentAdmin;
     private Rapport rapports;
+    private PayInfo payInfo;
     private PayRoll payroll;
 
     public AdministratorController(TimeLogModel model, AdministratorView view) {
         this.model = model;
         this.view = view;
         this.rapports = new Rapport(model);
-        this.payroll = new PayRoll(model);
+        this.payInfo = new PayInfo(1, 40, 20, 34.50, 45, "2023-07-30", "2023-08-04");
+        this.payroll = new PayRoll(model, payInfo);
     }
 
     public void login() {
@@ -76,7 +79,9 @@ public class AdministratorController {
     }
 
     public void payRollMenu() {
-        payroll.printPay();
+        PayInfo employePayInfo = payroll.printPay(payInfo);
+        System.out.println(employePayInfo.toString());
+        
         mainMenu();
     }
 
