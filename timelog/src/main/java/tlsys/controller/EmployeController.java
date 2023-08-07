@@ -75,23 +75,13 @@ public class EmployeController {
                 break;
             case "3": // Obtenir le nombre d'heures travaillées
                 EmployeWorkStatusReport();
-                break;
-            case "4": // Générer votre talon de paie avec le système Payroll
-                //TODO
-                payRollMenu();
-                break;                
-            case "5": // Logout
+                break;             
+            case "4": // Logout
                 logout();
             default:
                 break;
         }
 
-    }
-
-    public void payRollMenu() {
-        PayInfo employePayInfo = payroll.printPay(payInfo);
-        System.out.println(employePayInfo.toString());
-        mainMenu();
     }
 
     public void EmployeRapportMenu() {

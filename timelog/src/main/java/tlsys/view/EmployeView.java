@@ -11,8 +11,7 @@ public class EmployeView extends TimeLogView {
         System.out.println("[1]\tCommencer un tâches");
         System.out.println("[2]\tGénérer des rapports");
         System.out.println("[3]\tObtenir le nombre d'heures travaillées");
-        System.out.println("[4]\tGénérer votre talon de paie avec le système Payroll");
-        System.out.println("[5]\tVous déconnecter");
+        System.out.println("[4]\tVous déconnecter");
         return scanner.nextLine();
     }
 

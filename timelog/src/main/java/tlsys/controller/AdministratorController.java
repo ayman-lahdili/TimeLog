@@ -66,23 +66,12 @@ public class AdministratorController {
             case "2": // Générer des rapports
                 rapportMenu();
                 break;
-            case "3": // Générer les talons de paies de l'ensemble des employés avec le système
-                      // Payroll
-                payRollMenu();
-                break;
-            case "4": // Logout
+            case "3": // Logout
                 logout();
                 break;
             default:
                 break;
         }
-    }
-
-    public void payRollMenu() {
-        PayInfo employePayInfo = payroll.printPay(payInfo);
-        System.out.println(employePayInfo.toString());
-        
-        mainMenu();
     }
 
     public void modificationMenu() {

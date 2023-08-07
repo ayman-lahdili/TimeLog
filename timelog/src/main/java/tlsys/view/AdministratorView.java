@@ -10,8 +10,7 @@ public class AdministratorView extends TimeLogView {
     public String promptMainMenu() {
         System.out.println("[1]\tFaire des modifications aux paramètres du système");
         System.out.println("[2]\tGénérer des rapports");
-        System.out.println("[3]\tGénérer les talons de paies de l'ensemble des employés avec le système Payroll");
-        System.out.println("[4]\tVous déconnecter");
+        System.out.println("[3]\tVous déconnecter");
         return scanner.nextLine();
     }
 
