@@ -1,17 +1,30 @@
 package tlsys.model;
 
-public class PayRoll {
+import java.time.LocalDateTime;
+
+public class PayRoll implements PayRollInterface{
 
     TimeLogModel model;
+    PayInfo payInfo;
 
-    public PayRoll(TimeLogModel model) {
+    public PayRoll(TimeLogModel model, PayInfo payInfo) {
         this.model = model;
+        this.payInfo = payInfo;
     }
 
-    public void printPay() {
-        System.out.println("printing...");
+    public PayInfo printPay(PayInfo payInfo) {
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        System.out.println(currentTime);
+        return payInfo;
     }
 
-    //TODO
+    public void netFromBrute(){
+        //À implémenter dans le futur sous-système
+    }
+
+    public void deductionsReport(){
+        //À implémenter dans le futur sous-système
+    }
 
 }
