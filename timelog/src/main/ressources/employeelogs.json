@@ -1,5 +1,11 @@
 {
     "employeeLogs": [
-
+        {
+            "startDateTime": "2023-08-07T19:42:17.097893700Z",
+            "employeeID": 1,
+            "endDateTime": "2023-08-07T19:42:33.143581800Z",
+            "projectID": 1,
+            "disciplineName": "Design1"
+        }
     ]
 }

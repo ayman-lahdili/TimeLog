@@ -55,6 +55,7 @@ public class AdministratorView extends TimeLogView {
         System.out.println("[2]\tGénérer un rapport d'état global");
         System.out.println("[3]\tGénérer le rapport d'état d'un employé");
         System.out.println("[4]\tGénérer le talon de paie d'un employé");
+        System.out.println("[5]\tGénérer le talon de paie global");
         return scanner.nextLine();
     }
 

@@ -558,6 +558,9 @@ public class AdministratorController {
                 case "4": // Générer un talon de paie employé
                     EmployeTalonPaieMenu();
                     break;
+                case "5":
+                    EmployeTalonPaieGlobalMenu();
+                    break;
                 default:
                     view.displayInvalidInputWarning();
                     rapportMenu();
@@ -599,6 +602,32 @@ public class AdministratorController {
         }
 
     }
+
+    public void EmployeTalonPaieGlobalMenu() {
+        try {
+            String timePeriodeSelection = view.promptStartDateType();
+
+            switch (timePeriodeSelection) {
+                case "1":
+                    view.displayRapport(rapports.getTalonPaieGlobal("default", "default"));
+                    mainMenu();
+                    break;
+                case "2":
+                    String dateDebut = view.promptStartDateSelection();
+                    String dateFin = view.promptEndDateSelection();
+                    view.displayRapport(rapports.getTalonPaieGlobal(dateDebut, dateFin));
+                    mainMenu();
+                    break;
+                default:
+                    view.displayInvalidInputWarning();
+                    EmployeTalonPaieMenu();
+                    break;
+            }
+        } catch (Exception e) {
+            view.displayInvalidInputWarning();
+            EmployeTalonPaieGlobalMenu();
+        }
+    } 
 
     public void EmployeTalonPaieMenu() {
         try {
