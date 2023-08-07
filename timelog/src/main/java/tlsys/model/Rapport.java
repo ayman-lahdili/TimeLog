@@ -50,14 +50,14 @@ public class Rapport {
     
             nbreHeuresTotales += nbreHeuresConsacrees;
     
-            rapport += "Nombre d’heures travaillées pour " +discipline.getName() +"  = "  +nbreHeuresConsacrees +", Pourcentage d’avancement = " +pctAvancement +"\n";
+            rapport += "" +discipline.getName() +": \t heures consacrées = "  +nbreHeuresConsacrees +"\t (%) d'avancement = " +pctAvancement +"%\n";
         }
 
         int pctProjet = (nbreHeuresTotales * 100) / nbreHeuresBudgeteesTotales;
     
-        rapport += "Nombre d’heures travaillées pour Projet" +ID +" = " +nbreHeuresTotales +", Pourcentage d’avancement pour Projet" +ID +" = " +pctProjet;
+        rapport += "TOTAL: Projet" +ID +"\t heures consacrées=" +nbreHeuresTotales +"\t (%) d'avancement = " +pctProjet +"%\n";
     
-        return "Project" + ID + "{" + rapport + "}";
+        return "Rapport d'état Project [ID=" + ID + "] :\n" + rapport + "\n";
     }
 
     public String getRapportEtatEmploye(int ID, String debut, String fin) {
