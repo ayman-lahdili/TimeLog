@@ -27,7 +27,7 @@ public class TimeLogModel {
     private List<Administrator> administratorList;
 
     public TimeLogModel() {
-        fm = new JsonFileManager(getRessourcePath(), this);
+        fm = new JsonFileManager(this);
         
         NPE = fm.loadNPE();
         defaultDisciplinesNameList = fm.loadDefaultDisciplineList();

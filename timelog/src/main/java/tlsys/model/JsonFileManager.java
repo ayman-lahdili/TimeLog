@@ -18,9 +18,22 @@ public class JsonFileManager {
     private String ressourcePath;
     private TimeLogModel model;
 
-    public JsonFileManager(String ressourcePath, TimeLogModel model) {
-        this.ressourcePath = ressourcePath;
+    public JsonFileManager(TimeLogModel model) {
+        this.ressourcePath = getRessourcePath();
         this.model = model;
+    }
+
+    public String getRessourcePath() {
+        String osName = System.getProperty("os.name").split(" ", 2)[0];
+        switch (osName) {
+            case "Linux":
+                ressourcePath = "timelog/src/main/ressources/";
+                break;
+            case "Windows":
+                ressourcePath = "timelog\\src\\main\\ressources\\";
+                break;
+        }
+        return ressourcePath;
     }
 
     public int loadNPE() {
