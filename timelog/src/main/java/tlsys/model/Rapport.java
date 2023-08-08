@@ -91,6 +91,9 @@ public class Rapport {
      }
 
     public String getTalonPaieGlobal(String debut, String fin){
+        double [] salaire = null;
+        double salaireBrut = 0;
+        double salaireNet = 0;
         String rapport = "";
         List<Employe> employeList = model.getEmployeList();
 
@@ -98,8 +101,14 @@ public class Rapport {
             return null;
         } else {
             for (Employe employe: employeList) {
+                salaire = getTalonPaieEmploye(employe.getID(), debut, fin);
+                salaireBrut += salaire[0];
+                salaireNet += salaire[1];
+
                 rapport += getTalonPaietoString(employe.getID(), debut, fin) + "\n";
             }
+
+            rapport += "Salaire brut total = " +salaireBrut +" Salaire net total = " +salaireNet;
         }
 
         return rapport;
