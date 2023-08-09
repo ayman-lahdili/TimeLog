@@ -114,7 +114,7 @@ public class Rapport {
         return rapport;
     }
 
-    public double [] getTalonPaieEmploye(int ID, String debut, String fin) {
+    private double [] getTalonPaieEmploye(int ID, String debut, String fin) {
         Employe employe = model.getEmployeByID(ID);
         Map<Integer, double[]> heures = new HashMap<Integer, double[]>();
 
