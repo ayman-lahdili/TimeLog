@@ -19,13 +19,6 @@
     <maven.compiler.target>15</maven.compiler.target>
   </properties>
 
-  <resources>
-     <resource>
-       <directory>src/main/ressources</directory>
-     </resource>
-  </resources>
-
-
   <dependencies>
    <!-- JUnit Jupiter -->
     <dependency>

@@ -40,7 +40,6 @@ public class Project {
     }
 
     public boolean setName(String name) {
-        System.out.println("setnamemmme");
         boolean res = fm.setName(this, name);
         this.name = name;
         return res;
