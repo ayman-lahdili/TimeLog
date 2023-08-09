@@ -17,7 +17,6 @@ public class TimeLogModel {
 
     protected static JsonFileManager fm;
 
-    private String ressourcePath;
     private Timer timer;
     private int NPE;
     private List<Discipline> defaultDisciplinesNameList; // TODO
@@ -41,19 +40,6 @@ public class TimeLogModel {
 
     public void loadTimer() {
         timer = new Timer();
-    }
-
-    public String getRessourcePath() {
-        String osName = System.getProperty("os.name").split(" ", 2)[0];
-        switch (osName) {
-            case "Linux":
-                ressourcePath = "timelog/src/main/ressources/";
-                break;
-            case "Windows":
-                ressourcePath = "timelog\\src\\main\\ressources\\";
-                break;
-        }
-        return ressourcePath;
     }
 
     public Employe authenticateEmploye(int ID, String username) {
