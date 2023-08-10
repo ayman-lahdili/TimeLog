@@ -1,1 +1,32 @@
-{"systemPropreties":{"NPE":2,"defaultDisciplines":[{"heuresTotalesConsacre":0,"name":"Design1","heuresBudgetees":100},{"heuresTotalesConsacre":0,"name":"Design2","heuresBudgetees":100},{"heuresTotalesConsacre":0,"name":"Implémentation","heuresBudgetees":100},{"heuresTotalesConsacre":0,"name":"Test","heuresBudgetees":100},{"heuresTotalesConsacre":0,"name":"Déploiement","heuresBudgetees":100}]}}
+{
+    "systemPropreties": {
+        "NPE": 2,
+        "defaultDisciplines": [
+            {
+                "heuresTotalesConsacre": 0,
+                "name": "Design1",
+                "heuresBudgetees": 100
+            },
+            {
+                "heuresTotalesConsacre": 0,
+                "name": "Design2",
+                "heuresBudgetees": 100
+            },
+            {
+                "heuresTotalesConsacre": 0,
+                "name": "Implémentation",
+                "heuresBudgetees": 100
+            },
+            {
+                "heuresTotalesConsacre": 0,
+                "name": "Test",
+                "heuresBudgetees": 100
+            },
+            {
+                "heuresTotalesConsacre": 0,
+                "name": "Déploiement",
+                "heuresBudgetees": 100
+            }
+        ]
+    }
+}
