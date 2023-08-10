@@ -185,6 +185,16 @@ public class Rapport {
                     totalHours += hoursWorked;
                     totalMinutes += minutesWorked;
                     totalSeconds += secondsWorked;
+
+                    if (totalMinutes >= 60) {
+                        totalHours += totalMinutes / 60;
+                        totalMinutes %= 60;
+                    }
+
+                    if (totalSeconds >= 60) {
+                        totalMinutes += totalSeconds / 60;
+                        totalSeconds %= 60;
+                    }
     
                     if (totalHours > 40) {
                         overtimeHours = totalHours - 40;
@@ -195,6 +205,11 @@ public class Rapport {
                             overtimeHours += overtimeMinutes / 60;
                             overtimeMinutes %= 60;
                         }
+
+                        if (overtimeSeconds >= 60) {
+                            overtimeMinutes += overtimeSeconds / 60;
+                            overtimeSeconds %= 60;
+                        }
                     }
     
                     Project project = log.getProject();
@@ -204,6 +219,16 @@ public class Rapport {
                     projectHours[0] += hoursWorked;
                     projectHours[1] += minutesWorked;
                     projectHours[2] += secondsWorked;
+
+                    if (projectHours[1] >= 60) {
+                        projectHours[0] += (long) (projectHours[1] / 60);
+                        projectHours[1] %= 60;
+                    }
+
+                    if (projectHours[2] >= 60) {
+                        projectHours[1] += (long) (projectHours[2] / 60);
+                        projectHours[2] %= 60;
+                    }
     
                     if (projectHours[0] > 40) {
                         projectHours[3] += projectHours[0] - 40;
@@ -211,8 +236,13 @@ public class Rapport {
                         projectHours[5] += secondsWorked;
     
                         if (projectHours[4] >= 60) {
-                            projectHours[3] += (long) (projectHours[3] / 60);
+                            projectHours[3] += (long) (projectHours[4] / 60);
                             projectHours[4] %= 60;
+                        }
+
+                        if (projectHours[5] >= 60) {
+                            projectHours[4] += (long) (projectHours[5] / 60);
+                            projectHours[5] %= 60;
                         }
                     }
     
