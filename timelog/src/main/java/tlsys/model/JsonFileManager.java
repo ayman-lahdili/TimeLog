@@ -256,8 +256,11 @@ public class JsonFileManager {
     public boolean post(Employe employe) {
         try (FileReader fileReader = new FileReader(ressourcePath+"employees.json")) {
             JSONParser parser = new JSONParser();
-            JSONArray jsonArray = (JSONArray) parser.parse(fileReader);
+            JSONObject jsonObject = (JSONObject) parser.parse(fileReader);
     
+            // Get the projects array from the JSON object
+            JSONArray employeeArray = (JSONArray) jsonObject.get("employees");
+
             // Create a JSON object for the new employe
             JSONObject newEmployeJson = new JSONObject();
             newEmployeJson.put("id", employe.getID());
@@ -275,11 +278,11 @@ public class JsonFileManager {
             newEmployeJson.put("projetsAssignes", projectListID);
     
             // Add the new employe JSON object to the JSON array
-            jsonArray.add(newEmployeJson);
+            employeeArray.add(newEmployeJson);
     
             // Write the updated JSON array back to the file
             try (FileWriter fileWriter = new FileWriter(ressourcePath+"employees.json")) {
-                fileWriter.write(jsonArray.toJSONString());
+                fileWriter.write(jsonObject.toJSONString());
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();

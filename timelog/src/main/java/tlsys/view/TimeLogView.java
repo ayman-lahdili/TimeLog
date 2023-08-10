@@ -77,7 +77,7 @@ public class TimeLogView {
     }
 
     public String promptConfirmationObjectAddition(String objectName) {
-        System.out.println("Êtes-vous sur d'ajouter le suivant:\t"+ objectName);
+        System.out.println("Êtes-vous sur d'ajouter le suivant (y/n):\t"+ objectName);
         return scanner.nextLine();
     }
 

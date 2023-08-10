@@ -161,14 +161,14 @@ public class AdministratorController {
             String dateDepart = view.promptNewParameterDecision("dateDepart");
             int NAS = Integer.parseInt(view.promptNewParameterDecision("NAS"));
             int numeroPoste = Integer.parseInt(view.promptNewParameterDecision("numeroPoste"));
-            double tauxHoraireBase = Double.parseDouble(view.promptNewParameterDecision("tauxHoraireBase"));
-            double tauxHoraireTempsSupplementaire = Double
-                    .parseDouble(view.promptNewParameterDecision("tauxHoraireTempsSupplementaire"));
+            double tauxHoraireBase = 37.5;//Double.parseDouble(view.promptNewParameterDecision("tauxHoraireBase"));
+            double tauxHoraireTempsSupplementaire = 0.6;//Double.parseDouble(view.promptNewParameterDecision("tauxHoraireTempsSupplementaire"));
 
             String modificationDecision = view.promptConfirmationObjectAddition("Employee");
 
             switch (modificationDecision) {
                 case "y":
+                    System.out.println("Herere");
                     Employe newEmploye = model.createEmploye(ID, nom, dateEmbauche, dateDepart, NAS, numeroPoste, tauxHoraireBase, tauxHoraireTempsSupplementaire);
                     view.displayModifySuccessMessage(model.post(newEmploye));
                     break;
@@ -181,6 +181,7 @@ public class AdministratorController {
                     break;
             }
         } catch (Exception e) {
+            System.out.println("retegewg");
             view.displayInvalidInputWarning();
             addEmployeeMenu();
         }
